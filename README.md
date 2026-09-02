@@ -1,43 +1,15 @@
-# Astro Starter Kit: Minimal
+> README EN ESPAÑOL [AQÚI](README.es.md) 
+# luzzio-web
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+This repository contains the source code for (website link wip), an Astro-based static website serving as a personal blog and professional portfolio across my multiple disciplines: Software Developer, Competitive Fighting Game Player, and Content Creator.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech Stack
 
-## 🚀 Project Structure
+* **[Astro](https://astro.build/)**
+* **[Tailwind CSS](https://tailwindcss.com/)**
 
-Inside of your Astro project, you'll see the following folders and files:
+## License
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+The source code (layout, components, etc.) of this website is licensed under the [MIT License](LICENSE).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+However, all of its contents (blog posts, photographs, personal brand (Luzzio), visual resources, etc.) are under copyright (Copyright © 2026 Luzzio) and cannot be reproduced, distributed, or reused without explicit authorization.
