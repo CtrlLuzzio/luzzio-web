@@ -1,0 +1,45 @@
+---
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+import { Font } from "astro:assets";
+const { pageTitle } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} >
+    <Font cssVariable="--font-sans"/>
+    <Font cssVariable="--font-mono" />
+    <title>Luzzio - {pageTitle}</title>
+  </head>
+  <body>
+	<Header/>
+    <h1 class="font-sans">{pageTitle}</h1>
+    <h2 class="font-sans">sample text</h2>
+    <h3 class="font-sans">Lorem Ipsum Dolor & Cheddar</h3>
+	<slot />
+  </body>
+</html>
+<style>
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10rem;
+  }
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8rem;
+  }
+  h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+  }
+</style>

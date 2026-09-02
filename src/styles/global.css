@@ -1,1 +1,65 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+.font-mono {
+  font-variant-ligatures: none;
+}
+
+html {
+  background-color: #11111b;
+}
+
+body {
+  margin: 0 auto;
+  width: 100%;
+  line-height: 1.5;
+}
+
+div {
+    display: flex;
+    justify-content: space-between;
+}
+
+header {
+    background-color: #1e1e2e;
+    border-bottom: 2px #313244 solid;
+    padding: 1rem 5rem 1rem 5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #cdd6f4;
+    font-weight: bold;
+}
+
+h2 {
+    color: #cdd6f4;
+}
+
+h3 {
+    color: #cdd6f4;
+}
+
+.nav-links {
+  width: 100%;
+  display: flex;
+  margin: 0;
+}
+
+.nav-links a {
+  display: block;
+  text-align: center;
+  margin: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #cdd6f4;
+}
+
+.nav-links a:hover,
+.nav-links a:focus,
+.nav-links a.active {
+  color: #a6e3a1;
+}

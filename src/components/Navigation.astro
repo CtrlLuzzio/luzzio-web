@@ -1,0 +1,9 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<div class="nav-links font-mono">
+    <a href="/blog" class={currentPath.includes("/blog") ? "active" : ""}>[ Blog ]</a>
+    <a href="/portfolio" class={currentPath.includes("/portfolio") ? "active" : ""}>[ Portfolio ]</a>
+    <a href="/contact" class={currentPath.includes("/contact") ? "active" : ""}>[ Contact ]</a>
+</div>
