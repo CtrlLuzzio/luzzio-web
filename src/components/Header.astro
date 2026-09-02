@@ -4,14 +4,10 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header>
-    <nav>
-        <div>
-            <div>
-                <h1 class="font-mono"><a class={currentPath === "/" ? "active" : ""} href="/">&lt;Luzzio/&gt;</a></h1>
-            </div>
-            <div>
-                <Navigation/>
-            </div>
-        </div>
+    <nav class="flex justify-between items-center">
+        <h1 class="font-mono m-0 whitespace-nowrap shrink-0">
+            <a class={currentPath === "/" ? "active" : ""} href="/">&lt;Luzzio/&gt;</a>
+        </h1>
+        <Navigation/>
     </nav>
 </header>
