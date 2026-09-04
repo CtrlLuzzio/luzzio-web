@@ -1,7 +1,7 @@
 >ENGLISH README [HERE](README.md)
 # luzzio-web
 
-Este repositorio contiene el código fuente para (link del sito web en progreso), un sitio web estático basado en Astro que funciona como blog personal y portafolio profesional abarcando mis multiples disciplinas: Desarrollo de Software, Jugador Competitivo de Juegos de Pelea y Creador de Contenido.
+Este repositorio contiene el código fuente para (link del sito web en progreso), un sitio web estático basado en Astro que funciona como blog personal y portafolio profesional abarcando mis multiples disciplinas: Desarrollador de Software, Jugador Competitivo de Juegos de Pelea y Creador de Contenido.
 
 ## Stack Técnico
 
