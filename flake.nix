@@ -2,7 +2,7 @@
   description = "Dev environment for luzzio-web";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs }:
@@ -12,7 +12,7 @@
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
-        pkgs.nodejs_22
+        pkgs.nodejs
         pkgs.pnpm
       ];
 
