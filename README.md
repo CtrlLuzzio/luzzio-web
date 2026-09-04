@@ -1,4 +1,4 @@
-> README EN ESPAÑOL [AQÚI](README.es.md) 
+> README EN ESPAÑOL [AQUÍ](README.es.md) 
 # luzzio-web
 
 This repository contains the source code for (website link wip), an Astro-based static website serving as a personal blog and professional portfolio across my multiple disciplines: Software Developer, Competitive Fighting Game Player, and Content Creator.
