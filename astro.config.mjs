@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,5 +25,8 @@ export default defineConfig({
       styles: ["normal", "italic"],
       fallbacks: ["monospace"]
     }
-  ]
+  ],
+  integrations: [
+    icon()
+  ],
 });
