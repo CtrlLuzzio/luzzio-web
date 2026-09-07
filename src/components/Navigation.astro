@@ -3,7 +3,43 @@ const currentPath = Astro.url.pathname;
 ---
 
 <div class="nav-links font-mono">
-    <a href="/blog" class={currentPath.includes("/blog") ? "active" : ""}>[ Blog ]</a>
-    <a href="/portfolio" class={currentPath.includes("/portfolio") ? "active" : ""}>[ Portfolio ]</a>
-    <a href="/contact" class={currentPath.includes("/contact") ? "active" : ""}>[ Contact ]</a>
+  <a
+    href="/blog"
+    class:list={[
+      "transition-colors hover:text-mocha-green focus:text-mocha-green",
+      { "text-mocha-green": currentPath.includes("/blog") },
+    ]}>[ Blog ]</a
+  >
+  <a
+    href="/portfolio"
+    class:list={[
+      "transition-colors hover:text-mocha-green focus:text-mocha-green",
+      { "text-mocha-green": currentPath.includes("/portfolio") },
+    ]}
+  >
+    [ Portfolio ]
+  </a>
+  <a
+    href="/contact"
+    class:list={[
+      "transition-colors hover:text-mocha-green focus:text-mocha-green",
+      { "text-mocha-green": currentPath.includes("/contact") },
+    ]}
+  >
+    [ Contact ]
+  </a>
 </div>
+<style>
+  .nav-links {
+    display: flex;
+    margin: 0;
+  }
+
+  .nav-links a {
+    display: block;
+    text-align: center;
+    margin: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+</style>

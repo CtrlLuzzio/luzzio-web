@@ -3,63 +3,36 @@
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
-}
-.font-mono {
-  font-variant-ligatures: none;
-}
-
-html {
-  background-color: #11111b;
+  /* Catppuccin Mocha color palette */
+  --color-mocha-green: #a6e3a1;
+  --color-mocha-text: #cdd6f4;
+  --color-mocha-base: #1e1e2e;
+  --color-mocha-crust: #11111b;
 }
 
-body {
-  margin: 0 auto;
-  width: 100%;
-  line-height: 1.5;
+@layer utilities {
+  .font-mono {
+    font-variant-ligatures: none;
+  }
 }
 
-header {
-  background-color: #1e1e2e;
-  border-bottom: 2px #313244 solid;
-  padding: 1rem 5rem 1rem 5rem;
-}
+@layer base {
+  html {
+    background-color: #11111b;
+  }
 
-footer {
-  background-color: #1e1e2e;
-  border-top: 2px #313244 solid;
-  padding: 1rem 5rem 1rem 5rem;
-}
+  body {
+    margin: 0 auto;
+    width: 100%;
+    line-height: 1.5;
+  }
 
-h1 {
-  font-size: 2.5rem;
-  color: #cdd6f4;
-  font-weight: bold;
-}
-
-h2 {
-  color: #cdd6f4;
-}
-
-h3 {
-  color: #cdd6f4;
-}
-
-.nav-links {
-  display: flex;
-  margin: 0;
-}
-
-.nav-links a {
-  display: block;
-  text-align: center;
-  margin: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #cdd6f4;
-}
-
-.nav-links a:hover,
-.nav-links a:focus,
-.nav-links a.active {
-  color: #a6e3a1;
+  h1,
+  h2,
+  h3,
+  h4,
+  a,
+  p {
+    color: #cdd6f4;
+  }
 }
