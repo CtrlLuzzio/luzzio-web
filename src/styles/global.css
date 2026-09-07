@@ -8,6 +8,7 @@
   --color-mocha-text: #cdd6f4;
   --color-mocha-base: #1e1e2e;
   --color-mocha-crust: #11111b;
+  --color-mocha-surface-0: #313244;
 }
 
 @layer utilities {
@@ -18,7 +19,7 @@
 
 @layer base {
   html {
-    background-color: #11111b;
+    background-color: var(--color-mocha-crust);
   }
 
   body {
@@ -33,6 +34,6 @@
   h4,
   a,
   p {
-    color: #cdd6f4;
+    color: var(--color-mocha-text);
   }
 }
