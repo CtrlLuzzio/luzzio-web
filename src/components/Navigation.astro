@@ -1,45 +1,10 @@
 ---
-const currentPath = Astro.url.pathname;
+import Link from "./Link.astro";
+const navClasses = "block text-center m-2 text-xl font-bold";
 ---
 
-<div class="nav-links font-mono">
-  <a
-    href="/blog"
-    class:list={[
-      "transition-colors hover:text-mocha-green focus:text-mocha-green",
-      { "text-mocha-green": currentPath.includes("/blog") },
-    ]}>[ Blog ]</a
-  >
-  <a
-    href="/portfolio"
-    class:list={[
-      "transition-colors hover:text-mocha-green focus:text-mocha-green",
-      { "text-mocha-green": currentPath.includes("/portfolio") },
-    ]}
-  >
-    [ Portfolio ]
-  </a>
-  <a
-    href="/contact"
-    class:list={[
-      "transition-colors hover:text-mocha-green focus:text-mocha-green",
-      { "text-mocha-green": currentPath.includes("/contact") },
-    ]}
-  >
-    [ Contact ]
-  </a>
+<div class="flex m-0 font-mono">
+  <Link class={navClasses} href="/blog" showActive>[ Blog ]</Link>
+  <Link class={navClasses} href="/portfolio" showActive>[ Portfolio ]</Link>
+  <Link class={navClasses} href="/contact" showActive>[ Contact ]</Link>
 </div>
-<style>
-  .nav-links {
-    display: flex;
-    margin: 0;
-  }
-
-  .nav-links a {
-    display: block;
-    text-align: center;
-    margin: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-</style>

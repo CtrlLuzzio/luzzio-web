@@ -1,49 +1,30 @@
 ---
 import Social from "./SocialMedia.astro";
+import Link from "./Link.astro";
 ---
 
-<footer class="flex flex-col gap-8 font-sans bg-mocha-base border-t-2 border-mocha-surface-0">
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<footer
+  class="flex flex-col gap-8 font-sans bg-mocha-base border-t-2 border-mocha-surface-0 py-4 px-20"
+>
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
     <nav aria-label="Footer Navigation">
-      <h4 class="font-mono font-bold mb-4">Explore</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">Explore</h4>
       <ul class="list-none p-0 m-0 flex flex-col gap-2">
         <li>
-          <a
-            href="/"
-            class="transition-colors hover:text-mocha-green focus:text-mocha-green"
-          >
-            Home
-          </a>
+          <Link href="/">Home</Link>
+        </li>
+        <li><Link href="/blog">Blog</Link></li>
+        <li>
+          <Link href="/portfolio">Portfolio</Link>
         </li>
         <li>
-          <a
-            href="/blog"
-            class="transition-colors hover:text-mocha-green focus:text-mocha-green"
-          >
-            Blog
-          </a>
-        </li>
-        <li>
-          <a
-            href="/portfolio"
-            class="transition-colors hover:text-mocha-green focus:text-mocha-green"
-          >
-            Portfolio
-          </a>
-        </li>
-        <li>
-          <a
-            href="/contact"
-            class="transition-colors hover:text-mocha-green focus:text-mocha-green"
-          >
-            Contact
-          </a>
+          <Link href="/contact">Contact</Link>
         </li>
       </ul>
     </nav>
 
     <address class="not-italic">
-      <h4 class="font-mono font-bold mb-4">Social</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">Social</h4>
       <ul class="list-none p-0 m-0 flex flex-col gap-2">
         <li>
           <Social
@@ -77,32 +58,24 @@ import Social from "./SocialMedia.astro";
     </address>
 
     <div>
-      <h4 class="font-mono font-bold mb-4">Source</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">Source</h4>
       <div class="flex flex-col gap-2">
-        <a
+        <Link
           href="https://github.com/CtrlLuzzio/luzzio-web"
           target="_blank"
           rel="noopener noreferrer"
-          class="transition-colors hover:text-mocha-green focus:text-mocha-green"
         >
           Check the code of this website here
-        </a>
+        </Link>
         <p class="text-xs m-0">Made with Astro and Tailwind CSS.</p>
       </div>
     </div>
   </section>
 
-  <small class="block pt-6 text-center border-t border-mocha-surface-0 opacity-75 text-mocha-text">
+  <small
+    class="block pt-6 text-center border-t border-mocha-surface-0 opacity-75 text-mocha-text"
+  >
     &copy; 2026 Luzzio. Code under MIT License. All rights reserved for content
     and multimedia.
   </small>
 </footer>
-<style>
-  footer {
-    padding: 1rem 5rem;
-  }
-
-  h4 {
-    font-size: 1.25rem;
-  }
-</style>
