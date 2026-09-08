@@ -5,6 +5,7 @@
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
   /* Catppuccin Mocha color palette */
   --color-mocha-green: #a6e3a1;
+  --color-mocha-mauve: #cba6f7;
   --color-mocha-text: #cdd6f4;
   --color-mocha-base: #1e1e2e;
   --color-mocha-crust: #11111b;

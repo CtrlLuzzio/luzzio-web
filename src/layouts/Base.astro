@@ -18,34 +18,16 @@ const { pageTitle } = Astro.props;
   </head>
   <body class="flex flex-col min-h-screen">
     <Header />
-    <main class="flex-1">
-      <h1 class="font-sans">{pageTitle}</h1>
-      <h2 class="font-sans">Sample Text</h2>
-      <h3 class="font-sans">Lorem Ipsum Dolor & Cheddar</h3>
-      <slot />
+    <main class="flex-1 px-4 md:px-20 pb-16 relative">
+      <div 
+        class="absolute inset-0 z-0 pointer-events-none opacity-10"
+        style="background-image: url('/bg.svg'); background-size: cover; background-position: center;"
+      ></div>
+      
+      <div class="relative z-10">
+        <slot />
+      </div>
     </main>
     <Footer />
   </body>
 </html>
-<style>
-  /* These are test styles, not to be used in the website (probably) */
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10rem;
-    font-weight: bold;
-  }
-  h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 8rem;
-  }
-  h3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 6rem;
-  }
-</style>
