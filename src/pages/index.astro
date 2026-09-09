@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/Base.astro";
+import Link from "../components/Link.astro";
+import BentoBox from "../components/BentoBox.astro";
 import { Icon } from "astro-icon/components";
 
 const pageTitle = "Home";
@@ -51,7 +53,7 @@ const pageTitle = "Home";
       <div
         class="flex flex-col lg:flex-row gap-8 justify-between items-center lg:items-stretch"
       >
-        <div class="text-lg flex flex-col gap-4 text-mocha-text max-w-4xl">
+        <div class="text-lg flex flex-col gap-4 max-w-4xl">
           <p>
             I'm a Computer Engineering student at UCLA (Venezuela) and a
             full-stack developer with hands-on experience in enterprise software
@@ -63,31 +65,31 @@ const pageTitle = "Home";
             Ironically, I'm more of a terminal person; I enjoy tinkering and
             customizing (and hopefully not breaking) dotfiles for my Linux
             environment (see my&nbsp;
-            <a
+            <Link
               href="https://github.com/CtrlLuzzio/dotfiles"
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:underline hover:decoration-mocha-green"
+              class="hover:underline"
             >
               <code
                 class="font-mono text-mocha-green bg-mocha-base px-1.5 py-0.5 rounded text-sm"
               >
                 dotfiles
               </code>
-            </a>
+            </Link>
             &nbsp;and&nbsp;
-            <a
+            <Link
               href="https://github.com/CtrlLuzzio/nixos-dotfiles"
               target="_blank"
               rel="noopener noreferrer"
-              class="hover:underline hover:decoration-mocha-green"
+              class="hover:underline"
             >
               <code
                 class="font-mono text-mocha-green bg-mocha-base px-1.5 py-0.5 rounded text-sm"
               >
                 nixos-dotfiles
               </code>
-            </a>
+            </Link>
             &nbsp;repos).
           </p>
           <p>
@@ -105,14 +107,14 @@ const pageTitle = "Home";
         </div>
 
         <div
-          class="hidden lg:flex flex-1 flex-col justify-center items-center gap-4 duration-300"
+          class="hidden lg:flex flex-1 flex-col justify-center items-center gap-4"
         >
           <img
             src="/spinning-low-poly-shadow.gif"
             alt="*insert funny gif here*"
             class="w-48 h-48 xl:w-80 xl:h-80 object-contain"
           >
-          <p class="text-mocha-text text-center italic opacity-70">
+          <p class="text-center italic opacity-70">
             I like Shadow :)
           </p>
         </div>
@@ -123,31 +125,24 @@ const pageTitle = "Home";
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
     >
-      <a
+      <BentoBox
         href="/projects"
-        class="flex flex-col gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-mocha-teal transition-colors md:col-span-2"
+        class="hover:border-mocha-teal md:col-span-2"
+        icon="tabler:terminal"
+        title="Dev Projects"
+        iconColor="text-mocha-teal"
       >
-        <div class="flex items-center gap-3">
-          <Icon name="tabler:terminal" class="w-8 h-8 text-mocha-teal" />
-          <h3 class="text-2xl font-mono font-bold">Dev Projects</h3>
-        </div>
-        <p class="opacity-70 flex-1">
-          Check some of the best projects I've made.
-        </p>
-      </a>
-
-      <a
+        Check some of the best projects I've made.
+      </BentoBox>
+      <BentoBox
         href="/blog"
-        class="flex flex-col gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-mocha-yellow transition-colors"
+        class="hover:border-mocha-yellow "
+        icon="tabler:notebook"
+        title="Blog"
+        iconColor="text-mocha-yellow"
       >
-        <div class="flex items-center gap-3">
-          <Icon name="tabler:notebook" class="w-7 h-7 text-mocha-yellow" />
-          <h3 class="text-2xl font-mono font-bold">Blog</h3>
-        </div>
-        <p class="opacity-70 flex-1">
-          Read me talk about honestly anything
-        </p>
-      </a>
+        Read me talk about honestly anything
+      </BentoBox>
 
       <div class="flex flex-col lg:flex-row gap-6 md:col-span-2 lg:col-span-3">
         <a
@@ -168,28 +163,23 @@ const pageTitle = "Home";
             </p>
           </div>
 
-          <div
-            class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0"
-          >
+          <div class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0">
             <span class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
             <span class="font-mono font-bold text-sm">Offline</span>
           </div>
         </a>
 
-        <a
+        <BentoBox
           href="https://www.tiktok.com/@luzzio__"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex flex-col gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-mocha-pink transition-colors w-full lg:flex-1"
+          class="hover:border-mocha-pink w-full lg:flex-1"
+          icon="tabler:brand-tiktok"
+          title="Tiktok"
+          iconColor="text-mocha-pink"
         >
-          <div class="flex items-center gap-3">
-            <Icon name="tabler:brand-tiktok" class="w-8 h-8 text-mocha-pink" />
-            <h3 class="text-2xl font-mono font-bold">Tiktok</h3>
-          </div>
-          <p class="opacity-70 flex-1">
-            Catch my best (and worst) moments from streams and tournaments.
-          </p>
-        </a>
+          Catch my best (and worst) moments from streams and tournaments.
+        </BentoBox>
       </div>
     </div>
   </section>
