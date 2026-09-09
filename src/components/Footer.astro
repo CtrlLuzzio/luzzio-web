@@ -15,7 +15,7 @@ import Link from "./Link.astro";
         </li>
         <li><Link href="/blog">Blog</Link></li>
         <li>
-          <Link href="/portfolio">Portfolio</Link>
+          <Link href="/projects">Projects</Link>
         </li>
         <li>
           <Link href="/contact">Contact</Link>
@@ -25,33 +25,47 @@ import Link from "./Link.astro";
 
     <address class="not-italic">
       <h4 class="text-2xl font-mono font-bold mb-4">Social</h4>
-      <ul class="list-none p-0 m-0 flex flex-col gap-2">
+      <ul class="list-none p-0 m-0 grid grid-cols-2 gap-x-4 gap-y-2">
         <li>
           <Social
             url="https://www.twitch.tv/luzzio__"
             string="Twitch"
-            icon="simple-icons:twitch"
-          />
-        </li>
-        <li>
-          <Social
-            url="https://www.tiktok.com/@luzzio__"
-            string="TikTok"
-            icon="simple-icons:tiktok"
+            icon="tabler:brand-twitch"
           />
         </li>
         <li>
           <Social
             url="https://www.github.com/CtrlLuzzio"
             string="Github"
-            icon="simple-icons:github"
+            icon="tabler:brand-github"
           />
         </li>
         <li>
           <Social
-            url="https://www.linktr.ee/luzzio"
-            string="Linktree"
-            icon="simple-icons:linktree"
+            url="https://www.tiktok.com/@luzzio__"
+            string="TikTok"
+            icon="tabler:brand-tiktok"
+          />
+        </li>
+        <li>
+          <Social
+            url="https://www.youtube.com/@soyluzzio"
+            string="YouTube"
+            icon="tabler:brand-youtube"
+          />
+        </li>
+        <li>
+          <Social
+            url="https://x.com/luzzio__"
+            string="Twitter"
+            icon="tabler:brand-x"
+          />
+        </li>
+        <li>
+          <Social
+            url="https://www.instagram.com/luzzio__"
+            string="Instagram"
+            icon="tabler:brand-instagram"
           />
         </li>
       </ul>
@@ -67,7 +81,9 @@ import Link from "./Link.astro";
         >
           Check the code of this website here
         </Link>
-        <p class="text-xs m-0">Made with Astro and Tailwind CSS.</p>
+        <p class="text-xs m-0 opacity-75">
+          Made with Astro and Tailwind CSS.
+        </p>
       </div>
     </div>
   </section>
