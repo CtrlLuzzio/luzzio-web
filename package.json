@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^11.1.5",
     "@iconify-json/tabler": "^1.2.38",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.1",

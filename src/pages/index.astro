@@ -163,9 +163,9 @@ const pageTitle = "Home";
             </p>
           </div>
 
-          <div class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0">
-            <span class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
-            <span class="font-mono font-bold text-sm">Offline</span>
+          <div id="twitch-status-badge" class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0">
+            <span id="twitch-status-dot" class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
+            <span id="twitch-status-text" class="font-mono font-bold text-sm">Offline</span>
           </div>
         </a>
 
@@ -184,3 +184,34 @@ const pageTitle = "Home";
     </div>
   </section>
 </BaseLayout>
+<script>
+  import { actions } from "astro:actions";
+
+  async function checkTwitchStatus() {
+    const badgeContainer = document.getElementById("twitch-status-badge");
+    const statusDot = document.getElementById("twitch-status-dot");
+    const statusText = document.getElementById("twitch-status-text");
+
+    if (!badgeContainer || !statusDot || !statusText) return;
+
+    try {
+      const { data, error } = await actions.getTwitchStatus();
+      
+      if (!error && data?.isLive) {
+        badgeContainer.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
+        badgeContainer.classList.replace("border-mocha-surface-0", "border-mocha-red/50");
+        
+        statusDot.classList.replace("bg-mocha-text", "bg-mocha-red");
+        statusDot.classList.remove("opacity-50");
+        statusDot.classList.add("animate-pulse");
+        
+        statusText.classList.replace("text-mocha-text", "text-mocha-red");
+        statusText.textContent = "Live";
+      }
+    } catch (e) {
+      console.error("Unable to get twitch status");
+    }
+  }
+
+  checkTwitchStatus();
+</script>
