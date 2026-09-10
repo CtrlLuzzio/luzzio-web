@@ -195,7 +195,7 @@ const pageTitle = "Home";
     if (!badgeContainer || !statusDot || !statusText) return;
 
     try {
-      const { data, error } = await actions.getTwitchStatus();
+      const { data, error } = await actions.twitch.getTwitchStatus();
       
       if (!error && data?.isLive) {
         badgeContainer.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
