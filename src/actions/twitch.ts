@@ -1,5 +1,4 @@
 import { defineAction } from "astro:actions";
-import { z } from "astro:schema";
 
 let cachedStatus = { isLive: false, lastCheck: 0 };
 const CACHE_TTL = 60000;

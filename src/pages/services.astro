@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import BentoBox from "../components/BentoBox.astro";
+import LeadForm from "../components/LeadForm.astro";
+
+const pageTitle = "Services";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
+    <h2 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
+      Services
+    </h2>
+    <p class="text-lg md:text-xl opacity-80">
+      Custom software development. Explore the areas of specialization and
+      request a technical proposal.
+    </p>
+  </section>
+
+  <section
+    class="bg-mocha-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-mocha-crust/20 mb-20"
+  >
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
+    >
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-blue bg-mocha-base"
+        icon="tabler:layout"
+        title="Static Website"
+        iconColor="text-mocha-blue"
+      >
+        Perfect for portfolios, campaigns and many more.
+      </BentoBox>
+
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-green bg-mocha-base"
+        icon="tabler:code"
+        title="Web App"
+        iconColor="text-mocha-green"
+      >
+        Plataformas dinámicas (Next.js/Astro) con bases de datos, autenticación
+        y lógica compleja.
+      </BentoBox>
+
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-mauve bg-mocha-base"
+        icon="tabler:database"
+        title="Módulos Odoo"
+        iconColor="text-mocha-mauve"
+      >
+        Desarrollo de módulos custom para adaptar el ERP a los flujos de trabajo
+        de tu empresa.
+      </BentoBox>
+
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-pink bg-mocha-base"
+        icon="tabler:brush"
+        title="Auditoría UI/UX"
+        iconColor="text-mocha-pink"
+      >
+        Prototipado en Figma, wireframing y rediseño enfocado en usabilidad y
+        accesibilidad web.
+      </BentoBox>
+
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-yellow bg-mocha-base"
+        icon="tabler:server"
+        title="DevOps & Servidores"
+        iconColor="text-mocha-yellow"
+      >
+        Configuración de entornos Linux, contenedores y despliegue en VPS para
+        proyectos existentes.
+      </BentoBox>
+
+      <BentoBox
+        href="#quote"
+        class="hover:border-mocha-red bg-mocha-base"
+        icon="tabler:device-gamepad"
+        title="FGC & Creadores"
+        iconColor="text-mocha-red"
+      >
+        Overlays dinámicos, bots e integraciones con Twitch API para
+        retransmisiones de torneos.
+      </BentoBox>
+    </div>
+  </section>
+
+  <section
+    id="quote"
+    class="flex flex-col gap-8 max-w-4xl mx-auto w-full mb-12 scroll-mt-24"
+  >
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <h3 class="text-3xl font-mono font-bold text-mocha-teal">
+          Cotiza tu Proyecto
+        </h3>
+        <div class="h-0.5 flex-1 bg-mocha-base opacity-50"></div>
+      </div>
+      <p class="opacity-70 text-lg">
+        Completa el formulario para evaluar los requerimientos técnicos y el
+        alcance inicial. Te responderé con una propuesta o una invitación para
+        una llamada de descubrimiento.
+      </p>
+    </div>
+
+    <LeadForm />
+  </section>
+</BaseLayout>

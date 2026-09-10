@@ -1,0 +1,113 @@
+---
+import { actions } from "astro:actions";
+
+const result = Astro.getActionResult(actions.leads.submitProject);
+---
+
+<form
+  method="POST"
+  action={actions.leads.submitProject}
+  class="flex flex-col gap-6 bg-mocha-base p-8 rounded-2xl border-2 border-mocha-surface-0 shadow-lg shadow-mocha-crust/50"
+>
+  <!-- Alertas de Estado -->
+  {result?.data && (
+    <div class="p-4 bg-mocha-green/10 border border-mocha-green text-mocha-green rounded-lg font-mono text-sm text-center">
+      > {result.data.message}
+    </div>
+  )}
+  {result?.error && (
+    <div class="p-4 bg-mocha-red/10 border border-mocha-red text-mocha-red rounded-lg font-mono text-sm text-center">
+      > Error: Verifica los campos e inténtalo de nuevo.
+    </div>
+  )}
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex flex-col gap-2">
+      <label for="name" class="font-mono text-sm opacity-80 text-mocha-mauve">Nombre</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="email" class="font-mono text-sm opacity-80 text-mocha-mauve">Correo Electrónico</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="serviceType" class="font-mono text-sm opacity-80 text-mocha-mauve">Servicio Requerido</label>
+      <select
+        id="serviceType"
+        name="serviceType"
+        required
+        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors appearance-none cursor-pointer"
+      >
+        <option value="" disabled selected>Selecciona un servicio...</option>
+        <option value="landing_page">Landing Page Estática</option>
+        <option value="fullstack_app">Web App Full-Stack</option>
+        <option value="odoo_module">Módulo Odoo (Custom)</option>
+        <option value="ui_ux">Auditoría / Diseño UI-UX</option>
+        <option value="devops">DevOps / Servidores</option>
+        <option value="creator_tools">Herramientas para Creadores</option>
+        <option value="custom">Cotización Personalizada / Otro</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="budget" class="font-mono text-sm opacity-80 text-mocha-mauve">Presupuesto (USD)</label>
+      <select
+        id="budget"
+        name="budget"
+        required
+        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors appearance-none cursor-pointer"
+      >
+        <option value="" disabled selected>Rango estimado...</option>
+        <option value="under_500">Menos de $500</option>
+        <option value="500_1000">$500 - $1,000</option>
+        <option value="1000_3000">$1,000 - $3,000</option>
+        <option value="3000_plus">Más de $3,000</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="deadline" class="font-mono text-sm opacity-80 text-mocha-mauve">Fecha Límite (Opcional)</label>
+    <input
+      type="text"
+      id="deadline"
+      name="deadline"
+      placeholder="Ej: Finales de este mes, no hay apuro, etc."
+      class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+    />
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="details" class="font-mono text-sm opacity-80 text-mocha-mauve">Detalles del Proyecto</label>
+    <textarea
+      id="details"
+      name="details"
+      required
+      minlength="20"
+      rows="5"
+      placeholder="Describe brevemente el objetivo del proyecto, funcionalidades clave y expectativas..."
+      class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors resize-none"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="mt-4 bg-mocha-surface-0 text-mocha-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-mocha-green hover:text-mocha-crust hover:border-transparent border border-mocha-text/20 transition-all cursor-pointer"
+  >
+    [ Enviar Solicitud ]
+  </button>
+</form>

@@ -47,7 +47,7 @@ const pageTitle = "Home";
     <!-- About Me -->
     <div class="flex flex-col gap-6">
       <div class="flex items-center gap-4">
-        <p class="text-4xl font-mono font-bold text-mocha-mauve">About Me</p>
+        <h3 class="text-4xl font-mono font-bold text-mocha-mauve">About Me</h3>
         <div class="h-0.5 flex-1 bg-mocha-base opacity-50"></div>
       </div>
       <div
@@ -56,7 +56,7 @@ const pageTitle = "Home";
         <div class="text-lg flex flex-col gap-4 max-w-4xl">
           <p>
             I'm a Computer Engineering student at UCLA (Venezuela) and a
-            full-stack developer with hands-on experience in enterprise software
+            full-stack developer with experience in enterprise software
             architecture, custom ERP module implementation, and UI/UX design.
             When developing, I always strive (pun intended) for the perfect
             balance between a solid backend and a seamless user experience.
@@ -93,13 +93,17 @@ const pageTitle = "Home";
             &nbsp;repos).
           </p>
           <p>
-            Outside the dev environment, I'm an active member of the FGC
-            (Fighting Game Community). I regularly compete in whatever game I'm
-            playing at the moment (currently Street Fighter 6 and sometimes
-            Guilty Gear Strive), and I dedicate part of my time to organizing
-            local tournaments to help grow the competitive scene. I also stream
-            ranked sessions and variety games, always down to yap about anything
-            with the chat (and for the not so occasional throw for content).
+            I regularly compete in whatever fighting game I'm playing at the
+            moment (currently Street Fighter 6 and sometimes Guilty Gear
+            Strive), and sometimes I dedicate part of my time to organizing
+            tournaments (either online or offline) to help grow the competitive
+            scene.
+          </p>
+          <p>
+            As a streamer, my main focus is fighting games, but I enjoy mixing
+            things up with some variety games too. Whether I'm playing solo or
+            with friends or viewers, I'm always here to chill, talk with the
+            chat, and provide the not so occasional throw for content.
           </p>
           <p class="font-mono text-mocha-green mt-4 opacity-100">
             &gt; Check some of the stuff I make:
@@ -113,10 +117,8 @@ const pageTitle = "Home";
             src="/spinning-low-poly-shadow.gif"
             alt="*insert funny gif here*"
             class="w-48 h-48 xl:w-80 xl:h-80 object-contain"
-          >
-          <p class="text-center italic opacity-70">
-            I like Shadow :)
-          </p>
+          />
+          <p class="text-center italic opacity-70">I like Shadow :)</p>
         </div>
       </div>
     </div>
@@ -136,7 +138,7 @@ const pageTitle = "Home";
       </BentoBox>
       <BentoBox
         href="/blog"
-        class="hover:border-mocha-yellow "
+        class="hover:border-mocha-yellow"
         icon="tabler:notebook"
         title="Blog"
         iconColor="text-mocha-yellow"
@@ -163,9 +165,16 @@ const pageTitle = "Home";
             </p>
           </div>
 
-          <div id="twitch-status-badge" class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0">
-            <span id="twitch-status-dot" class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
-            <span id="twitch-status-text" class="font-mono font-bold text-sm">Offline</span>
+          <div
+            id="twitch-status-badge"
+            class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0"
+          >
+            <span
+              id="twitch-status-dot"
+              class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
+            <span id="twitch-status-text" class="font-mono font-bold text-sm"
+              >Offline</span
+            >
           </div>
         </a>
 
@@ -196,15 +205,18 @@ const pageTitle = "Home";
 
     try {
       const { data, error } = await actions.twitch.getTwitchStatus();
-      
+
       if (!error && data?.isLive) {
         badgeContainer.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
-        badgeContainer.classList.replace("border-mocha-surface-0", "border-mocha-red/50");
-        
+        badgeContainer.classList.replace(
+          "border-mocha-surface-0",
+          "border-mocha-red/50",
+        );
+
         statusDot.classList.replace("bg-mocha-text", "bg-mocha-red");
         statusDot.classList.remove("opacity-50");
         statusDot.classList.add("animate-pulse");
-        
+
         statusText.classList.replace("text-mocha-text", "text-mocha-red");
         statusText.textContent = "Live";
       }
