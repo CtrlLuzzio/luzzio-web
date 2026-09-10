@@ -7,9 +7,9 @@ export const leads = {
     input: z.object({
       name: z.string().min(2, "Name is mandatory"),
       email: z.email({ message: "Invalid email" }),
-      serviceType: z.enum([
-        "landing_page",
-        "fullstack_app",
+      service: z.enum([
+        "static_page",
+        "web_app",
         "odoo_module",
         "ui_ux",
         "devops",
@@ -33,7 +33,7 @@ export const leads = {
       
       return { 
         success: true, 
-        message: "Solicitud recibida. Te contactaré pronto." 
+        message: "Request received. I'll get back to you soon."
       };
     }
   })
