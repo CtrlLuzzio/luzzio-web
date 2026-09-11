@@ -110,15 +110,135 @@ const pageTitle = "Home";
           </p>
         </div>
 
-        <div
-          class="hidden lg:flex flex-1 flex-col justify-center items-center gap-4"
-        >
-          <img
-            src="/spinning-low-poly-shadow.gif"
-            alt="*insert funny gif here*"
-            class="w-48 h-48 xl:w-80 xl:h-80 object-contain"
-          />
-          <p class="text-center italic opacity-70">I like Shadow :)</p>
+        <div class="hidden lg:flex flex-1 flex-col w-full mx-auto">
+          <div
+            class="w-full h-full flex flex-col bg-mocha-base border-2 border-mocha-text/70 rounded-2xl p-1 font-mono text-mocha-text shadow-2xl relative select-none"
+          >
+            <div
+              class="absolute inset-0 border border-mocha-base/50 pointer-events-none rounded-sm"
+            >
+            </div>
+            <div class="p-4 relative z-10 flex flex-col gap-4 h-full">
+              <div class="flex gap-4">
+                <div
+                  class="w-36 h-36 bg-mocha-base border-2 border-mocha-text/50 flex flex-col items-center justify-center shrink-0 shadow-inner"
+                >
+                  <span class="text-[10px] opacity-50">AVATAR</span>
+                </div>
+
+                <div class="flex-1 flex flex-col gap-1 text-sm mt-1">
+                  <div
+                    class="flex justify-between items-baseline border-b border-mocha-text/20 pb-1 pr-1"
+                  >
+                    <span class="text-lg font-bold">Luzzio</span>
+                    <span class="text-xs"
+                      >EXP: <span class="ml-1 tracking-wider">27105p</span
+                      ></span
+                    >
+                  </div>
+                  <div class="flex items-center justify-between mt-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-mocha-teal font-bold">LV</span>
+                      <span>22</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="text-mocha-teal font-bold w-6">HP</span>
+                    <span class="w-20 text-right tracking-widest"
+                      >954 / 954</span
+                    >
+                    <div
+                      class="flex-1 bg-mocha-crust h-2 border border-mocha-text/30 rounded-sm overflow-hidden"
+                    >
+                      <div class="bg-mocha-red w-full h-full"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <span class="text-mocha-teal font-bold w-6">MP</span>
+                    <span class="w-20 text-right tracking-widest"
+                      >172 / 172</span
+                    >
+                    <div
+                      class="flex-1 bg-mocha-crust h-2 border border-mocha-text/30 rounded-sm overflow-hidden"
+                    >
+                      <div class="bg-mocha-blue w-full h-full"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-2 gap-2 text-sm leading-tight pt-4 border-t-2 border-mocha-text/20"
+              >
+                <div class="flex flex-col gap-1 pr-2">
+                  <div class="flex justify-between">
+                    <span class="text-mocha-teal">Frontend</span><span>255</span
+                    >
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mocha-teal">Backend</span><span>180</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mocha-teal">UI/UX</span><span>210</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mocha-teal">Linux</span><span>150</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-mocha-teal">Execution</span><span
+                      >200</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col gap-3 pl-3 border-l-2 border-mocha-text/20"
+                >
+                  <div class="flex flex-col gap-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-mocha-teal w-8">Wpn:</span>
+                      <span class="truncate">Haute42 U16</span>
+                    </div>
+                    <div class="flex gap-1 ml-10">
+                      <div
+                        class="w-3.5 h-3.5 rounded-full bg-mocha-green border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
+                      >
+                      </div>
+                      <div
+                        class="w-3.5 h-3.5 rounded-full bg-mocha-yellow border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
+                      >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col gap-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-mocha-teal w-8">Arm:</span>
+                      <span class="truncate">NixOS</span>
+                    </div>
+                    <div class="flex gap-1 ml-10">
+                      <div
+                        class="w-3.5 h-3.5 rounded-full bg-mocha-blue border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
+                      >
+                      </div>
+                      <div
+                        class="w-3.5 h-3.5 rounded-full bg-mocha-red border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
+                      >
+                      </div>
+                      <div
+                        class="w-3.5 h-3.5 rounded-full bg-mocha-mauve border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
+                      >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="text-mocha-teal w-8">Acc:</span>
+                    <span class="truncate">A lot of coffee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
