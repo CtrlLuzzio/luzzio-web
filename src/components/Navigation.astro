@@ -1,11 +1,10 @@
 ---
-import Link from "./Link.astro";
-const navClasses = "block text-center m-2 text-xl font-bold";
+import NavLink from "./NavLink.astro";
+const navClasses = "block text-center px-4 py-2 rounded-lg text-lg font-bold transition-all hover:bg-mocha-surface-0";
 ---
-
-<div class="flex m-0 font-mono">
-  <Link class={navClasses} href="/services" showActive>[ Services ]</Link>
-  <Link class={navClasses} href="/blog" showActive>[ Blog ]</Link>
-  <Link class={navClasses} href="/projects" showActive>[ Projects ]</Link>
-  <Link class={navClasses} href="/contact" showActive>[ Contact ]</Link>
+<div class="flex items-center gap-2 m-0 font-mono">
+  <NavLink class={navClasses} href="/services" showActive>Services</NavLink>
+  <NavLink class={navClasses} href="/blog" showActive>Blog</NavLink>
+  <NavLink class={navClasses} href="/projects" showActive>Projects</NavLink>
+  <NavLink class={navClasses} href="/contact" showActive>Contact</NavLink>
 </div>

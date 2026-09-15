@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../layouts/Base.astro";
+import PersonaSwitcherContent from "../components/PersonaSwitcherContent.astro";
+import PersonaSwitcherButton from "../components/PersonaSwitcherButton.astro";
 import Link from "../components/Link.astro";
+import TwitchBento from "../components/TwitchBento.astro";
 import BentoBox from "../components/BentoBox.astro";
 import { Icon } from "astro-icon/components";
 
@@ -12,17 +15,51 @@ const pageTitle = "Home";
     id="hero"
     class="flex flex-col md:flex-row items-center justify-between min-h-[75vh] py-24 px-16 md:py-32 md:px-20 mb-12 gap-12"
   >
-    <div class="flex flex-col items-start text-left gap-6 max-w-2xl">
+    <div class="flex flex-col items-start text-left gap-6 max-w-2xl w-full">
       <h2 class="text-5xl md:text-7xl font-mono font-bold text-mocha-mauve">
         Luzzio
       </h2>
-      <p class="text-xl md:text-2xl opacity-90">
-        Full-Stack Developer | FGC Competitor | Content Creator
-      </p>
-      <p class="text-lg opacity-70">
-        Specializing in UI/UX design & web development. Passionate about Linux
-        and videogames. Always looking for the optimal route.
-      </p>
+
+      <div class="flex flex-wrap gap-3 font-mono text-sm md:text-base mb-2">
+        <PersonaSwitcherButton
+          id="dev"
+          label="Full-Stack Developer"
+          color="bg-mocha-green"
+          isActive={true}
+        />
+        <PersonaSwitcherButton
+          id="fgc"
+          label="FGC Competitor"
+          color="bg-mocha-red"
+        />
+        <PersonaSwitcherButton
+          id="creator"
+          label="Content Creator"
+          color="bg-mocha-blue"
+        />
+      </div>
+      <div class="grid [grid-template-areas:'stack'] w-full min-h-25">
+        <PersonaSwitcherContent id="dev" isActive={true}>
+          <p class="text-lg">
+            Specializing in UI/UX design & web development, but capable of
+            anything. Always looking for the optimal architectural route.
+          </p>
+        </PersonaSwitcherContent>
+
+        <PersonaSwitcherContent id="fgc">
+          <p class="text-lg">
+            Competitive fighting game player. Maining Juri in SF6 and Robo Ky in
+            GGST. Always looking for the optimal combo route.
+          </p>
+        </PersonaSwitcherContent>
+
+        <PersonaSwitcherContent id="creator">
+          <p class="text-lg">
+            Live streaming high-level gameplay, tournament brackets, and more.
+            Always looking for the optimal route to throw for content.
+          </p>
+        </PersonaSwitcherContent>
+      </div>
     </div>
 
     <div class="shrink-0">
@@ -44,27 +81,37 @@ const pageTitle = "Home";
     id="about"
     class="bg-mocha-surface-0 rounded-3xl p-8 md:p-12 shadow-xl shadow-mocha-crust/20 flex flex-col gap-12"
   >
-    <!-- About Me -->
-    <div class="flex flex-col gap-6">
-      <div class="flex items-center gap-4">
-        <h3 class="text-4xl font-mono font-bold text-mocha-mauve">About Me</h3>
-        <div class="h-0.5 flex-1 bg-mocha-base opacity-50"></div>
-      </div>
-      <div
-        class="flex flex-col lg:flex-row gap-8 justify-between items-center lg:items-stretch"
-      >
-        <div class="text-lg flex flex-col gap-4 max-w-4xl">
+    <div class="flex items-center gap-4">
+      <h3 class="text-4xl font-mono font-bold text-mocha-mauve">About Me</h3>
+      <div class="h-0.5 flex-1 bg-mocha-base opacity-50"></div>
+    </div>
+
+    <div class="w-full">
+      <!-- DEV Text -->
+      <PersonaSwitcherContent id="dev" isActive={true}>
+        <div class="text-lg flex flex-col gap-4">
           <p>
-            I'm a Computer Engineering student at UCLA (Venezuela) and a
-            full-stack developer with experience in enterprise software
-            architecture, custom ERP module implementation, and UI/UX design.
-            When developing, I always strive (pun intended) for the perfect
-            balance between a solid backend and a seamless user experience.
+            I'm a Computer Informatics Engineering student at UCLA (Universidad
+            Centroccidental Lisandro Alvarado, not the University of California) and
+            a full-stack developer. My professional experience is heavily rooted
+            in enterprise software architecture, specifically developing custom
+            Odoo ERP modules, handling containerized deployments with Docker and Podman,
+            and managing databases using Python, JavaScript, and PostgreSQL.
           </p>
           <p>
-            Ironically, I'm more of a terminal person; I enjoy tinkering and
-            customizing (and hopefully not breaking) dotfiles for my Linux
-            environment (see my&nbsp;
+            Beyond enterprise systems, I also enjoy building modern, fast web
+            applications and static sites (like this very portfolio) using
+            Astro, React, and Tailwind CSS, or writing automation scripts
+            with Bash, Lua, and Python. Whether I'm writing complex backend
+            endpoints or designing a frontend component, I always aim for the
+            perfect balance between robust logic and a seamless UI/UX.
+          </p>
+          <p>
+            Ironically for a web developer, I spend most of my time in the terminal. I'm a 
+            huge Linux enthusiast, currently daily driving openSUSE Tumbleweed for work 
+            and NixOS with Hyprland for my personal setup. Tinkering with my system and 
+            optimizing my workflow is practically a second job for me (feel free to check 
+            my
             <Link
               href="https://github.com/CtrlLuzzio/dotfiles"
               target="_blank"
@@ -77,7 +124,7 @@ const pageTitle = "Home";
                 dotfiles
               </code>
             </Link>
-            &nbsp;and&nbsp;
+            and
             <Link
               href="https://github.com/CtrlLuzzio/nixos-dotfiles"
               target="_blank"
@@ -90,260 +137,246 @@ const pageTitle = "Home";
                 nixos-dotfiles
               </code>
             </Link>
-            &nbsp;repos).
-          </p>
-          <p>
-            I regularly compete in whatever fighting game I'm playing at the
-            moment (currently Street Fighter 6 and sometimes Guilty Gear
-            Strive), and sometimes I dedicate part of my time to organizing
-            tournaments (either online or offline) to help grow the competitive
-            scene.
-          </p>
-          <p>
-            As a streamer, my main focus is fighting games, but I enjoy mixing
-            things up with some variety games too. Whether I'm playing solo or
-            with friends or viewers, I'm always here to chill, talk with the
-            chat, and provide the not so occasional throw for content.
+            repos).
           </p>
           <p class="font-mono text-mocha-green mt-4 opacity-100">
             &gt; Check some of the stuff I make:
           </p>
         </div>
-
-        <div class="hidden lg:flex flex-1 flex-col w-full mx-auto">
-          <div
-            class="w-full h-full flex flex-col bg-mocha-base border-2 border-mocha-text/70 rounded-2xl p-1 font-mono text-mocha-text shadow-2xl relative select-none"
-          >
-            <div
-              class="absolute inset-0 border border-mocha-base/50 pointer-events-none rounded-sm"
-            >
-            </div>
-            <div class="p-4 relative z-10 flex flex-col gap-4 h-full">
-              <div class="flex gap-4">
-                <div
-                  class="w-36 h-36 bg-mocha-base border-2 border-mocha-text/50 flex flex-col items-center justify-center shrink-0 shadow-inner"
-                >
-                  <span class="text-[10px] opacity-50">AVATAR</span>
-                </div>
-
-                <div class="flex-1 flex flex-col gap-1 text-sm mt-1">
-                  <div
-                    class="flex justify-between items-baseline border-b border-mocha-text/20 pb-1 pr-1"
-                  >
-                    <span class="text-lg font-bold">Luzzio</span>
-                    <span class="text-xs"
-                      >EXP: <span class="ml-1 tracking-wider">27105p</span
-                      ></span
-                    >
-                  </div>
-                  <div class="flex items-center justify-between mt-1">
-                    <div class="flex items-center gap-2">
-                      <span class="text-mocha-teal font-bold">LV</span>
-                      <span>22</span>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-2 mt-1">
-                    <span class="text-mocha-teal font-bold w-6">HP</span>
-                    <span class="w-20 text-right tracking-widest"
-                      >954 / 954</span
-                    >
-                    <div
-                      class="flex-1 bg-mocha-crust h-2 border border-mocha-text/30 rounded-sm overflow-hidden"
-                    >
-                      <div class="bg-mocha-red w-full h-full"></div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-2">
-                    <span class="text-mocha-teal font-bold w-6">MP</span>
-                    <span class="w-20 text-right tracking-widest"
-                      >172 / 172</span
-                    >
-                    <div
-                      class="flex-1 bg-mocha-crust h-2 border border-mocha-text/30 rounded-sm overflow-hidden"
-                    >
-                      <div class="bg-mocha-blue w-full h-full"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="grid grid-cols-2 gap-2 text-sm leading-tight pt-4 border-t-2 border-mocha-text/20"
-              >
-                <div class="flex flex-col gap-1 pr-2">
-                  <div class="flex justify-between">
-                    <span class="text-mocha-teal">Frontend</span><span>255</span
-                    >
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-mocha-teal">Backend</span><span>180</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-mocha-teal">UI/UX</span><span>210</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-mocha-teal">Linux</span><span>150</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-mocha-teal">Execution</span><span
-                      >200</span
-                    >
-                  </div>
-                </div>
-                <div
-                  class="flex flex-col gap-3 pl-3 border-l-2 border-mocha-text/20"
-                >
-                  <div class="flex flex-col gap-1">
-                    <div class="flex items-center gap-2">
-                      <span class="text-mocha-teal w-8">Wpn:</span>
-                      <span class="truncate">Haute42 U16</span>
-                    </div>
-                    <div class="flex gap-1 ml-10">
-                      <div
-                        class="w-3.5 h-3.5 rounded-full bg-mocha-green border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
-                      >
-                      </div>
-                      <div
-                        class="w-3.5 h-3.5 rounded-full bg-mocha-yellow border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
-                      >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex flex-col gap-1">
-                    <div class="flex items-center gap-2">
-                      <span class="text-mocha-teal w-8">Arm:</span>
-                      <span class="truncate">NixOS</span>
-                    </div>
-                    <div class="flex gap-1 ml-10">
-                      <div
-                        class="w-3.5 h-3.5 rounded-full bg-mocha-blue border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
-                      >
-                      </div>
-                      <div
-                        class="w-3.5 h-3.5 rounded-full bg-mocha-red border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
-                      >
-                      </div>
-                      <div
-                        class="w-3.5 h-3.5 rounded-full bg-mocha-mauve border border-mocha-crust shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.5)]"
-                      >
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-2 mt-1">
-                    <span class="text-mocha-teal w-8">Acc:</span>
-                    <span class="truncate">A lot of coffee</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      </PersonaSwitcherContent>
+      <!-- FGC Text -->
+      <PersonaSwitcherContent id="fgc">
+        <div class="text-lg flex flex-col gap-4">
+          <p>
+            I've been competing in fighting games since 2022, back when I used
+            to play Super Smash Bros. Ultimate.
+          </p>
+          <p>
+            I made the jump to "classic" fighting games around 2024 with Guilty
+            Gear XX Accent Core +R, maining A.B.A, since the PC I had then
+            wasn't able to run Strive. I started playing Strive seriously when a
+            friend lent me his PS4 to play the game (thank you ApE <span
+              class="text-mocha-red">&lt;3</span
+            >).
+          </p>
+          <p>
+            A few months after that, I finally built a PC capable of running
+            modern games properly. That was the real turning point: for the
+            first time, I could actually lab and grind comfortably from home.
+            That newfound consistency paid off, as I arguably became the best
+            A.B.A in the country throughout Season 3 and part of Season 4 of
+            Strive.
+          </p>
+          <p>
+            Eventually, I made the jump to Street Fighter 6, which is my main
+            focus today. Picking up Juri, I’ve managed to put up solid
+            tournament results and keep pushing my neutral and execution even
+            further—though I still play Strive sometimes with Robo-Ky as my
+            current main (things happened with A.B.A, but the love is still
+            there).
+          </p>
+          <p class="font-mono text-mocha-red mt-4">&gt; See me in bracket:</p>
         </div>
-      </div>
+      </PersonaSwitcherContent>
+
+      <!-- CREATOR Text -->
+      <PersonaSwitcherContent id="creator">
+        <div class="text-lg flex flex-col gap-4">
+          <p>
+            As a streamer, my main focus are fighting games, but I enjoy mixing
+            things up with variety games like Balatro, Minecraft, and basically
+            any game I feel like playing at that moment.
+          </p>
+          <p>
+            Right now I don't have a lot followers, but I'm hoping to get into
+            the big leagues one day, so stay tuned for that.
+          </p>
+          <p>
+            Whether I'm playing solo, with friends, or viewers, I'm always here
+            to chill and have a great time with the chat.
+          </p>
+          <p class="font-mono text-mocha-blue mt-4 opacity-100">
+            &gt; Get into the broadcast:
+          </p>
+        </div>
+      </PersonaSwitcherContent>
     </div>
 
-    <!-- Bento Box Grid -->
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
-    >
-      <BentoBox
-        href="/projects"
-        class="hover:border-mocha-teal md:col-span-2"
-        icon="tabler:terminal"
-        title="Dev Projects"
-        iconColor="text-mocha-teal"
-      >
-        Check some of the best projects I've made.
-      </BentoBox>
-      <BentoBox
-        href="/blog"
-        class="hover:border-mocha-yellow"
-        icon="tabler:notebook"
-        title="Blog"
-        iconColor="text-mocha-yellow"
-      >
-        Read me talk about honestly anything
-      </BentoBox>
-
-      <div class="flex flex-col lg:flex-row gap-6 md:col-span-2 lg:col-span-3">
-        <a
-          href="https://www.twitch.tv/luzzio__"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 p-8 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-[#9146FF] transition-colors w-full lg:flex-1"
-        >
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center gap-3">
-              <Icon name="tabler:brand-twitch" class="w-8 h-8 text-[#9146FF]" />
-              <h3 class="text-2xl font-mono font-bold">
-                Watch me live on Twitch!
-              </h3>
-            </div>
-            <p class="opacity-70 max-w-2xl">
-              I don't have a schedule but you can see if I'm online here
-            </p>
-          </div>
-
-          <div
-            id="twitch-status-badge"
-            class="flex items-center gap-3 px-5 py-3 bg-mocha-crust rounded-full border border-mocha-surface-0 shrink-0"
+    <div class="w-full">
+      <!-- DEV Bento Grid -->
+      <PersonaSwitcherContent id="dev" isActive={true}>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <BentoBox
+            href="/projects"
+            class="hover:border-mocha-teal"
+            icon="tabler:terminal"
+            title="Dev Projects"
+            iconColor="text-mocha-teal"
           >
-            <span
-              id="twitch-status-dot"
-              class="w-3 h-3 rounded-full bg-mocha-text opacity-50"></span>
-            <span id="twitch-status-text" class="font-mono font-bold text-sm"
-              >Offline</span
-            >
-          </div>
-        </a>
+            See some of the best projects I've built (both open and closed
+            source!).
+          </BentoBox>
+          <BentoBox
+            href="/services"
+            class="hover:border-mocha-green"
+            icon="tabler:code"
+            title="Services"
+            iconColor="text-mocha-green"
+          >
+            Need a custom solution? Let's talk!
+          </BentoBox>
+        </div>
+      </PersonaSwitcherContent>
 
-        <BentoBox
-          href="https://www.tiktok.com/@luzzio__"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:border-mocha-pink w-full lg:flex-1"
-          icon="tabler:brand-tiktok"
-          title="Tiktok"
-          iconColor="text-mocha-pink"
-        >
-          Catch my best (and worst) moments from streams and tournaments.
-        </BentoBox>
-      </div>
+      <!-- FGC Bento Grid -->
+      <PersonaSwitcherContent id="fgc">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <!-- Placeholder Link -->
+          <BentoBox
+            href="https://start.gg/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:border-mocha-red"
+            icon="tabler:trophy"
+            title="Tournament Results"
+            iconColor="text-mocha-red"
+          >
+            Watch my tournament results (pulled from start.gg).
+          </BentoBox>
+          <TwitchBento />
+        </div>
+      </PersonaSwitcherContent>
+
+      <!-- CREATOR Bento Grid -->
+      <PersonaSwitcherContent id="creator">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <TwitchBento class="md:col-span-2" />
+          <BentoBox
+            href="https://www.youtube.com/@soyluzzio"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:border-mocha-red"
+            icon="tabler:brand-youtube"
+            title="YouTube"
+            iconColor="text-mocha-red"
+          >
+            VODs, stream highlights, and longer form content.
+          </BentoBox>
+          <BentoBox
+            href="https://www.tiktok.com/@luzzio__"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:border-mocha-pink"
+            icon="tabler:brand-tiktok"
+            title="Tiktok"
+            iconColor="text-mocha-pink"
+          >
+            Short clips and stream's best (and worst) moments.
+          </BentoBox>
+        </div>
+      </PersonaSwitcherContent>
     </div>
   </section>
 </BaseLayout>
 <script>
   import { actions } from "astro:actions";
 
-  async function checkTwitchStatus() {
-    const badgeContainer = document.getElementById("twitch-status-badge");
-    const statusDot = document.getElementById("twitch-status-dot");
-    const statusText = document.getElementById("twitch-status-text");
+  function initPersonaSwitcher() {
+    const buttons = document.querySelectorAll("[data-switcher]");
+    const contents = document.querySelectorAll("[data-persona]");
 
-    if (!badgeContainer || !statusDot || !statusText) return;
+    if (!buttons.length) return;
+
+    const colorMap = {
+      dev: "bg-mocha-green",
+      fgc: "bg-mocha-red",
+      creator: "bg-mocha-blue",
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-switcher");
+        if (!target) return;
+        const activeColor = colorMap[target as keyof typeof colorMap];
+        buttons.forEach((b) => {
+          b.classList.remove(
+            "bg-mocha-green",
+            "bg-mocha-red",
+            "bg-mocha-blue",
+            "text-mocha-crust",
+            "font-bold",
+            "border-mocha-text/10",
+          );
+
+          b.classList.add(
+            "bg-transparent",
+            "text-mocha-text",
+            "opacity-70",
+            "border-transparent",
+            "hover:border-mocha-text/50",
+          );
+        });
+
+        btn.classList.remove(
+          "bg-transparent",
+          "text-mocha-text",
+          "opacity-70",
+          "border-transparent",
+          "hover:border-mocha-text/50",
+        );
+
+        btn.classList.add(
+          activeColor,
+          "text-mocha-crust",
+          "font-bold",
+          "border-mocha-text/10",
+        );
+
+        contents.forEach((content) => {
+          if (content.getAttribute("data-persona") === target) {
+            content.classList.remove("hidden");
+            content.classList.add("block", "animate-fade-in");
+          } else {
+            content.classList.add("hidden");
+            content.classList.remove("block", "animate-fade-in");
+          }
+        });
+      });
+    });
+  }
+
+  async function checkTwitchStatus() {
+    const badgeContainers = document.querySelectorAll(".twitch-status-badge");
+    const statusDots = document.querySelectorAll(".twitch-status-dot");
+    const statusTexts = document.querySelectorAll(".twitch-status-text");
+
+    if (!badgeContainers.length) return;
 
     try {
       const { data, error } = await actions.twitch.getTwitchStatus();
-
+      
       if (!error && data?.isLive) {
-        badgeContainer.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
-        badgeContainer.classList.replace(
-          "border-mocha-surface-0",
-          "border-mocha-red/50",
-        );
-
-        statusDot.classList.replace("bg-mocha-text", "bg-mocha-red");
-        statusDot.classList.remove("opacity-50");
-        statusDot.classList.add("animate-pulse");
-
-        statusText.classList.replace("text-mocha-text", "text-mocha-red");
-        statusText.textContent = "Live";
+        badgeContainers.forEach(badge => {
+          badge.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
+          badge.classList.replace("border-mocha-surface-0", "border-mocha-red/50");
+        });
+        
+        statusDots.forEach(dot => {
+          dot.classList.replace("bg-mocha-text", "bg-mocha-red");
+          dot.classList.remove("opacity-50");
+          dot.classList.add("animate-pulse");
+        });
+        
+        statusTexts.forEach(text => {
+          text.classList.replace("text-mocha-text", "text-mocha-red");
+          text.textContent = "Live";
+        });
       }
     } catch (e) {
       console.error("Unable to get twitch status");
     }
   }
 
+  initPersonaSwitcher();
   checkTwitchStatus();
 </script>

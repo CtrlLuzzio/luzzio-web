@@ -1,0 +1,13 @@
+---
+const { id, isActive = false } = Astro.props;
+---
+
+<div 
+  data-persona={id} 
+  class:list={[
+    "w-full",
+    isActive ? "block animate-fade-in" : "hidden"
+  ]}
+>
+  <slot />
+</div>

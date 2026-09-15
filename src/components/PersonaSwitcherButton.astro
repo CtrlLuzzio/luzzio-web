@@ -1,0 +1,17 @@
+---
+const { id, label, color, isActive = false } = Astro.props;
+---
+
+<button 
+  data-switcher={id} 
+  data-color={color}
+  class:list={[
+    "px-4 py-2 rounded-full transition-all border cursor-pointer",
+    {
+      [`${color} text-mocha-crust font-bold border-mocha-text/10`]: isActive,
+      "bg-transparent text-mocha-text opacity-70 border-transparent hover:opacity-100 hover:border-mocha-text/50": !isActive
+    }
+  ]}
+>
+  {label}
+</button>
