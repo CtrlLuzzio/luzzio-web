@@ -38,26 +38,81 @@ const pageTitle = "Home";
           color="bg-mocha-blue"
         />
       </div>
-      <div class="grid [grid-template-areas:'stack'] w-full min-h-25">
+      <div class="grid [grid-template-areas:'stack'] w-full min-h-36">
+        <!-- DEV -->
         <PersonaSwitcherContent id="dev" isActive={true}>
-          <p class="text-lg">
-            Specializing in UI/UX design & web development, but capable of
-            anything. Always looking for the optimal architectural route.
-          </p>
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">
+              Specializing in UI/UX design & web development, but capable of
+              anything. Always looking for the optimal architectural route.
+            </p>
+            <div class="flex gap-3 font-mono mt-2">
+              <a
+                href="/services"
+                class="bg-mocha-green text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
+              >
+                View Services
+              </a>
+              <a
+                href="/contact"
+                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
         </PersonaSwitcherContent>
 
+        <!-- FGC -->
         <PersonaSwitcherContent id="fgc">
-          <p class="text-lg">
-            Competitive fighting game player. Maining Juri in SF6 and Robo Ky in
-            GGST. Always looking for the optimal combo route.
-          </p>
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">
+              Competitive fighting game player. Maining Juri in SF6 and Robo Ky
+              in GGST. Always looking for the optimal combo route.
+            </p>
+            <div class="flex gap-3 font-mono mt-2">
+              <a
+                href="https://start.gg/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-mocha-red text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
+              >
+                View Results
+              </a>
+              <a
+                href="/contact"
+                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
         </PersonaSwitcherContent>
 
+        <!-- CREATOR -->
         <PersonaSwitcherContent id="creator">
-          <p class="text-lg">
-            Live streaming high-level gameplay, tournament brackets, and more.
-            Always looking for the optimal route to throw for content.
-          </p>
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">
+              Live streaming high-level gameplay, tournament brackets, and more.
+              Always looking for the optimal route to throw for content.
+            </p>
+            <div class="flex gap-3 font-mono mt-2">
+              <a
+                href="https://www.twitch.tv/luzzio__"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-mocha-blue text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
+              >
+                Watch Live
+              </a>
+              <a
+                href="/contact"
+                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
         </PersonaSwitcherContent>
       </div>
     </div>
