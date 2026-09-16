@@ -92,26 +92,27 @@ const pageTitle = "Home";
         <div class="text-lg flex flex-col gap-4">
           <p>
             I'm a Computer Informatics Engineering student at UCLA (Universidad
-            Centroccidental Lisandro Alvarado, not the University of California) and
-            a full-stack developer. My professional experience is heavily rooted
-            in enterprise software architecture, specifically developing custom
-            Odoo ERP modules, handling containerized deployments with Docker and Podman,
-            and managing databases using Python, JavaScript, and PostgreSQL.
+            Centroccidental Lisandro Alvarado, not the University of California)
+            and a full-stack developer. My professional experience is heavily
+            rooted in enterprise software architecture, specifically developing
+            custom Odoo ERP modules, handling containerized deployments with
+            Docker and Podman, and managing databases using Python, JavaScript,
+            and PostgreSQL.
           </p>
           <p>
             Beyond enterprise systems, I also enjoy building modern, fast web
             applications and static sites (like this very portfolio) using
-            Astro, React, and Tailwind CSS, or writing automation scripts
-            with Bash, Lua, and Python. Whether I'm writing complex backend
-            endpoints or designing a frontend component, I always aim for the
-            perfect balance between robust logic and a seamless UI/UX.
+            Astro, React, and Tailwind CSS, or writing automation scripts with
+            Bash, Lua, and Python. Whether I'm writing complex backend endpoints
+            or designing a frontend component, I always aim for the perfect
+            balance between robust logic and a seamless UI/UX.
           </p>
           <p>
-            Ironically for a web developer, I spend most of my time in the terminal. I'm a 
-            huge Linux enthusiast, currently daily driving openSUSE Tumbleweed for work 
-            and NixOS with Hyprland for my personal setup. Tinkering with my system and 
-            optimizing my workflow is practically a second job for me (feel free to check 
-            my
+            Ironically for a web developer, I spend most of my time in the
+            terminal. I'm a huge Linux enthusiast, currently daily driving
+            openSUSE Tumbleweed for work and NixOS with Hyprland for my personal
+            setup. Tinkering with my system and optimizing my workflow is
+            practically a second job for me (feel free to check my
             <Link
               href="https://github.com/CtrlLuzzio/dotfiles"
               target="_blank"
@@ -183,17 +184,30 @@ const pageTitle = "Home";
       <PersonaSwitcherContent id="creator">
         <div class="text-lg flex flex-col gap-4">
           <p>
-            As a streamer, my main focus are fighting games, but I enjoy mixing
-            things up with variety games like Balatro, Minecraft, and basically
-            any game I feel like playing at that moment.
+            Content creation is where my love for gaming and technical skills
+            meet. Fighting games are the undeniable heart of my streams. Most
+            days I'm locked in either labbing tech in training mode, grinding
+            ranked matches, or playing casual sets against the chat. However, to
+            keep things fresh, I like mixing things up with variety games like
+            Balatro, Minecraft, or whatever game I feel like playing that day.
           </p>
           <p>
-            Right now I don't have a lot followers, but I'm hoping to get into
-            the big leagues one day, so stay tuned for that.
+            My goal is to build a welcoming, engaging space for everyone who
+            drops by. I'm constantly working on improving my content, whether
+            that means upgrading my stream assets or editing better VODs and
+            highlights.
           </p>
           <p>
-            Whether I'm playing solo, with friends, or viewers, I'm always here
-            to chill and have a great time with the chat.
+            Behind the scenes, I handle the entire production pipeline. From
+            setting up dynamic OBS overlays to editing VODs, stream highlights,
+            and designing thumbnails, I treat my channels as an ongoing project
+            to continuously improve.
+          </p>
+          <p>
+            At the end of the day, it's all about the community. Whether I'm
+            sweating in a grand finals set or talking about which character in
+            SF6 makes the best arepas, I'm here to share the moment and have a
+            great time with the chat.
           </p>
           <p class="font-mono text-mocha-blue mt-4 opacity-100">
             &gt; Get into the broadcast:
@@ -354,20 +368,23 @@ const pageTitle = "Home";
 
     try {
       const { data, error } = await actions.twitch.getTwitchStatus();
-      
+
       if (!error && data?.isLive) {
-        badgeContainers.forEach(badge => {
+        badgeContainers.forEach((badge) => {
           badge.classList.replace("bg-mocha-crust", "bg-mocha-red/10");
-          badge.classList.replace("border-mocha-surface-0", "border-mocha-red/50");
+          badge.classList.replace(
+            "border-mocha-surface-0",
+            "border-mocha-red/50",
+          );
         });
-        
-        statusDots.forEach(dot => {
+
+        statusDots.forEach((dot) => {
           dot.classList.replace("bg-mocha-text", "bg-mocha-red");
           dot.classList.remove("opacity-50");
           dot.classList.add("animate-pulse");
         });
-        
-        statusTexts.forEach(text => {
+
+        statusTexts.forEach((text) => {
           text.classList.replace("text-mocha-text", "text-mocha-red");
           text.textContent = "Live";
         });
