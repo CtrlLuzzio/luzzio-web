@@ -3,9 +3,49 @@ import BaseLayout from "../layouts/Base.astro";
 import PersonaSwitcherContent from "../components/PersonaSwitcherContent.astro";
 import PersonaSwitcherButton from "../components/PersonaSwitcherButton.astro";
 import Link from "../components/Link.astro";
+import SectionCard from "../components/SectionCard.astro";
 import TwitchBento from "../components/TwitchBento.astro";
 import BentoBox from "../components/BentoBox.astro";
 import { Icon } from "astro-icon/components";
+
+// Mock data for testing purpouses
+const latestPosts = [
+  {
+    title: "Why I switched to NixOS",
+    desc: "My journey moving from static distros to a declarative system with flakes.",
+    icon: "tabler:brand-ubuntu",
+    color: "text-mocha-blue",
+    url: "/blog/why-nixos",
+  },
+  {
+    title: "SF6: Optimizing Juri's routing",
+    desc: "A deep dive into managing Feng Shui Engine resources during tournaments.",
+    icon: "tabler:device-gamepad-2",
+    color: "text-mocha-pink",
+    url: "/blog/sf6-juri-routing",
+  },
+  {
+    title: "Building this Portfolio",
+    desc: "How I combined Astro, Tailwind v4, and the Catppuccin Mocha palette.",
+    icon: "tabler:code",
+    color: "text-mocha-green",
+    url: "/blog/building-portfolio",
+  },
+  {
+    title: "The state of Odoo in 2026",
+    desc: "Reflecting on custom module development and enterprise implementations.",
+    icon: "tabler:database",
+    color: "text-mocha-mauve",
+    url: "/blog/odoo-2026",
+  },
+  {
+    title: "OBS Audio routing on Linux",
+    desc: "Setting up PipeWire and EasyEffects for a pristine streaming audio setup.",
+    icon: "tabler:microphone-2",
+    color: "text-mocha-yellow",
+    url: "/blog/obs-audio-linux",
+  },
+];
 
 const pageTitle = "Home";
 ---
@@ -132,15 +172,7 @@ const pageTitle = "Home";
     </div>
   </section>
 
-  <section
-    id="about"
-    class="bg-mocha-surface-0 rounded-3xl p-8 md:p-12 shadow-xl shadow-mocha-crust/20 flex flex-col gap-12"
-  >
-    <div class="flex items-center gap-4">
-      <h3 class="text-4xl font-mono font-bold text-mocha-mauve">About Me</h3>
-      <div class="h-0.5 flex-1 bg-mocha-base opacity-50"></div>
-    </div>
-
+  <SectionCard id="about" title="About Me">
     <div class="w-full">
       <!-- DEV Text -->
       <PersonaSwitcherContent id="dev" isActive={true}>
@@ -345,7 +377,73 @@ const pageTitle = "Home";
         </div>
       </PersonaSwitcherContent>
     </div>
-  </section>
+  </SectionCard>
+  <SectionCard id="blog" title="Blog">
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-6"
+    >
+      <p class="text-lg flex-1">
+        Here I talk about tech guides, dev logs, personal anecdotes, and
+        anything that comes to mind.
+      </p>
+      <div class="flex gap-3 shrink-0">
+        <button
+          id="blog-prev"
+          class="p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-base cursor-pointer"
+          aria-label="Previous"
+        >
+          <Icon name="tabler:arrow-left" class="w-6 h-6" />
+        </button>
+        <button
+          id="blog-next"
+          class="p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-base cursor-pointer"
+          aria-label="Next"
+        >
+          <Icon name="tabler:arrow-right" class="w-6 h-6" />
+        </button>
+      </div>
+    </div>
+    <div
+      id="blog-track"
+      class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {
+        latestPosts.map((post, index) => (
+          <BentoBox
+            href={post.url}
+            class:list={[
+              "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
+              {
+                "hidden md:flex": index === 3,
+                "hidden lg:flex": index === 4,
+              },
+            ]}
+            icon={post.icon}
+            title={post.title}
+            iconColor={post.color}
+          >
+            {post.desc}
+          </BentoBox>
+        ))
+      }
+
+      <a
+        href="/blog"
+        class="flex flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-dashed border-mocha-surface-2 hover:border-mocha-mauve hover:text-mocha-mauve transition-colors group text-center w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62.5"
+      >
+        <Icon
+          name="tabler:arrow-right"
+          class="w-12 h-12 text-mocha-surface-2 group-hover:text-mocha-mauve transition-colors"
+        />
+        <div>
+          <h3 class="text-2xl font-mono font-bold">View All</h3>
+          <p class="opacity-70 mt-2 text-mocha-text">
+            Explore the rest of the articles
+          </p>
+        </div>
+      </a>
+    </div>
+  </SectionCard>
 </BaseLayout>
 <script>
   import { actions } from "astro:actions";
@@ -447,7 +545,32 @@ const pageTitle = "Home";
       console.error("Unable to get twitch status");
     }
   }
+  function initBlogSlider() {
+    const track = document.getElementById("blog-track");
+    const prevBtn = document.getElementById("blog-prev");
+    const nextBtn = document.getElementById("blog-next");
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    const scrollByItem = (direction: "prev" | "next") => {
+      const firstVisibleItem = track.querySelector("a:not(.hidden)");
+      if (!firstVisibleItem) return;
+
+      const itemWidth = firstVisibleItem.getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const scrollAmount = itemWidth + gap;
+
+      track.scrollBy({
+        left: direction === "next" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
+    };
+
+    prevBtn.addEventListener("click", () => scrollByItem("prev"));
+    nextBtn.addEventListener("click", () => scrollByItem("next"));
+  }
 
   initPersonaSwitcher();
   checkTwitchStatus();
+  initBlogSlider();
 </script>
