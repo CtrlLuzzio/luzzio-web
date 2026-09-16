@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/Base.astro";
 import PersonaSwitcherContent from "../components/PersonaSwitcherContent.astro";
 import PersonaSwitcherButton from "../components/PersonaSwitcherButton.astro";
 import Link from "../components/Link.astro";
+import HeroActions from "../components/HeroActions.astro";
 import SectionCard from "../components/SectionCard.astro";
 import TwitchBento from "../components/TwitchBento.astro";
 import BentoBox from "../components/BentoBox.astro";
@@ -86,20 +87,11 @@ const pageTitle = "Home";
               Specializing in UI/UX design & web development, but capable of
               anything. Always looking for the optimal architectural route.
             </p>
-            <div class="flex gap-3 font-mono mt-2">
-              <a
-                href="/services"
-                class="bg-mocha-green text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
-              >
-                View Services
-              </a>
-              <a
-                href="/contact"
-                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
-              >
-                Contact Me
-              </a>
-            </div>
+            <HeroActions
+              href="/services"
+              label="View Services"
+              colorClass="bg-mocha-green"
+            />
           </div>
         </PersonaSwitcherContent>
 
@@ -110,22 +102,12 @@ const pageTitle = "Home";
               Competitive fighting game player. Maining Juri in SF6 and Robo Ky
               in GGST. Always looking for the optimal combo route.
             </p>
-            <div class="flex gap-3 font-mono mt-2">
-              <a
-                href="https://start.gg/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-mocha-red text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
-              >
-                View Results
-              </a>
-              <a
-                href="/contact"
-                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
-              >
-                Contact Me
-              </a>
-            </div>
+            <HeroActions
+              href="https://start.gg/"
+              label="View Results"
+              colorClass="bg-mocha-red"
+              isExternal={true}
+            />
           </div>
         </PersonaSwitcherContent>
 
@@ -136,22 +118,12 @@ const pageTitle = "Home";
               Live streaming high-level gameplay, tournament brackets, and more.
               Always looking for the optimal route to throw for content.
             </p>
-            <div class="flex gap-3 font-mono mt-2">
-              <a
-                href="https://www.twitch.tv/luzzio__"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-mocha-blue text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
-              >
-                Watch Live
-              </a>
-              <a
-                href="/contact"
-                class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"
-              >
-                Contact Me
-              </a>
-            </div>
+            <HeroActions
+              href="https://www.twitch.tv/luzzio__"
+              label="Watch Live"
+              colorClass="bg-mocha-blue"
+              isExternal={true}
+            />
           </div>
         </PersonaSwitcherContent>
       </div>
