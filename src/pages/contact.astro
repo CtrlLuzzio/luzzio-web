@@ -1,7 +1,162 @@
 ---
-import BaseLayout from '../layouts/Base.astro';
+import BaseLayout from "../layouts/Base.astro";
+import { Icon } from "astro-icon/components";
+import { actions } from "astro:actions";
+
 const pageTitle = "Contact";
+const result = Astro.getActionResult(actions.contact.submitMessage);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+  <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
+    <h2 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
+      Contact
+    </h2>
+    <p class="text-lg md:text-xl opacity-80">
+      Whether you want to talk about code, invite me to a tournament, or
+      collaborate on a stream, I'm always open to connect. Drop a message!
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-20 w-full">
+    <section class="flex flex-col gap-10 bg-mocha-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-mocha-crust/20">
+      <div>
+        <h3 class="text-2xl font-mono font-bold text-mocha-text mb-4">
+          Email
+        </h3>
+        <div class="flex items-center gap-4 bg-mocha-crust p-4 rounded-xl border border-mocha-surface-2 relative group">
+          <Icon name="tabler:mail" class="w-6 h-6 text-mocha-blue shrink-0" />
+          <span class="font-mono flex-1 text-mocha-text text-sm md:text-base overflow-hidden text-ellipsis whitespace-nowrap" id="email-text">
+            contacto@luzzio.me
+          </span>
+          <button
+            id="copy-email-btn"
+            class="p-2 bg-mocha-surface-0 hover:bg-mocha-surface-1 rounded-lg transition-colors cursor-pointer border border-mocha-surface-2"
+            aria-label="Copy Email"
+          >
+            <Icon name="tabler:copy" id="copy-icon" class="w-5 h-5 text-mocha-text" />
+            <Icon name="tabler:check" id="check-icon" class="w-5 h-5 text-mocha-green hidden" />
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-mocha-surface-2 opacity-50"></div>
+      <div>
+        <h3 class="text-2xl font-mono font-bold text-mocha-text mb-4">
+          Looking for a custom software solution?
+        </h3>
+        <p class="opacity-80 mb-6 text-mocha-text">
+          If you need custom software development, please use the formal quotation form.
+        </p>
+        <a
+          href="/services"
+          class="inline-flex items-center gap-2 bg-mocha-green text-mocha-crust font-mono font-bold py-2.5 px-6 rounded-lg transition-transform hover:scale-105"
+        >
+          <span>Go to Services</span>
+          <Icon name="tabler:arrow-right" class="w-5 h-5" />
+        </a>
+      </div>
+    </section>
+
+    <section class="bg-mocha-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-mocha-crust/20">
+      <form class="flex flex-col gap-6" method="POST" action={actions.contact.submitMessage}>
+        
+        {result?.data && (
+          <div class="p-4 bg-mocha-green/10 border border-mocha-green text-mocha-green rounded-lg font-mono text-sm text-center">
+            > {result.data.message}
+          </div>
+        )}
+
+        {result?.error && (
+          <div class="p-4 bg-mocha-red/10 border border-mocha-red text-mocha-red rounded-lg font-mono text-sm text-center">
+            > Error: Verify the fields and try again
+          </div>
+        )}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="name" class="font-mono text-sm opacity-80 text-mocha-mauve">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+            />
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <label for="email" class="font-mono text-sm opacity-80 text-mocha-mauve">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="topic" class="font-mono text-sm opacity-80 text-mocha-mauve">What are you interested in?</label>
+          <select
+            id="topic"
+            name="topic"
+            required
+            class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors appearance-none cursor-pointer"
+          >
+            <option value="" disabled selected>Select a topic...</option>
+            <option value="dev">Software Development & Tech</option>
+            <option value="fgc">Fighting Games & Tournaments</option>
+            <option value="creator">Content Creation & Collabs</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="message" class="font-mono text-sm opacity-80 text-mocha-mauve">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-2 bg-mocha-blue text-mocha-crust font-mono font-bold text-lg py-3 px-6 rounded-lg transition-transform hover:scale-105 cursor-pointer"
+        >
+          Send Message
+        </button>
+      </form>
+    </section>
+
+  </div>
 </BaseLayout>
+
+<script>
+  const copyBtn = document.getElementById("copy-email-btn");
+  const emailText = document.getElementById("email-text")?.textContent?.trim();
+  const copyIcon = document.getElementById("copy-icon");
+  const checkIcon = document.getElementById("check-icon");
+
+  if (copyBtn && emailText && copyIcon && checkIcon) {
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(emailText);
+        
+        copyIcon.classList.add("hidden");
+        checkIcon.classList.remove("hidden");
+
+        setTimeout(() => {
+          checkIcon.classList.add("hidden");
+          copyIcon.classList.remove("hidden");
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy email: ", err);
+      }
+    });
+  }
+</script>
