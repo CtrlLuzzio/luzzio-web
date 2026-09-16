@@ -11,7 +11,6 @@ export const leads = {
         "static_page",
         "web_app",
         "odoo_module",
-        "ui_ux",
         "devops",
         "creator_tools",
         "custom"
