@@ -8,59 +8,29 @@ import SectionCard from "../components/SectionCard.astro";
 import TwitchBento from "../components/TwitchBento.astro";
 import BentoBox from "../components/BentoBox.astro";
 import { Icon } from "astro-icon/components";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-// Mock data for testing purpouses
-const latestPosts = [
-  {
-    title: "Why I switched to NixOS",
-    desc: "My journey moving from static distros to a declarative system with flakes.",
-    icon: "tabler:brand-ubuntu",
-    color: "text-mocha-blue",
-    url: "/blog/why-nixos",
-  },
-  {
-    title: "SF6: Optimizing Juri's routing",
-    desc: "A deep dive into managing Feng Shui Engine resources during tournaments.",
-    icon: "tabler:device-gamepad-2",
-    color: "text-mocha-pink",
-    url: "/blog/sf6-juri-routing",
-  },
-  {
-    title: "Building this Portfolio",
-    desc: "How I combined Astro, Tailwind v4, and the Catppuccin Mocha palette.",
-    icon: "tabler:code",
-    color: "text-mocha-green",
-    url: "/blog/building-portfolio",
-  },
-  {
-    title: "The state of Odoo in 2026",
-    desc: "Reflecting on custom module development and enterprise implementations.",
-    icon: "tabler:database",
-    color: "text-mocha-mauve",
-    url: "/blog/odoo-2026",
-  },
-  {
-    title: "OBS Audio routing on Linux",
-    desc: "Setting up PipeWire and EasyEffects for a pristine streaming audio setup.",
-    icon: "tabler:microphone-2",
-    color: "text-mocha-yellow",
-    url: "/blog/obs-audio-linux",
-  },
-  {
-    title: "Manual Test Entry 1",
-    desc: "This is the first manually created blog test entry.",
-    icon: "tabler:brand-ubuntu",
-    color: "text-mocha-blue",
-    url: "/blog/test1",
-  },
-  {
-    title: "Manual Test Entry 2",
-    desc: "This is the second manually created blog test entry.",
-    icon: "tabler:brand-ubuntu",
-    color: "text-mocha-blue",
-    url: "/blog/test2",
-  },
-];
+type PostCard = {
+  title: string;
+  desc: string;
+  icon: string;
+  color: string;
+  url: string;
+};
+
+const allPosts = await getCollection("blog");
+const latestPosts: PostCard[] = allPosts
+  .sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+      b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  )
+  .map((post: CollectionEntry<"blog">) => ({
+    title: post.data.title,
+    desc: post.data.desc,
+    icon: post.data.icon,
+    color: post.data.color,
+    url: `/blog/${post.slug}`,
+  }));
 
 const pageTitle = "Home";
 ---
@@ -394,13 +364,13 @@ const pageTitle = "Home";
       class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none -ms-overflow-style:none &::-webkit-scrollbar:hidden"
     >
       {
-        latestPosts.slice(0, 5).map((post, index) => (
+        latestPosts.slice(0, 5).map((post: PostCard, index: number) => (
           <BentoBox
             href={post.url}
             class:list={[
               "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
               {
-                "hidden md:flex": index >= 3, 
+                "hidden md:flex": index >= 3,
                 "md:hidden lg:flex": index === 4,
               },
             ]}
