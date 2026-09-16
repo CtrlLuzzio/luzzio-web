@@ -46,6 +46,20 @@ const latestPosts = [
     color: "text-mocha-yellow",
     url: "/blog/obs-audio-linux",
   },
+  {
+    title: "Manual Test Entry 1",
+    desc: "This is the first manually created blog test entry.",
+    icon: "tabler:brand-ubuntu",
+    color: "text-mocha-blue",
+    url: "/blog/test1",
+  },
+  {
+    title: "Manual Test Entry 2",
+    desc: "This is the second manually created blog test entry.",
+    icon: "tabler:brand-ubuntu",
+    color: "text-mocha-blue",
+    url: "/blog/test2",
+  },
 ];
 
 const pageTitle = "Home";
@@ -377,17 +391,17 @@ const pageTitle = "Home";
     </div>
     <div
       id="blog-track"
-      class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none -ms-overflow-style:none &::-webkit-scrollbar:hidden"
     >
       {
-        latestPosts.map((post, index) => (
+        latestPosts.slice(0, 5).map((post, index) => (
           <BentoBox
             href={post.url}
             class:list={[
               "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
               {
-                "hidden md:flex": index === 3,
-                "hidden lg:flex": index === 4,
+                "hidden md:flex": index >= 3, 
+                "md:hidden lg:flex": index === 4,
               },
             ]}
             icon={post.icon}
