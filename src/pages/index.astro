@@ -311,7 +311,9 @@ const pageTitle = "Home";
       btn.addEventListener("click", () => {
         const target = btn.getAttribute("data-switcher");
         if (!target) return;
+
         const activeColor = colorMap[target as keyof typeof colorMap];
+
         buttons.forEach((b) => {
           b.classList.remove(
             "bg-mocha-green",
@@ -319,15 +321,13 @@ const pageTitle = "Home";
             "bg-mocha-blue",
             "text-mocha-crust",
             "font-bold",
-            "border-mocha-text/10",
           );
-
           b.classList.add(
             "bg-transparent",
             "text-mocha-text",
             "opacity-70",
             "border-transparent",
-            "hover:border-mocha-text/50",
+            "hover:border-mocha-overlay-0",
           );
         });
 
@@ -336,14 +336,13 @@ const pageTitle = "Home";
           "text-mocha-text",
           "opacity-70",
           "border-transparent",
-          "hover:border-mocha-text/50",
+          "hover:border-mocha-overlay-0",
         );
-
         btn.classList.add(
           activeColor,
           "text-mocha-crust",
           "font-bold",
-          "border-mocha-text/10",
+          "border-transparent",
         );
 
         contents.forEach((content) => {
