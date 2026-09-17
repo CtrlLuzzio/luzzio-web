@@ -9,10 +9,10 @@ const { frontmatter } = Astro.props;
       <h1 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
         {frontmatter.title}
       </h1>
-      <div class="flex gap-4 opacity-70 font-mono text-sm">
+      <div class="flex gap-4 text-mocha-subtext-0 font-mono text-sm">
         <p>Published on: {frontmatter.pubDate.toLocaleDateString()}</p>
       </div>
-      <p class="text-xl text-mocha-text opacity-90 border-l-4 border-mocha-surface-2 pl-4">
+      <p class="text-xl text-mocha-subtext-1 border-l-4 border-mocha-surface-2 pl-4">
         {frontmatter.desc}
       </p>
     </header>

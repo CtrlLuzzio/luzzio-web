@@ -16,7 +16,7 @@ const { href, icon, iconColor, title, class: className, ...props } = Astro.props
     <Icon name={icon} class:list={["w-8 h-8", iconColor]} />
     <h3 class="text-2xl font-mono font-bold">{title}</h3>
   </div>
-  <p class="opacity-70 flex-1">
+  <p class="text-mocha-subtext-0 flex-1">
     <slot />
   </p>
 </a>
