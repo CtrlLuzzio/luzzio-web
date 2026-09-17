@@ -1,0 +1,24 @@
+---
+import BaseLayout from './Base.astro';
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout pageTitle={frontmatter.title}>
+  <article class="max-w-4xl mx-auto py-12 md:py-20 flex flex-col gap-6">
+    <header class="flex flex-col gap-4 mb-8">
+      <h1 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
+        {frontmatter.title}
+      </h1>
+      <div class="flex gap-4 opacity-70 font-mono text-sm">
+        <p>Published on: {frontmatter.pubDate.toLocaleDateString()}</p>
+      </div>
+      <p class="text-xl text-mocha-text opacity-90 border-l-4 border-mocha-surface-2 pl-4">
+        {frontmatter.desc}
+      </p>
+    </header>
+    
+    <div class="text-lg text-mocha-text space-y-6">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
