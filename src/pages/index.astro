@@ -335,69 +335,68 @@ const pageTitle = "Home";
     </div>
   </SectionCard>
   <SectionCard id="blog" title="Blog">
-    <div
-      class="flex flex-col md:flex-row md:items-center justify-between gap-6"
-    >
-      <p class="text-lg flex-1">
-        Here I talk about tech guides, dev logs, personal anecdotes, and
-        anything that comes to mind.
-      </p>
-      <div class="flex gap-3 shrink-0">
-        <button
-          id="blog-prev"
-          class="p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-base cursor-pointer"
-          aria-label="Previous"
-        >
-          <Icon name="tabler:arrow-left" class="w-6 h-6" />
-        </button>
-        <button
-          id="blog-next"
-          class="p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-base cursor-pointer"
-          aria-label="Next"
-        >
-          <Icon name="tabler:arrow-right" class="w-6 h-6" />
-        </button>
-      </div>
-    </div>
-    <div
-      id="blog-track"
-      class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none -ms-overflow-style:none &::-webkit-scrollbar:hidden"
-    >
-      {
-        latestPosts.slice(0, 5).map((post: PostCard, index: number) => (
-          <BentoBox
-            href={post.url}
-            class:list={[
-              "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
-              {
-                "hidden md:flex": index >= 3,
-                "md:hidden lg:flex": index === 4,
-              },
-            ]}
-            icon={post.icon}
-            title={post.title}
-            iconColor={post.color}
-          >
-            {post.desc}
-          </BentoBox>
-        ))
-      }
+    <p class="text-lg">
+      Here I talk about tech guides, dev logs, personal anecdotes, and
+      anything that comes to mind.
+    </p>
 
-      <a
-        href="/blog"
-        class="flex flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-dashed border-mocha-surface-2 hover:border-mocha-mauve hover:text-mocha-mauve transition-colors group text-center w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62.5"
+    <div class="relative w-full mt-4">
+
+      <button
+        id="blog-prev"
+        class="hidden md:flex absolute top-1/2 -left-6 -translate-y-1/2 z-10 p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-surface-0 shadow-xl cursor-pointer"
+        aria-label="Previous"
       >
-        <Icon
-          name="tabler:arrow-right"
-          class="w-12 h-12 text-mocha-surface-2 group-hover:text-mocha-mauve transition-colors"
-        />
-        <div>
-          <h3 class="text-2xl font-mono font-bold">View All</h3>
-          <p class="mt-2 text-mocha-subtext-0">
-            Explore the rest of the articles
-          </p>
-        </div>
-      </a>
+        <Icon name="tabler:arrow-left" class="w-6 h-6" />
+      </button>
+
+      <div
+        id="blog-track"
+        class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden"
+      >
+        {
+          latestPosts.slice(0, 5).map((post: PostCard, index: number) => (
+            <BentoBox
+              href={post.url}
+              class:list={[
+                "w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
+                {
+                  "hidden md:flex": index >= 3,
+                  "md:hidden lg:flex": index === 4,
+                },
+              ]}
+              icon={post.icon}
+              title={post.title}
+              iconColor={post.color}
+            >
+              {post.desc}
+            </BentoBox>
+          ))
+        }
+        <a
+          href="/blog"
+          class="flex flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-dashed border-mocha-surface-2 hover:border-mocha-mauve hover:text-mocha-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-[15.5rem]"
+        >
+          <Icon
+            name="tabler:arrow-right"
+            class="w-12 h-12 text-mocha-surface-2 group-hover:text-mocha-mauve transition-colors"
+          />
+          <div>
+            <h3 class="text-2xl font-mono font-bold">View All</h3>
+            <p class="mt-2 text-mocha-subtext-0">
+              Explore the rest of the articles
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <button
+        id="blog-next"
+        class="hidden md:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-surface-0 shadow-xl cursor-pointer"
+        aria-label="Next"
+      >
+        <Icon name="tabler:arrow-right" class="w-6 h-6" />
+      </button>
     </div>
   </SectionCard>
 </BaseLayout>
