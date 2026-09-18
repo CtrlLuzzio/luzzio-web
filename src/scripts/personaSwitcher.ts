@@ -21,23 +21,24 @@ if (buttons.length) {
           "bg-mocha-red",
           "bg-mocha-blue",
           "text-mocha-crust",
-          "font-bold"
+          "font-bold",
+          "border-transparent"
         );
         b.classList.add(
           "bg-transparent",
           "text-mocha-subtext-0",
-          "border-transparent",
-          "hover:border-mocha-overlay-0",
-          "hover:text-mocha-text"
+          "border-mocha-overlay-0",
+          "hover:text-mocha-text",
+          "hover:border-mocha-overlay-2"
         );
       });
 
       btn.classList.remove(
         "bg-transparent",
         "text-mocha-subtext-0",
-        "border-transparent",
-        "hover:border-mocha-overlay-0",
-        "hover:text-mocha-text"
+        "border-mocha-overlay-0",
+        "hover:text-mocha-text",
+        "hover:border-mocha-overlay-2"
       );
       btn.classList.add(
         activeColor,
