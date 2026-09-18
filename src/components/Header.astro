@@ -1,12 +1,35 @@
 ---
 import Navigation from "./Navigation.astro";
+import Menu from "./Menu.astro";
 ---
 
-<header class="bg-mocha-base border-t-2 border-mocha-surface-0 py-4 px-20">
-  <nav class="flex justify-between items-center">
-    <h1 class="text-[2.5rem] font-mono font-bold m-0 whitespace-nowrap shrink-0">
+<header
+  class="sticky top-0 bg-mocha-base border-t-2 border-mocha-surface-0 py-4 px-4 md:px-20 z-50"
+>
+  <nav class="flex justify-between items-center relative z-50">
+    <h1
+      class="text-[2.5rem] font-mono font-bold m-0 whitespace-nowrap shrink-0"
+    >
       <a href="/">Luzzio</a>
     </h1>
-    <Navigation />
+    <Menu />
+    <div
+      id="menu-backdrop"
+      class="fixed inset-0 bg-mocha-crust/80 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+    >
+    </div>
+    <div
+      id="mobile-menu"
+      class:list={[
+        "fixed top-0 right-0 z-40 w-[75vw] h-screen",
+        "flex flex-col items-center justify-center",
+        "bg-mocha-base border-l border-mocha-surface-0",
+        "transition-all duration-300 translate-x-full shadow-none shadow-mocha-crust",
+        "md:static md:w-auto md:h-auto md:flex-row md:justify-end",
+        "md:bg-transparent md:border-0 md:shadow-none md:translate-x-0",
+      ]}
+    >
+      <Navigation />
+    </div>
   </nav>
 </header>

@@ -1,28 +1,23 @@
 ---
-const {
-  href,
-  label,
-  colorClass,
-  isExternal = false
-} = Astro.props;
-
+const { href, label, colorClass, isExternal = false } = Astro.props;
 const target = isExternal ? "_blank" : undefined;
 const rel = isExternal ? "noopener noreferrer" : undefined;
 ---
 
-<div class="flex gap-3 font-mono mt-2">
+<div
+  class="flex flex-wrap justify-center md:justify-start gap-3 font-mono mt-2"
+>
   <a
     href={href}
     target={target}
     rel={rel}
     class:list={[
       colorClass,
-      "text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block"
+      "text-mocha-crust font-bold py-1.5 px-5 text-sm rounded-full transition-transform hover:scale-105 inline-block",
     ]}
   >
     {label}
   </a>
-  
   <a
     href="/contact"
     class="bg-mocha-surface-0 text-mocha-text font-bold py-1.5 px-5 text-sm rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors inline-block"

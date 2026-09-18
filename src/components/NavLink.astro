@@ -7,7 +7,7 @@ const currentPath = Astro.url.pathname;
   href={href}
   class:list={[
     "transition-colors hover:bg-mocha-surface-0",
-    { "bg-mocha-surface-0": currentPath.includes(href) && showActive },
+    { "bg-mocha-surface-0": currentPath === (href) && showActive },
     className,
   ]}
   {...props}

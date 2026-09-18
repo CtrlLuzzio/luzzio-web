@@ -46,6 +46,8 @@
 @layer base {
   html {
     background-color: var(--color-mocha-crust);
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
   }
 
   body {

@@ -1,8 +1,15 @@
 ---
 import NavLink from "./NavLink.astro";
-const navClasses = "block text-center px-4 py-2 rounded-lg text-lg font-bold transition-all hover:bg-mocha-surface-0";
+const navClasses =
+  "block w-full text-center px-4 py-4 md:py-2 rounded-lg text-2xl md:text-lg font-bold transition-all hover:bg-mocha-surface-0";
 ---
-<div class="flex items-center gap-2 m-0 font-mono">
+
+<div
+  class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-2 m-0 font-mono w-full md:w-auto px-8 md:px-0"
+>
+  <NavLink class:list={[navClasses, "md:hidden"]} href="/" showActive>
+    Home
+  </NavLink>
   <NavLink class={navClasses} href="/services" showActive>Services</NavLink>
   <NavLink class={navClasses} href="/blog" showActive>Blog</NavLink>
   <NavLink class={navClasses} href="/projects" showActive>Projects</NavLink>

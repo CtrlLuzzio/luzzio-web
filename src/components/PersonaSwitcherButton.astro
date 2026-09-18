@@ -6,7 +6,7 @@ const { id, label, color, isActive = false } = Astro.props;
   data-switcher={id}
   data-color={color}
   class:list={[
-    "px-4 py-2 rounded-full transition-all border cursor-pointer",
+    "px-4 py-2 rounded-full transition-all border cursor-pointer w-full md:w-auto",
     {
       [`${color} text-mocha-crust font-bold border-transparent`]: isActive,
       "bg-transparent text-mocha-subtext-0 border-transparent hover:text-mocha-text hover:border-mocha-overlay-0":
