@@ -27,7 +27,8 @@ if (buttons.length) {
           "bg-transparent",
           "text-mocha-subtext-0",
           "border-transparent",
-          "hover:border-mocha-overlay-0"
+          "hover:border-mocha-overlay-0",
+          "hover:text-mocha-text"
         );
       });
 
@@ -35,7 +36,8 @@ if (buttons.length) {
         "bg-transparent",
         "text-mocha-subtext-0",
         "border-transparent",
-        "hover:border-mocha-overlay-0"
+        "hover:border-mocha-overlay-0",
+        "hover:text-mocha-text"
       );
       btn.classList.add(
         activeColor,
