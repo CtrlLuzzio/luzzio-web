@@ -1,7 +1,144 @@
 ---
 import BaseLayout from '../layouts/Base.astro';
 const pageTitle = "Results";
+import { Icon } from "astro-icon/components";
+
+const STARTGG_API = 'https://api.start.gg/gql/alpha';
+const TOKEN = import.meta.env.STARTGG_TOKEN;
+const USER_SLUG = import.meta.env.STARTGG_SLUG;
+
+const query = `
+  query UserResults($slug: String!) {
+    user(slug: $slug) {
+      events(query: { perPage: 15, page: 1 }) {
+        nodes {
+          standing {
+            placement
+          }
+          tournament {
+            id
+            name
+            startAt
+            url
+            images {
+              url
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+let results = [];
+try {
+  const response = await fetch(STARTGG_API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${TOKEN}`,
+    },
+    body: JSON.stringify({ query, variables: { slug: USER_SLUG } }),
+  });
+
+  const json = await response.json();
+  if (json.errors) throw new Error(json.errors[0].message);
+  results = json.data.user.events.nodes.map((node: any) => {
+    const t = node.tournament;
+    const logo = t.images.find((img: any) => img.type === 'profile')?.url || '/placeholder-logo.png';
+    const date = new Date(t.startAt * 1000).toLocaleDateString('es-VE', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+
+    return {
+      id: t.id,
+      name: t.name,
+      logo,
+      date,
+      placement: node.standing?.placement || 'N/A',
+      url: `https://start.gg${t.url}`,
+    //   blogLink: blogLinks[t.id] || null
+    };
+  });
+} catch (error) {
+  console.error("Error en el fetch a start.gg:", error);
+}
+interface TournamentResult {
+  id: number;
+  name: string;
+  logo: string;
+  date: string;
+  placement: number | string;
+  url: string;
+  blogLink: string | null;
+}
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+    <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4">
+    <h2 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
+      Results
+    </h2>
+    <p class="text-lg md:text-xl text-mocha-subtext-1">
+      Tournament results and competitive history pulled from start.gg.
+    </p>
+  </section>
+
+  <section class="bg-mocha-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-mocha-crust/20 mb-20">
+    <div class="flex flex-col gap-6">
+      {results.length === 0 ? (
+        <div class="p-6 rounded-2xl bg-mocha-base border-2 border-mocha-surface-2 text-center">
+          <p class="text-mocha-subtext-0 font-mono">No results found or connection error.</p>
+        </div>
+      ) : (
+        results.map((result: TournamentResult) => (
+          <article class="flex flex-col md:flex-row items-center md:items-start gap-6 p-6 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-mocha-surface-2 transition-all group w-full">
+            
+            <div class="shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-xl flex items-center justify-center bg-mocha-crust overflow-hidden border border-mocha-surface-0">
+              <img 
+                src={result.logo} 
+                alt={`Logo de ${result.name}`} 
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            
+            <div class="flex flex-col justify-center flex-1 w-full text-center md:text-left h-full py-2">
+              <span class="font-mono text-sm text-mocha-subtext-0 mb-2">
+                {result.date}
+              </span>
+              
+              <a 
+                href={result.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-2xl md:text-3xl font-mono font-bold text-mocha-text hover:text-mocha-mauve transition-colors mb-3"
+              >
+                {result.name}
+              </a>
+              
+              <p class="text-mocha-subtext-1 text-base md:text-lg mb-4">
+                Placement: <span class="font-bold text-mocha-green">Top {result.placement}</span>
+              </p>
+
+              {result.blogLink && (
+                <div class="mt-auto">
+                  <a 
+                    href={result.blogLink} 
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-mocha-surface-0 hover:bg-mocha-surface-1 text-mocha-text font-mono text-sm rounded-lg transition-colors border border-mocha-surface-2"
+                  >
+                    <Icon name="tabler:file-text" class="w-4 h-4" />
+                    <span>View Post</span>
+                  </a>
+                </div>
+              )}
+            </div>
+            
+          </article>
+        ))
+      )}
+    </div>
+  </section>
 </BaseLayout>
