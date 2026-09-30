@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../../layouts/Base.astro';
+import { Icon } from "astro-icon/components";
+import type { PaginateFunction, Page } from "astro";
+
+interface TournamentResult {
+  id: number;
+  tournamentName: string;
+  eventName: string;
+  gameName: string;
+  logo: string | null;
+  date: string;
+  placement: string;
+  numEntrants: number;
+  url: string;
+  blogLink: string | null;
+}
+
+interface Props {
+  page: Page<TournamentResult>;
+}
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  const STARTGG_API = 'https://api.start.gg/gql/alpha';
+  const TOKEN = import.meta.env.STARTGG_TOKEN;
+  const USER_SLUG = import.meta.env.STARTGG_SLUG;
+
+  const query = `
+    query UserResults($slug: String!) {
+      user(slug: $slug) {
+        player {
+          recentStandings(limit: 20) {
+            placement
+            entrant {
+              isDisqualified
+              event {
+                name
+                numEntrants
+                videogame {
+                  name
+                }
+                tournament {
+                  id
+                  name
+                  startAt
+                  url
+                  images {
+                    url
+                    type
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  function getOrdinal(n: number) {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  let allResults: TournamentResult[] = [];
+  const blogLinks: Record<number, string> = {};
+
+  try {
+    const response = await fetch(STARTGG_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({ query, variables: { slug: USER_SLUG } }),
+    });
+
+    const json = await response.json();
+
+    if (json.errors) throw new Error(json.errors[0].message);
+
+    if (json.data?.user?.player?.recentStandings) {
+      allResults = json.data.user.player.recentStandings
+        .filter((standing: any) =>
+            standing.entrant?.isDisqualified !== true &&
+            standing.entrant?.event?.tournament
+        )
+        .map((standing: any) => {
+          const e = standing.entrant.event;
+          const t = e.tournament;
+          const logo = t.images.find((img: any) => img.type === 'profile')?.url || null;
+          const date = new Date(t.startAt * 1000).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          });
+
+          return {
+            id: t.id,
+            tournamentName: t.name,
+            eventName: e.name,
+            gameName: e.videogame?.name || e.name,
+            logo,
+            date,
+            placement: standing.placement ? getOrdinal(standing.placement) : 'N/A',
+            numEntrants: e.numEntrants || 0,
+            url: `https://start.gg${t.url}`,
+            blogLink: blogLinks[t.id] || null
+          };
+        });
+    }
+  } catch (error) {
+    console.error("Error en el fetch a start.gg:", error);
+  }
+
+  allResults.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return paginate(allResults, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+const pageTitle = `Results ${page.currentPage > 1 ? `- Page ${page.currentPage}` : ""}`;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4">
+    <h2 class="text-4xl md:text-6xl font-mono font-bold text-mocha-mauve">
+      Results
+    </h2>
+    <p class="text-lg md:text-xl text-mocha-subtext-1">
+      My 20 most recent tournament results (excluding where I DQed). Pulled directly from start.gg.
+    </p>
+  </section>
+
+  <section class="bg-mocha-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-mocha-crust/20 mb-20">
+    <div class="flex flex-col gap-6">
+      {page.data.length === 0 ? (
+        <div class="p-6 rounded-2xl bg-mocha-base border-2 border-mocha-surface-2 text-center">
+          <p class="text-mocha-subtext-0 font-mono">No results found or connection error.</p>
+        </div>
+      ) : (
+        page.data.map((result: TournamentResult) => (
+          <article class="flex flex-col md:flex-row items-center md:items-start gap-6 p-6 rounded-2xl bg-mocha-base border-2 border-transparent hover:border-mocha-surface-2 transition-all w-full">
+
+            <div class="shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-xl flex items-center justify-center bg-mocha-crust overflow-hidden border border-mocha-surface-0">
+              {result.logo ? (
+                <img
+                  src={result.logo}
+                  alt={`Logo de ${result.tournamentName}`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <Icon name="tabler:trophy" class="w-12 h-12 md:w-16 md:h-16 text-mocha-surface-2 opacity-50" />
+              )}
+            </div>
+
+            <div class="flex flex-col justify-center flex-1 w-full text-center md:text-left">
+              <span class="font-mono text-sm text-mocha-subtext-0 mb-1">
+                {result.date}
+              </span>
+
+              <div class="flex flex-wrap items-baseline gap-2 mb-1 justify-center md:justify-start">
+                <a
+                  href={result.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-fit text-2xl md:text-3xl font-mono font-bold text-mocha-text hover:text-mocha-blue transition-colors"
+                >
+                  {result.tournamentName}
+                </a>
+                <span class="text-mocha-subtext-1 text-base opacity-80 font-sans font-normal">
+                  ({result.gameName})
+                </span>
+              </div>
+
+              <p class="text-mocha-subtext-1 text-base font-medium mb-3">
+                <span class="opacity-50 text-sm">({result.eventName})</span>
+              </p>
+
+              <div class="flex flex-col md:flex-row items-center md:items-start gap-3 mt-auto">
+                <p class="text-mocha-subtext-0 font-mono m-0">
+                  Placement: <span class="font-bold text-mocha-green">{result.placement} / {result.numEntrants}</span>
+                </p>
+
+                {result.blogLink && (
+                  <a
+                    href={result.blogLink}
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-mocha-surface-0 hover:bg-mocha-surface-1 text-mocha-text font-mono text-sm rounded-lg transition-colors border border-mocha-surface-2"
+                  >
+                    <Icon name="tabler:file-text" class="w-4 h-4" />
+                    <span>View Post</span>
+                  </a>
+                )}
+              </div>
+            </div>
+
+          </article>
+        ))
+      )}
+    </div>
+
+    {page.lastPage > 1 && (
+      <div class="flex items-center justify-between mt-12 pt-8 border-t border-mocha-surface-2 font-mono">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="flex items-center gap-2 px-6 py-3 bg-mocha-base hover:bg-mocha-crust rounded-lg transition-colors border border-mocha-surface-0 hover:border-mocha-surface-2">
+            <Icon name="tabler:arrow-left" class="w-5 h-5" />
+            <span class="hidden md:inline">Prev</span>
+          </a>
+        ) : (
+          <div class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2">
+            <Icon name="tabler:arrow-left" class="w-5 h-5" />
+            <span class="hidden md:inline">Prev</span>
+          </div>
+        )}
+
+        <span class="text-mocha-subtext-0">
+          Page {page.currentPage} of {page.lastPage}
+        </span>
+
+        {page.url.next ? (
+          <a href={page.url.next} class="flex items-center gap-2 px-6 py-3 bg-mocha-base hover:bg-mocha-crust rounded-lg transition-colors border border-mocha-surface-0 hover:border-mocha-surface-2">
+            <span class="hidden md:inline">Next</span>
+            <Icon name="tabler:arrow-right" class="w-5 h-5" />
+          </a>
+        ) : (
+          <div class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2">
+            <span class="hidden md:inline">Next</span>
+            <Icon name="tabler:arrow-right" class="w-5 h-5" />
+          </div>
+        )}
+      </div>
+    )}
+  </section>
+</BaseLayout>
