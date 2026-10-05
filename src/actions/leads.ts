@@ -23,7 +23,7 @@ export const leads = {
         body: JSON.stringify({
           embeds: [{
             title: "🚀 Nueva Cotización (Lead)",
-            color: 0xa6e3a1, // mocha-green
+            color: 0xa6e3a1, // catp-green
             fields: [
               { name: "👤 Cliente", value: name, inline: true },
               { name: "📧 Email", value: email, inline: true },

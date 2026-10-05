@@ -15,12 +15,21 @@ const { pageTitle } = Astro.props;
     <Font cssVariable="--font-sans" />
     <Font cssVariable="--font-mono" />
     <title>Luzzio - {pageTitle}</title>
+    <script is:inline>
+      const savedTheme = localStorage.getItem("theme");
+      const systemPrefersLight = window.matchMedia(
+        "(prefers-color-scheme: light)",
+      ).matches;
+      if (savedTheme === "latte" || (!savedTheme && systemPrefersLight)) {
+        document.documentElement.classList.add("theme-latte");
+      }
+    </script>
   </head>
   <body class="flex flex-col min-h-screen">
     <div
-      class="fixed inset-0 -z-10 pointer-events-none opacity-10"
-      style="background-image: url('/bg.svg'); background-size: cover; background-position: center;"
-    ></div>
+      class="bg-pattern fixed inset-0 -z-10 pointer-events-none bg-cover bg-center"
+    >
+    </div>
     <Header />
     <main class="flex-1 px-4 md:px-10 lg:px-20 pb-16 relative">
       <slot />

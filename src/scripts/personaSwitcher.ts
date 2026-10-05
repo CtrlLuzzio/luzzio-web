@@ -2,50 +2,47 @@ const buttons = document.querySelectorAll("[data-switcher]");
 const contents = document.querySelectorAll("[data-persona]");
 
 if (buttons.length) {
-  const colorMap = {
-    dev: "bg-mocha-green",
-    fgc: "bg-mocha-red",
-    creator: "bg-mocha-blue",
-  };
-
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-switcher");
       if (!target) return;
 
-      const activeColor = colorMap[target as keyof typeof colorMap];
-
       buttons.forEach((b) => {
-        b.classList.remove(
-          "bg-mocha-green",
-          "bg-mocha-red",
-          "bg-mocha-blue",
-          "text-mocha-crust",
-          "font-bold",
-          "border-transparent"
-        );
-        b.classList.add(
-          "bg-transparent",
-          "text-mocha-subtext-0",
-          "border-mocha-overlay-0",
-          "hover:text-mocha-text",
-          "hover:border-mocha-overlay-2"
-        );
-      });
+        const btnColor = b.getAttribute("data-color");
+        const btnHover = b.getAttribute("data-hover-color");
 
-      btn.classList.remove(
-        "bg-transparent",
-        "text-mocha-subtext-0",
-        "border-mocha-overlay-0",
-        "hover:text-mocha-text",
-        "hover:border-mocha-overlay-2"
-      );
-      btn.classList.add(
-        activeColor,
-        "text-mocha-crust",
-        "font-bold",
-        "border-transparent"
-      );
+        if (!btnColor || !btnHover) return;
+
+        if (b === btn) {
+          b.classList.remove(
+            "bg-transparent",
+            "text-catp-subtext-0",
+            "border-catp-overlay-0",
+            "hover:text-catp-text",
+            btnHover
+          );
+          b.classList.add(
+            btnColor,
+            "text-catp-crust",
+            "font-bold",
+            "border-transparent"
+          );
+        } else {
+          b.classList.remove(
+            btnColor,
+            "text-catp-crust",
+            "font-bold",
+            "border-transparent"
+          );
+          b.classList.add(
+            "bg-transparent",
+            "text-catp-subtext-0",
+            "border-catp-overlay-0",
+            "hover:text-catp-text",
+            btnHover
+          );
+        }
+      });
 
       contents.forEach((content) => {
         if (content.getAttribute("data-persona") === target) {

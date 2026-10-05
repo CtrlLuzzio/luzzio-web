@@ -7,49 +7,49 @@ const result = Astro.getActionResult(actions.leads.submitProject);
 <form
   method="POST"
   action={actions.leads.submitProject}
-  class="flex flex-col gap-6 bg-mocha-base p-8 rounded-2xl border-2 border-mocha-surface-0 shadow-lg shadow-mocha-crust/50"
+  class="flex flex-col gap-6 bg-catp-base p-8 rounded-2xl border-2 border-catp-surface-0 shadow-lg shadow-catp-crust/50"
 >
   {result?.data && (
-    <div class="p-4 bg-mocha-green/10 border border-mocha-green text-mocha-green rounded-lg font-mono text-sm text-center">
+    <div class="p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center">
       > {result.data.message}
     </div>
   )}
   {result?.error && (
-    <div class="p-4 bg-mocha-red/10 border border-mocha-red text-mocha-red rounded-lg font-mono text-sm text-center">
+    <div class="p-4 bg-catp-red/10 border border-catp-red text-catp-red rounded-lg font-mono text-sm text-center">
       > Error: Verify the fields and try again
     </div>
   )}
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col gap-2">
-      <label for="name" class="font-mono text-sm text-mocha-subtext-1">Name</label>
+      <label for="name" class="font-mono text-sm text-catp-subtext-1">Name</label>
       <input
         type="text"
         id="name"
         name="name"
         required
-        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
       />
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="email" class="font-mono text-sm text-mocha-subtext-1">Email</label>
+      <label for="email" class="font-mono text-sm text-catp-subtext-1">Email</label>
       <input
         type="email"
         id="email"
         name="email"
         required
-        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
       />
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="service" class="font-mono text-sm text-mocha-subtext-1">Service</label>
+      <label for="service" class="font-mono text-sm text-catp-subtext-1">Service</label>
       <select
         id="service"
         name="service"
         required
-        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors appearance-none cursor-pointer"
+        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
       >
         <option value="" disabled selected>Select a Service...</option>
         <option value="static_page">Static Website</option>
@@ -62,12 +62,12 @@ const result = Astro.getActionResult(actions.leads.submitProject);
     </div>
 
     <div class="flex flex-col gap-2">
-      <label for="budget" class="font-mono text-sm text-mocha-subtext-1">Budget (USD)</label>
+      <label for="budget" class="font-mono text-sm text-catp-subtext-1">Budget (USD)</label>
       <select
         id="budget"
         name="budget"
         required
-        class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors appearance-none cursor-pointer"
+        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
       >
         <option value="" disabled selected>Estimated range...</option>
         <option value="under_500">Less than $500</option>
@@ -79,18 +79,18 @@ const result = Astro.getActionResult(actions.leads.submitProject);
   </div>
 
   <div class="flex flex-col gap-2">
-    <label for="deadline" class="font-mono text-sm text-mocha-subtext-1">Deadline (Optional)</label>
+    <label for="deadline" class="font-mono text-sm text-catp-subtext-1">Deadline (Optional)</label>
     <input
       type="text"
       id="deadline"
       name="deadline"
       placeholder="Ej: Towards the end of this month, there's no rush, etc."
-      class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors"
+      class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
     />
   </div>
 
   <div class="flex flex-col gap-2">
-    <label for="details" class="font-mono text-sm text-mocha-subtext-1">Project Details</label>
+    <label for="details" class="font-mono text-sm text-catp-subtext-1">Project Details</label>
     <textarea
       id="details"
       name="details"
@@ -98,13 +98,13 @@ const result = Astro.getActionResult(actions.leads.submitProject);
       minlength="20"
       rows="5"
       placeholder="Briefly describe the project's objective, key features, and expectations..."
-      class="bg-mocha-crust border border-mocha-surface-0 rounded-lg p-3 text-mocha-text focus:outline-none focus:border-mocha-mauve transition-colors resize-none"
+      class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors resize-none"
     ></textarea>
   </div>
 
   <button
     type="submit"
-    class="mt-4 bg-mocha-surface-0 text-mocha-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-mocha-green hover:text-mocha-crust hover:border-transparent border border-mocha-surface-2 transition-all cursor-pointer"
+    class="mt-4 bg-catp-surface-0 text-catp-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-catp-green hover:text-catp-crust hover:border-transparent border border-catp-surface-2 transition-all cursor-pointer"
   >
     Submit Request
   </button>

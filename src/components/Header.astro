@@ -1,10 +1,11 @@
 ---
 import Navigation from "./Navigation.astro";
 import Menu from "./Menu.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <header
-  class="sticky lg:relative top-0 bg-mocha-base border-t-2 border-mocha-surface-0 py-4 px-4 lg:px-20 z-50"
+  class="sticky lg:relative top-0 bg-catp-base border-b lg:border-b-2 border-catp-surface-0 py-4 px-4 lg:px-20 z-50"
 >
   <nav class="flex justify-between items-center relative z-50">
     <h1
@@ -12,24 +13,30 @@ import Menu from "./Menu.astro";
     >
       <a href="/">Luzzio</a>
     </h1>
-    <Menu />
-    <div
-      id="menu-backdrop"
-      class="fixed inset-0 bg-mocha-crust/80 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
-    >
-    </div>
-    <div
-      id="mobile-menu"
-      class:list={[
-        "fixed top-0 right-0 z-40 w-[75vw] h-screen",
-        "flex flex-col items-center justify-center",
-        "bg-mocha-base border-l border-mocha-surface-0",
-        "transition-all duration-300 translate-x-full shadow-none shadow-mocha-crust",
-        "lg:static lg:w-auto lg:h-auto lg:flex-row lg:justify-end",
-        "lg:bg-transparent lg:border-0 lg:shadow-none lg:translate-x-0",
-      ]}
-    >
-      <Navigation />
+    
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <Menu />
+
+      <div
+        id="menu-backdrop"
+        class="fixed inset-0 bg-catp-crust/80 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
+      >
+      </div>
+      
+      <div
+        id="mobile-menu"
+        class:list={[
+          "fixed top-0 right-0 z-40 w-[75vw] h-screen",
+          "flex flex-col items-center justify-center",
+          "bg-catp-base border-l border-catp-surface-0",
+          "transition-all duration-300 translate-x-full shadow-none shadow-catp-crust",
+          "lg:static lg:w-auto lg:h-auto lg:flex-row lg:justify-end",
+          "lg:bg-transparent lg:border-0 lg:shadow-none lg:translate-x-0",
+        ]}
+      >
+        <Navigation />
+      </div>
     </div>
   </nav>
 </header>

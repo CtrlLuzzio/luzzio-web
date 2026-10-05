@@ -2,7 +2,7 @@
 title: "Why I switched to NixOS"
 desc: "My journey moving from static distros to a declarative system with flakes."
 icon: "tabler:brand-ubuntu"
-color: "text-mocha-blue"
+color: "text-catp-blue"
 pubDate: 2026-09-16
 ---
 

@@ -3,26 +3,26 @@
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
-  /* Catppuccin Mocha color palette */
-  --color-mocha-green: #a6e3a1;
-  --color-mocha-mauve: #cba6f7;
-  --color-mocha-blue: #89b4fa;
-  --color-mocha-teal: #94e2d5;
-  --color-mocha-red: #f38ba8;
-  --color-mocha-yellow: #f9e2af;
-  --color-mocha-pink: #f5c2e7;
-  --color-mocha-text: #cdd6f4;
-  --color-mocha-subtext-1: #bac2de;
-  --color-mocha-subtext-0: #a6adc8;
-  --color-mocha-overlay-2: #9399b2;
-  --color-mocha-overlay-1: #7f849c;
-  --color-mocha-overlay-0: #6c7086;
-  --color-mocha-surface-2: #585b70;
-  --color-mocha-surface-1: #45475a;
-  --color-mocha-surface-0: #313244;
-  --color-mocha-base: #1e1e2e;
-  --color-mocha-crust: #11111b;
-  
+
+  --color-catp-green: var(--catp-green);
+  --color-catp-mauve: var(--catp-mauve);
+  --color-catp-blue: var(--catp-blue);
+  --color-catp-teal: var(--catp-teal);
+  --color-catp-red: var(--catp-red);
+  --color-catp-yellow: var(--catp-yellow);
+  --color-catp-pink: var(--catp-pink);
+  --color-catp-text: var(--catp-text);
+  --color-catp-subtext-1: var(--catp-subtext-1);
+  --color-catp-subtext-0: var(--catp-subtext-0);
+  --color-catp-overlay-2: var(--catp-overlay-2);
+  --color-catp-overlay-1: var(--catp-overlay-1);
+  --color-catp-overlay-0: var(--catp-overlay-0);
+  --color-catp-surface-2: var(--catp-surface-2);
+  --color-catp-surface-1: var(--catp-surface-1);
+  --color-catp-surface-0: var(--catp-surface-0);
+  --color-catp-base: var(--catp-base);
+  --color-catp-crust: var(--catp-crust);
+
   --animate-fade-in: fade-in 0.2s ease-out;
 
   @keyframes fade-in {
@@ -37,15 +37,9 @@
   }
 }
 
-@layer utilities {
-  .font-mono {
-    font-variant-ligatures: none;
-  }
-}
-
 @layer base {
   html {
-    background-color: var(--color-mocha-crust);
+    background-color: var(--color-catp-crust);
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
@@ -54,12 +48,70 @@
     width: 100%;
   }
 
+  :root {
+    --catp-green: #a6e3a1;
+    --catp-mauve: #cba6f7;
+    --catp-blue: #89b4fa;
+    --catp-teal: #94e2d5;
+    --catp-red: #f38ba8;
+    --catp-yellow: #f9e2af;
+    --catp-pink: #f5c2e7;
+    --catp-text: #cdd6f4;
+    --catp-subtext-1: #bac2de;
+    --catp-subtext-0: #a6adc8;
+    --catp-overlay-2: #9399b2;
+    --catp-overlay-1: #7f849c;
+    --catp-overlay-0: #6c7086;
+    --catp-surface-2: #585b70;
+    --catp-surface-1: #45475a;
+    --catp-surface-0: #313244;
+    --catp-base: #1e1e2e;
+    --catp-crust: #11111b;
+  }
+
+  .theme-latte {
+    --catp-green: #40a02b;
+    --catp-mauve: #8839ef;
+    --catp-blue: #1e66f5;
+    --catp-teal: #179299;
+    --catp-red: #d20f39;
+    --catp-yellow: #df8e1d;
+    --catp-pink: #ea76cb;
+    --catp-text: #4c4f69;
+    --catp-subtext-1: #5c5f77;
+    --catp-subtext-0: #6c6f85;
+    --catp-overlay-2: #7c7f93;
+    --catp-overlay-1: #8c8fa1;
+    --catp-overlay-0: #9ca0b0;
+    --catp-surface-2: #acb0be;
+    --catp-surface-1: #bcc0cc;
+    --catp-surface-0: #ccd0da;
+    --catp-base: #eff1f5;
+    --catp-crust: #dce0e8;
+  }
+
   h1,
   h2,
   h3,
   h4,
   a,
   p {
-    color: var(--color-mocha-text);
+    color: var(--color-catp-text);
   }
+}
+
+@layer utilities {
+  .font-mono {
+    font-variant-ligatures: none;
+  }
+}
+
+.bg-pattern {
+  background-image: url('/bg-mocha.svg');
+  opacity: 0.1;
+}
+
+.theme-latte .bg-pattern {
+  background-image: url('/bg-latte.svg');
+  opacity: 0.6;
 }

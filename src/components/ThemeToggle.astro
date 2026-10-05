@@ -1,0 +1,13 @@
+---
+import { Icon } from "astro-icon/components";
+---
+<button
+  id="theme-toggle"
+  class="p-2 text-catp-text hover:text-catp-blue transition-colors rounded-lg hover:bg-catp-surface-0 cursor-pointer"
+  aria-label="Toggle theme"
+>
+  <Icon name="tabler:sun" class="w-6 h-6 hidden" id="icon-sun" />
+  <Icon name="tabler:moon" class="w-6 h-6 hidden" id="icon-moon" />
+</button>
+
+<script src="../scripts/themeToggle.ts"></script>

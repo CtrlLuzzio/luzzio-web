@@ -41,7 +41,7 @@ const pageTitle = "Home";
     class="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-fit lg:min-h-[50vh] pt-8 lg:pt-16 lg:px-20 gap-4 lg:gap-12"
   >
     <div class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-6 w-full h-full">      
-      <h2 class="text-5xl md:text-7xl font-mono font-bold text-mocha-mauve mb-2">
+      <h2 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">
         Luzzio
       </h2>
 
@@ -49,18 +49,21 @@ const pageTitle = "Home";
         <PersonaSwitcherButton
           id="dev"
           label="Full-Stack Developer"
-          color="bg-mocha-green"
+          color="bg-catp-green"
+          hoverColor="border-catp-green"
           isActive={true}
         />
         <PersonaSwitcherButton
           id="fgc"
           label="FGC Competitor"
-          color="bg-mocha-red"
+          color="bg-catp-red"
+          hoverColor="border-catp-red"
         />
         <PersonaSwitcherButton
           id="creator"
           label="Content Creator"
-          color="bg-mocha-blue"
+          color="bg-catp-blue"
+          hoverColor="border-catp-blue"
         />
       </div>
       <div class="grid [grid-template-areas:'stack'] w-full">
@@ -74,7 +77,7 @@ const pageTitle = "Home";
             <HeroActions
               href="/services"
               label="View Services"
-              colorClass="bg-mocha-green"
+              colorClass="bg-catp-green"
             />
           </div>
         </PersonaSwitcherContent>
@@ -89,7 +92,7 @@ const pageTitle = "Home";
             <HeroActions
               href="/results"
               label="View Results"
-              colorClass="bg-mocha-red"
+              colorClass="bg-catp-red"
             />
           </div>
         </PersonaSwitcherContent>
@@ -104,7 +107,7 @@ const pageTitle = "Home";
             <HeroActions
               href="https://www.twitch.tv/luzzio__"
               label="Watch Live"
-              colorClass="bg-mocha-blue"
+              colorClass="bg-catp-blue"
               isExternal={true}
             />
           </div>
@@ -156,7 +159,7 @@ const pageTitle = "Home";
               class="hover:underline"
             >
               <code
-                class="font-mono text-mocha-green bg-mocha-base px-1.5 py-0.5 rounded text-sm"
+                class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm"
               >
                 dotfiles
               </code>
@@ -169,14 +172,14 @@ const pageTitle = "Home";
               class="hover:underline"
             >
               <code
-                class="font-mono text-mocha-green bg-mocha-base px-1.5 py-0.5 rounded text-sm"
+                class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm"
               >
                 nixos-dotfiles
               </code>
             </Link>
             repos).
           </p>
-          <p class="font-mono text-mocha-green mt-4">
+          <p class="font-mono text-catp-green mt-4">
             &gt; Check some of the stuff I make:
           </p>
         </div>
@@ -193,7 +196,7 @@ const pageTitle = "Home";
             Gear XX Accent Core +R, maining A.B.A, since the PC I had then
             wasn't able to run Strive. I started playing Strive seriously when a
             friend lent me his PS4 to play the game (thank you ApE <span
-              class="text-mocha-red">&lt;3</span
+              class="text-catp-red">&lt;3</span
             >).
           </p>
           <p>
@@ -212,7 +215,7 @@ const pageTitle = "Home";
             current main (things happened with A.B.A, but the love is still
             there).
           </p>
-          <p class="font-mono text-mocha-red mt-4">&gt; See me in bracket:</p>
+          <p class="font-mono text-catp-red mt-4">&gt; See me in bracket:</p>
         </div>
       </PersonaSwitcherContent>
 
@@ -245,7 +248,7 @@ const pageTitle = "Home";
             SF6 makes the best arepas, I'm here to share the moment and have a
             great time with the chat.
           </p>
-          <p class="font-mono text-mocha-blue mt-4 opacity-100">
+          <p class="font-mono text-catp-blue mt-4 opacity-100">
             &gt; Get into the broadcast:
           </p>
         </div>
@@ -258,20 +261,20 @@ const pageTitle = "Home";
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
           <BentoBox
             href="/projects"
-            class="hover:border-mocha-teal"
+            class="hover:border-catp-teal"
             icon="tabler:terminal"
             title="Dev Projects"
-            iconColor="text-mocha-teal"
+            iconColor="text-catp-teal"
           >
             See some of the best projects I've built (both open and closed
             source!).
           </BentoBox>
           <BentoBox
             href="/services"
-            class="hover:border-mocha-green"
+            class="hover:border-catp-green"
             icon="tabler:code"
             title="Services"
-            iconColor="text-mocha-green"
+            iconColor="text-catp-green"
           >
             Need a custom solution? Let's talk!
           </BentoBox>
@@ -286,10 +289,10 @@ const pageTitle = "Home";
             href="https://start.gg/"
             target="_blank"
             rel="noopener noreferrer"
-            class="hover:border-mocha-red"
+            class="hover:border-catp-red"
             icon="tabler:trophy"
             title="Tournament Results"
-            iconColor="text-mocha-red"
+            iconColor="text-catp-red"
           >
             Watch my tournament results (pulled from start.gg).
           </BentoBox>
@@ -305,10 +308,10 @@ const pageTitle = "Home";
             href="https://www.youtube.com/@soyluzzio"
             target="_blank"
             rel="noopener noreferrer"
-            class="hover:border-mocha-red"
+            class="hover:border-catp-red"
             icon="tabler:brand-youtube"
             title="YouTube"
-            iconColor="text-mocha-red"
+            iconColor="text-catp-red"
           >
             VODs, stream highlights, and longer form content.
           </BentoBox>
@@ -316,10 +319,10 @@ const pageTitle = "Home";
             href="https://www.tiktok.com/@luzzio__"
             target="_blank"
             rel="noopener noreferrer"
-            class="hover:border-mocha-pink"
+            class="hover:border-catp-pink"
             icon="tabler:brand-tiktok"
             title="Tiktok"
-            iconColor="text-mocha-pink"
+            iconColor="text-catp-pink"
           >
             Short clips and stream's best (and worst) moments.
           </BentoBox>
@@ -337,7 +340,7 @@ const pageTitle = "Home";
 
       <button
         id="blog-prev"
-        class="hidden md:flex absolute top-1/2 -left-8 -translate-y-1/2 z-10 p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-surface-0 shadow-xl cursor-pointer"
+        class="hidden md:flex absolute top-1/2 -left-8 -translate-y-1/2 z-10 p-3 rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors text-catp-text bg-catp-surface-0 shadow-xl cursor-pointer"
         aria-label="Previous"
       >
         <Icon name="tabler:arrow-left" class="w-6 h-6" />
@@ -352,7 +355,7 @@ const pageTitle = "Home";
             <BentoBox
               href={post.url}
               class:list={[
-                "w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-mocha-base hover:border-mocha-surface-2 h-auto",
+                "w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-catp-base hover:border-catp-surface-2 h-auto",
                 {
                   "hidden md:flex": index >= 3,
                   "md:hidden lg:flex": index === 4,
@@ -371,7 +374,7 @@ const pageTitle = "Home";
           <a
             href="/blog"
             class:list={[
-              "flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-mocha-base border-2 border-dashed border-mocha-surface-2 hover:border-mocha-mauve hover:text-mocha-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62",
+              "flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-catp-base border-2 border-dashed border-catp-surface-2 hover:border-catp-mauve hover:text-catp-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62",
               {
                 "flex": latestPosts.length > 5,
                 "flex lg:hidden": latestPosts.length === 5,
@@ -381,11 +384,11 @@ const pageTitle = "Home";
           >
             <Icon
               name="tabler:arrow-right"
-              class="w-12 h-12 text-mocha-surface-2 group-hover:text-mocha-mauve transition-colors"
+              class="w-12 h-12 text-catp-surface-2 group-hover:text-catp-mauve transition-colors"
             />
             <div>
               <h3 class="text-2xl font-mono font-bold">View All</h3>
-              <p class="mt-2 text-mocha-subtext-0">
+              <p class="mt-2 text-catp-subtext-0">
                 Explore the rest of the articles
               </p>
             </div>
@@ -395,7 +398,7 @@ const pageTitle = "Home";
 
       <button
         id="blog-next"
-        class="hidden md:flex absolute top-1/2 -right-8 -translate-y-1/2 z-10 p-3 rounded-full border border-mocha-surface-2 hover:border-mocha-overlay-0 transition-colors text-mocha-text bg-mocha-surface-0 shadow-xl cursor-pointer"
+        class="hidden md:flex absolute top-1/2 -right-8 -translate-y-1/2 z-10 p-3 rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors text-catp-text bg-catp-surface-0 shadow-xl cursor-pointer"
         aria-label="Next"
       >
         <Icon name="tabler:arrow-right" class="w-6 h-6" />

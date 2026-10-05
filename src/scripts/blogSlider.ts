@@ -9,18 +9,18 @@ if (track && prevBtn && nextBtn) {
 
     if (isAtStart) {
       prevBtn.classList.add("opacity-30", "pointer-events-none");
-      prevBtn.classList.remove("hover:border-mocha-overlay-0");
+      prevBtn.classList.remove("hover:border-catp-overlay-0");
     } else {
       prevBtn.classList.remove("opacity-30", "pointer-events-none");
-      prevBtn.classList.add("hover:border-mocha-overlay-0");
+      prevBtn.classList.add("hover:border-catp-overlay-0");
     }
 
     if (isAtEnd) {
       nextBtn.classList.add("opacity-30", "pointer-events-none");
-      nextBtn.classList.remove("hover:border-mocha-overlay-0");
+      nextBtn.classList.remove("hover:border-catp-overlay-0");
     } else {
       nextBtn.classList.remove("opacity-30", "pointer-events-none");
-      nextBtn.classList.add("hover:border-mocha-overlay-0");
+      nextBtn.classList.add("hover:border-catp-overlay-0");
     }
   };
 

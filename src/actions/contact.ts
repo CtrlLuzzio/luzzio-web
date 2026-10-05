@@ -21,7 +21,7 @@ export const contact = {
         body: JSON.stringify({
           embeds: [{
             title: "📬 Nuevo Mensaje de Contacto",
-            color: 0x89b4fa, // mocha-blue
+            color: 0x89b4fa, // catp-blue
             fields: [
               { name: "👤 Nombre", value: name, inline: true },
               { name: "📧 Email", value: email, inline: true },
