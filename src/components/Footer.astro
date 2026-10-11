@@ -1,6 +1,7 @@
 ---
 import Social from "./SocialMedia.astro";
 import Link from "./Link.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
 <footer
@@ -73,17 +74,23 @@ import Link from "./Link.astro";
 
     <div>
       <h4 class="text-2xl font-mono font-bold mb-4">Source</h4>
-      <div class="flex flex-col gap-2">
-        <Link
-          href="https://github.com/CtrlLuzzio/luzzio-web"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Check the code of this website here
-        </Link>
-        <p class="text-xs m-0 text-catp-subtext-0">
-          Made with Astro and Tailwind CSS.
-        </p>
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-2">
+          <Link
+            href="https://github.com/CtrlLuzzio/luzzio-web"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Check the code of this website here
+          </Link>
+          <p class="text-xs m-0 text-catp-subtext-0">
+            Made with Astro and Tailwind CSS.
+          </p>
+        </div>
+        
+        <div class="flex flex-col gap-2">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   </section>

@@ -1,13 +1,29 @@
 ---
 import { Icon } from "astro-icon/components";
 ---
-<button
-  id="theme-toggle"
-  class="p-2 text-catp-text hover:text-catp-blue transition-colors rounded-lg hover:bg-catp-surface-0 cursor-pointer"
-  aria-label="Toggle theme"
->
-  <Icon name="tabler:sun" class="w-6 h-6 hidden" id="icon-sun" />
-  <Icon name="tabler:moon" class="w-6 h-6 hidden" id="icon-moon" />
-</button>
+
+<div class="flex items-center p-1 bg-catp-crust border border-catp-surface-0 rounded-full w-fit">
+  <button
+    data-theme-btn="latte"
+    class="p-2 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
+    aria-label="Light theme"
+  >
+    <Icon name="tabler:sun" class="w-5 h-5" />
+  </button>
+  <button
+    data-theme-btn="system"
+    class="p-2 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
+    aria-label="System theme"
+  >
+    <Icon name="tabler:device-desktop" class="w-5 h-5" />
+  </button>
+  <button
+    data-theme-btn="mocha"
+    class="p-2 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
+    aria-label="Dark theme"
+  >
+    <Icon name="tabler:moon" class="w-5 h-5" />
+  </button>
+</div>
 
 <script src="../scripts/themeToggle.ts"></script>

@@ -1,26 +1,57 @@
-const themeToggleBtn = document.getElementById('theme-toggle');
-const iconSun = document.getElementById('icon-sun');
-const iconMoon = document.getElementById('icon-moon');
+const themeBtns = document.querySelectorAll('[data-theme-btn]');
 
-function updateIcons(isLatte: boolean) {
-  if (iconSun && iconMoon) {
-    if (isLatte) {
-      iconSun.classList.add('hidden');
-      iconMoon.classList.remove('hidden');
-    } else {
-      iconMoon.classList.add('hidden');
-      iconSun.classList.remove('hidden');
-    }
+function applyTheme(theme: string | null) {
+  const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+  const isLatte = theme === 'latte' || (!theme && systemPrefersLight);
+  
+  if (isLatte) {
+    document.documentElement.classList.add('theme-latte');
+  } else {
+    document.documentElement.classList.remove('theme-latte');
   }
+  
+  updateActiveUI(theme);
 }
 
-if (themeToggleBtn) {
-  updateIcons(document.documentElement.classList.contains('theme-latte'));
+function updateActiveUI(theme: string | null) {
+  themeBtns.forEach(btn => {
+    const btnTheme = btn.getAttribute('data-theme-btn');
+    const isActive = 
+      (theme === 'latte' && btnTheme === 'latte') || 
+      (theme === 'mocha' && btnTheme === 'mocha') || 
+      (!theme && btnTheme === 'system');
 
-  themeToggleBtn.addEventListener('click', () => {
-    const isLatte = document.documentElement.classList.toggle('theme-latte');
-    
-    localStorage.setItem('theme', isLatte ? 'latte' : 'mocha');
-    updateIcons(isLatte);
+    if (isActive) {
+      btn.classList.add('bg-catp-surface-1', 'text-catp-blue');
+      btn.classList.remove('text-catp-subtext-0', 'hover:text-catp-text');
+    } else {
+      btn.classList.remove('bg-catp-surface-1', 'text-catp-blue');
+      btn.classList.add('text-catp-subtext-0', 'hover:text-catp-text');
+    }
+  });
+}
+
+if (themeBtns.length > 0) {
+  const savedTheme = localStorage.getItem('theme');
+  updateActiveUI(savedTheme);
+
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTheme = btn.getAttribute('data-theme-btn');
+      
+      if (selectedTheme === 'system') {
+        localStorage.removeItem('theme');
+        applyTheme(null);
+      } else {
+        localStorage.setItem('theme', selectedTheme as string);
+        applyTheme(selectedTheme);
+      }
+    });
+  });
+
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(null);
+    }
   });
 }
