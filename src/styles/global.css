@@ -22,6 +22,7 @@
   --color-catp-surface-0: var(--catp-surface-0);
   --color-catp-base: var(--catp-base);
   --color-catp-crust: var(--catp-crust);
+  --color-catp-shadow: var(--catp-shadow);
 
   --animate-fade-in: fade-in 0.2s ease-out;
 
@@ -67,6 +68,7 @@
     --catp-surface-0: #313244;
     --catp-base: #1e1e2e;
     --catp-crust: #11111b;
+    --catp-shadow: var(--catp-crust);
   }
 
   .theme-latte {
@@ -88,6 +90,7 @@
     --catp-surface-0: #ccd0da;
     --catp-base: #eff1f5;
     --catp-crust: #dce0e8;
+    --catp-shadow: var(--catp-overlay-2)
   }
 
   h1,

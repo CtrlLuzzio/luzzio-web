@@ -19,7 +19,7 @@ const result = Astro.getActionResult(actions.contact.submitMessage);
   </section>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-20 w-full">
-    <section class="flex flex-col gap-10 bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-crust/20">
+    <section class="flex flex-col gap-10 bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20">
       <div>
         <h3 class="text-2xl font-mono font-bold text-catp-text mb-4">
           Email
@@ -58,7 +58,7 @@ const result = Astro.getActionResult(actions.contact.submitMessage);
       </div>
     </section>
 
-    <section class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-crust/20">
+    <section class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20">
       <form class="flex flex-col gap-6" method="POST" action={actions.contact.submitMessage}>
         
         {result?.data && (

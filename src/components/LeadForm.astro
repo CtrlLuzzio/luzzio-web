@@ -7,7 +7,7 @@ const result = Astro.getActionResult(actions.leads.submitProject);
 <form
   method="POST"
   action={actions.leads.submitProject}
-  class="flex flex-col gap-6 bg-catp-base p-8 rounded-2xl border-2 border-catp-surface-0 shadow-lg shadow-catp-crust/50"
+  class="flex flex-col gap-6 bg-catp-base p-8 rounded-2xl border-2 border-catp-surface-0 shadow-lg shadow-catp-shadow/50"
 >
   {result?.data && (
     <div class="p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center">
