@@ -42,8 +42,9 @@ const result = Astro.getActionResult(actions.leads.submitProject);
         class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
       />
     </div>
+  </div>
 
-    <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2">
       <label for="service" class="font-mono text-sm text-catp-subtext-1">Service</label>
       <select
         id="service"
@@ -60,23 +61,6 @@ const result = Astro.getActionResult(actions.leads.submitProject);
         <option value="custom">Custom quotation</option>
       </select>
     </div>
-
-    <div class="flex flex-col gap-2">
-      <label for="budget" class="font-mono text-sm text-catp-subtext-1">Budget (USD)</label>
-      <select
-        id="budget"
-        name="budget"
-        required
-        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
-      >
-        <option value="" disabled selected>Estimated range...</option>
-        <option value="under_500">Less than $500</option>
-        <option value="500_1000">$500 - $1,000</option>
-        <option value="1000_3000">$1,000 - $3,000</option>
-        <option value="3000_plus">More than $3,000</option>
-      </select>
-    </div>
-  </div>
 
   <div class="flex flex-col gap-2">
     <label for="deadline" class="font-mono text-sm text-catp-subtext-1">Deadline (Optional)</label>
