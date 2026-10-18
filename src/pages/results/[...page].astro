@@ -1,6 +1,8 @@
 ---
-import BaseLayout from '../../layouts/Base.astro';
+import BaseLayout from "../../layouts/Base.astro";
+import Pagination from "../../components/Pagination.astro";
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
 import type { PaginateFunction, Page } from "astro";
 
 interface TournamentResult {
@@ -14,6 +16,25 @@ interface TournamentResult {
   numEntrants: number;
   url: string;
   blogLink: string | null;
+}
+
+interface StartGGStanding {
+  placement: number | null;
+  entrant?: {
+    isDisqualified?: boolean;
+    event?: {
+      name: string;
+      numEntrants?: number;
+      videogame?: { name: string };
+      tournament?: {
+        id: number;
+        name: string;
+        startAt: number;
+        url: string;
+        images?: Array<{ url: string; type: string }>;
+      };
+    };
+  };
 }
 
 interface Props {
@@ -64,14 +85,20 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
   }
 
   let allResults: TournamentResult[] = [];
+  const allPosts = await getCollection("blog");
   const blogLinks: Record<number, string> = {};
+  for (const post of allPosts) {
+    if (post.data.tournamentId) {
+      blogLinks[post.data.tournamentId] = `/blog/${post.id}`;
+    }
+  }
 
   try {
     const response = await fetch(STARTGG_API, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TOKEN}`,
       },
       body: JSON.stringify({ query, variables: { slug: USER_SLUG } }),
     });
@@ -80,41 +107,46 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
 
     if (json.errors) throw new Error(json.errors[0].message);
 
-    if (json.data?.user?.player?.recentStandings) {
-      allResults = json.data.user.player.recentStandings
-        .filter((standing: any) =>
-            standing.entrant?.isDisqualified !== true &&
-            standing.entrant?.event?.tournament
-        )
-        .map((standing: any) => {
-          const e = standing.entrant.event;
-          const t = e.tournament;
-          const logo = t.images.find((img: any) => img.type === 'profile')?.url || null;
-          const date = new Date(t.startAt * 1000).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-          });
+    const standings: StartGGStanding[] = json.data?.user?.player?.recentStandings ?? [];
 
-          return {
-            id: t.id,
-            tournamentName: t.name,
-            eventName: e.name,
-            gameName: e.videogame?.name || e.name,
-            logo,
-            date,
-            placement: standing.placement ? getOrdinal(standing.placement) : 'N/A',
-            numEntrants: e.numEntrants || 0,
-            url: `https://start.gg${t.url}`,
-            blogLink: blogLinks[t.id] || null
-          };
+    allResults = standings
+      .filter(
+        (standing) =>
+          standing.entrant?.isDisqualified !== true &&
+          Boolean(standing.entrant?.event?.tournament)
+      )
+      .sort(
+        (a, b) =>
+          (b.entrant!.event!.tournament!.startAt ?? 0) -
+          (a.entrant!.event!.tournament!.startAt ?? 0)
+      )
+      .map((standing) => {
+        const e = standing.entrant!.event!;
+        const t = e.tournament!;
+        const logo = t.images?.find((img) => img.type === "profile")?.url || null;
+        const date = new Date(t.startAt * 1000).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
         });
-    }
+
+        return {
+          id: t.id,
+          tournamentName: t.name,
+          eventName: e.name,
+          gameName: e.videogame?.name || e.name,
+          logo,
+          date,
+          placement: standing.placement ? getOrdinal(standing.placement) : "N/A",
+          numEntrants: e.numEntrants || 0,
+          url: `https://start.gg${t.url}`,
+          blogLink: blogLinks[t.id] || null,
+        };
+      });
   } catch (error) {
     console.error("Error en el fetch a start.gg:", error);
   }
 
-  allResults.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return paginate(allResults, { pageSize: 10 });
 }
 
@@ -124,9 +156,7 @@ const pageTitle = `Results ${page.currentPage > 1 ? `- Page ${page.currentPage}`
 
 <BaseLayout pageTitle={pageTitle}>
   <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4">
-    <h2 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
-      Results
-    </h2>
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">Results</h1>
     <p class="text-lg md:text-xl text-catp-subtext-1">
       My 20 most recent tournament results (excluding where I DQed). Pulled directly from start.gg.
     </p>
@@ -147,8 +177,11 @@ const pageTitle = `Results ${page.currentPage > 1 ? `- Page ${page.currentPage}`
                 <img
                   src={result.logo}
                   alt={`Logo de ${result.tournamentName}`}
-                  class="w-full h-full object-cover"
+                  width="128"
+                  height="128"
                   loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover"
                 />
               ) : (
                 <Icon name="tabler:trophy" class="w-12 h-12 md:w-16 md:h-16 text-catp-surface-2 opacity-50" />
@@ -200,36 +233,6 @@ const pageTitle = `Results ${page.currentPage > 1 ? `- Page ${page.currentPage}`
       )}
     </div>
 
-    {page.lastPage > 1 && (
-      <div class="flex items-center justify-between mt-12 pt-8 border-t border-catp-surface-2 font-mono">
-        {page.url.prev ? (
-          <a href={page.url.prev} class="flex items-center gap-2 px-6 py-3 bg-catp-base hover:bg-catp-crust rounded-lg transition-colors border border-catp-surface-0 hover:border-catp-surface-2">
-            <Icon name="tabler:arrow-left" class="w-5 h-5" />
-            <span class="hidden md:inline">Prev</span>
-          </a>
-        ) : (
-          <div class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2">
-            <Icon name="tabler:arrow-left" class="w-5 h-5" />
-            <span class="hidden md:inline">Prev</span>
-          </div>
-        )}
-
-        <span class="text-catp-subtext-0">
-          Page {page.currentPage} of {page.lastPage}
-        </span>
-
-        {page.url.next ? (
-          <a href={page.url.next} class="flex items-center gap-2 px-6 py-3 bg-catp-base hover:bg-catp-crust rounded-lg transition-colors border border-catp-surface-0 hover:border-catp-surface-2">
-            <span class="hidden md:inline">Next</span>
-            <Icon name="tabler:arrow-right" class="w-5 h-5" />
-          </a>
-        ) : (
-          <div class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2">
-            <span class="hidden md:inline">Next</span>
-            <Icon name="tabler:arrow-right" class="w-5 h-5" />
-          </div>
-        )}
-      </div>
-    )}
+    <Pagination page={page} />
   </section>
 </BaseLayout>

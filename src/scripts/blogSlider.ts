@@ -7,26 +7,19 @@ if (track && prevBtn && nextBtn) {
     const isAtStart = track.scrollLeft <= 0;
     const isAtEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth - 1;
 
-    if (isAtStart) {
-      prevBtn.classList.add("opacity-30", "pointer-events-none");
-      prevBtn.classList.remove("hover:border-catp-overlay-0");
-    } else {
-      prevBtn.classList.remove("opacity-30", "pointer-events-none");
-      prevBtn.classList.add("hover:border-catp-overlay-0");
-    }
+    prevBtn.classList.toggle("opacity-30", isAtStart);
+    prevBtn.classList.toggle("pointer-events-none", isAtStart);
+    prevBtn.classList.toggle("hover:border-catp-overlay-0", !isAtStart);
 
-    if (isAtEnd) {
-      nextBtn.classList.add("opacity-30", "pointer-events-none");
-      nextBtn.classList.remove("hover:border-catp-overlay-0");
-    } else {
-      nextBtn.classList.remove("opacity-30", "pointer-events-none");
-      nextBtn.classList.add("hover:border-catp-overlay-0");
-    }
+    nextBtn.classList.toggle("opacity-30", isAtEnd);
+    nextBtn.classList.toggle("pointer-events-none", isAtEnd);
+    nextBtn.classList.toggle("hover:border-catp-overlay-0", !isAtEnd);
   };
 
   const scrollByItem = (direction: "prev" | "next") => {
-    const firstVisibleItem = track.querySelector("a:not(.hidden)");
+    const firstVisibleItem = track.querySelector<HTMLElement>("a:not(.hidden)");
     if (!firstVisibleItem) return;
+
     const itemWidth = firstVisibleItem.getBoundingClientRect().width;
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
     const scrollAmount = itemWidth + gap;
@@ -39,9 +32,8 @@ if (track && prevBtn && nextBtn) {
 
   prevBtn.addEventListener("click", () => scrollByItem("prev"));
   nextBtn.addEventListener("click", () => scrollByItem("next"));
-  
-  track.addEventListener("scroll", updateArrows);
-  window.addEventListener("resize", updateArrows);
+  track.addEventListener("scroll", updateArrows, { passive: true });
+  window.addEventListener("resize", updateArrows, { passive: true });
 
-  setTimeout(updateArrows, 100);
+  updateArrows();
 }

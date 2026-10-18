@@ -1,13 +1,18 @@
 ---
 const { href, class: className, showActive = false, ...props } = Astro.props;
 const currentPath = Astro.url.pathname;
+const isActive =
+  href === "/"
+    ? currentPath === "/"
+    : currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <a
   href={href}
+  aria-current={isActive && showActive ? "page" : undefined}
   class:list={[
     "transition-colors hover:bg-catp-surface-0",
-    { "bg-catp-surface-0": currentPath === (href) && showActive },
+    { "bg-catp-surface-0": isActive && showActive },
     className,
   ]}
   {...props}

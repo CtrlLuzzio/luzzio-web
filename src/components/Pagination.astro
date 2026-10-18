@@ -1,0 +1,59 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Page } from "astro";
+
+interface Props {
+  page: Page< unknown >;
+}
+
+const { page } = Astro.props;
+---
+
+{page.lastPage > 1 && (
+  <nav
+    aria-label="Pagination"
+    class="flex items-center justify-between mt-12 pt-8 border-t border-catp-surface-2 font-mono"
+  >
+    {page.url.prev ? (
+      <a
+        href={page.url.prev}
+        aria-label="Previous page"
+        class="flex items-center gap-2 px-6 py-3 bg-catp-base hover:bg-catp-crust rounded-lg transition-colors border border-catp-surface-0 hover:border-catp-surface-2"
+      >
+        <Icon name="tabler:arrow-left" class="w-5 h-5" />
+        <span class="hidden md:inline">Prev</span>
+      </a>
+    ) : (
+      <div
+        aria-disabled="true"
+        class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2"
+      >
+        <Icon name="tabler:arrow-left" class="w-5 h-5" />
+        <span class="hidden md:inline">Prev</span>
+      </div>
+    )}
+
+    <span class="text-catp-subtext-0">
+      Page {page.currentPage} of {page.lastPage}
+    </span>
+
+    {page.url.next ? (
+      <a
+        href={page.url.next}
+        aria-label="Next page"
+        class="flex items-center gap-2 px-6 py-3 bg-catp-base hover:bg-catp-crust rounded-lg transition-colors border border-catp-surface-0 hover:border-catp-surface-2"
+      >
+        <span class="hidden md:inline">Next</span>
+        <Icon name="tabler:arrow-right" class="w-5 h-5" />
+      </a>
+    ) : (
+      <div
+        aria-disabled="true"
+        class="px-6 py-3 opacity-30 cursor-not-allowed flex items-center gap-2"
+      >
+        <span class="hidden md:inline">Next</span>
+        <Icon name="tabler:arrow-right" class="w-5 h-5" />
+      </div>
+    )}
+  </nav>
+)}

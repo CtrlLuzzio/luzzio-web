@@ -1,24 +1,20 @@
 ---
-import { actions } from "astro:actions";
-
-const result = Astro.getActionResult(actions.leads.submitProject);
 ---
 
 <form
-  method="POST"
-  action={actions.leads.submitProject}
+  id="lead-form"
   class="flex flex-col gap-6 bg-catp-base p-8 rounded-2xl border-2 border-catp-surface-0 shadow-lg shadow-catp-shadow/50"
 >
-  {result?.data && (
-    <div class="p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center">
-      > {result.data.message}
-    </div>
-  )}
-  {result?.error && (
-    <div class="p-4 bg-catp-red/10 border border-catp-red text-catp-red rounded-lg font-mono text-sm text-center">
-      > Error: Verify the fields and try again
-    </div>
-  )}
+  <div
+    id="lead-success-msg"
+    class="hidden p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center"
+  >
+  </div>
+  <div
+    id="lead-error-msg"
+    class="hidden p-4 bg-catp-red/10 border border-catp-red text-catp-red rounded-lg font-mono text-sm text-center"
+  >
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col gap-2">
@@ -31,7 +27,6 @@ const result = Astro.getActionResult(actions.leads.submitProject);
         class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
       />
     </div>
-
     <div class="flex flex-col gap-2">
       <label for="email" class="font-mono text-sm text-catp-subtext-1">Email</label>
       <input
@@ -45,22 +40,22 @@ const result = Astro.getActionResult(actions.leads.submitProject);
   </div>
 
   <div class="flex flex-col gap-2">
-      <label for="service" class="font-mono text-sm text-catp-subtext-1">Service</label>
-      <select
-        id="service"
-        name="service"
-        required
-        class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
-      >
-        <option value="" disabled selected>Select a Service...</option>
-        <option value="static_page">Static Website</option>
-        <option value="web_app">Web App</option>
-        <option value="odoo_module">Custom Odoo Module</option>
-        <option value="devops">DevOps / Servers</option>
-        <option value="creator_tools">Creator Tools</option>
-        <option value="custom">Custom quotation</option>
-      </select>
-    </div>
+    <label for="service" class="font-mono text-sm text-catp-subtext-1">Service</label>
+    <select
+      id="service"
+      name="service"
+      required
+      class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
+    >
+      <option value="" disabled selected>Select a Service...</option>
+      <option value="static_page">Static Website</option>
+      <option value="web_app">Web App</option>
+      <option value="odoo_module">Custom Odoo Module</option>
+      <option value="devops">DevOps / Servers</option>
+      <option value="creator_tools">Creator Tools</option>
+      <option value="custom">Custom quotation</option>
+    </select>
+  </div>
 
   <div class="flex flex-col gap-2">
     <label for="deadline" class="font-mono text-sm text-catp-subtext-1">Deadline (Optional)</label>
@@ -87,9 +82,56 @@ const result = Astro.getActionResult(actions.leads.submitProject);
   </div>
 
   <button
+    id="lead-submit-btn"
     type="submit"
-    class="mt-4 bg-catp-surface-0 text-catp-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-catp-green hover:text-catp-crust hover:border-transparent border border-catp-surface-2 transition-all cursor-pointer"
+    class="mt-4 bg-catp-surface-0 text-catp-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-catp-green hover:text-catp-crust hover:border-transparent border border-catp-surface-2 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
   >
     Submit Request
   </button>
 </form>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+
+  const form = document.getElementById("lead-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("lead-submit-btn") as HTMLButtonElement | null;
+  const successMsg = document.getElementById("lead-success-msg");
+  const errorMsg = document.getElementById("lead-error-msg");
+
+  if (form && submitBtn && successMsg && errorMsg) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      successMsg.classList.add("hidden");
+      errorMsg.classList.add("hidden");
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+
+      try {
+        const formData = new FormData(form);
+        const { data, error } = await actions.leads.submitProject(formData);
+
+        if (error) {
+          if (isInputError(error)) {
+            const issue = Object.values(error.fields).flat()[0] || "Invalid input";
+            errorMsg.textContent = `> Error: ${issue}`;
+          } else {
+            errorMsg.textContent = `> Error: ${error.message || "Failed to send"}`;
+          }
+          errorMsg.classList.remove("hidden");
+        } else if (data?.success) {
+          successMsg.textContent = `> ${data.message}`;
+          successMsg.classList.remove("hidden");
+          form.reset();
+        }
+      } catch (err) {
+        errorMsg.textContent = "> Error: Connection failed. Please try again.";
+        errorMsg.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  }
+</script>

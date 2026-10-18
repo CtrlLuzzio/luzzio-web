@@ -1,17 +1,29 @@
 ---
-const { id, label, color, hoverColor, isActive = false } = Astro.props;
+interface Props {
+  id: "dev" | "fgc" | "creator";
+  label: string;
+  isActive?: boolean;
+}
+
+const { id, label, isActive = false } = Astro.props;
+
+const colorVariants = {
+  dev: "hover:border-catp-green data-[active]:bg-catp-green data-[active]:hover:border-transparent",
+  fgc: "hover:border-catp-red data-[active]:bg-catp-red data-[active]:hover:border-transparent",
+  creator: "hover:border-catp-blue data-[active]:bg-catp-blue data-[active]:hover:border-transparent",
+};
 ---
+
 <button
+  type="button"
   data-switcher={id}
-  data-color={color}
-  data-hover-color={hoverColor}
+  data-active={isActive ? "" : undefined}
+  aria-pressed={isActive ? "true" : "false"}
   class:list={[
     "px-4 py-2 rounded-full transition-all border cursor-pointer w-full md:w-auto",
-    {
-      [`${color} text-catp-crust font-bold border-transparent`]: isActive,
-      [`bg-transparent text-catp-subtext-0 border-catp-overlay-0 hover:text-catp-text ${hoverColor}`]:
-        !isActive,
-    },
+    "bg-transparent text-catp-subtext-0 border-catp-overlay-0 hover:text-catp-text",
+    "data-[active]:text-catp-crust data-[active]:hover:text-catp-crust data-[active]:font-bold data-[active]:border-transparent",
+    colorVariants[id],
   ]}
 >
   {label}

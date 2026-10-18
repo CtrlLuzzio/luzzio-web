@@ -9,6 +9,8 @@ import TwitchBento from "../components/TwitchBento.astro";
 import BentoBox from "../components/BentoBox.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import avatarRender from "../assets/avatar-render.png";
 
 type PostCard = {
   title: string;
@@ -41,32 +43,24 @@ const pageTitle = "Home";
     class="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-fit lg:min-h-[50vh] pt-8 lg:pt-16 lg:px-20 gap-4 lg:gap-12"
   >
     <div class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-6 w-full h-full">      
-      <h2 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">
-        Luzzio
-      </h2>
+      <h1 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">Luzzio</h1>
 
       <div class="flex flex-wrap md:flex-nowrap justify-center lg:justify-start w-full gap-2 md:gap-3 font-mono text-sm lg:text-base mb-2">
         <PersonaSwitcherButton
           id="dev"
           label="Full-Stack Developer"
-          color="bg-catp-green"
-          hoverColor="hover:border-catp-green"
           isActive={true}
         />
         <PersonaSwitcherButton
           id="fgc"
           label="FGC Competitor"
-          color="bg-catp-red"
-          hoverColor="hover:border-catp-red"
         />
         <PersonaSwitcherButton
           id="creator"
           label="Content Creator"
-          color="bg-catp-blue"
-          hoverColor="hover:border-catp-blue"
         />
       </div>
-      <div class="grid [grid-template-areas:'stack'] w-full">
+      <div class="w-full">
         <!-- DEV -->
         <PersonaSwitcherContent id="dev" isActive={true}>
           <div class="flex flex-col gap-6">
@@ -116,9 +110,11 @@ const pageTitle = "Home";
     </div>
 
     <div class="flex justify-center lg:justify-end items-end w-full h-full">
-      <img
-        src="/avatar-render.png"
+      <Image
+        src={avatarRender}
         alt="Luzzio"
+        loading="eager"
+        fetchpriority="high"
         class="w-full max-w-87.5 md:max-w-112.5 lg:max-w-137.5 h-auto max-h-[40vh] lg:max-h-[60vh] object-contain object-bottom drop-shadow-2xl"
       />
     </div>
@@ -284,11 +280,8 @@ const pageTitle = "Home";
       <!-- FGC Bento Grid -->
       <PersonaSwitcherContent id="fgc">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
-          <!-- Placeholder Link -->
           <BentoBox
-            href="https://start.gg/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/results"
             class="hover:border-catp-red"
             icon="tabler:trophy"
             title="Tournament Results"

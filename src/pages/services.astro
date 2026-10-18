@@ -2,15 +2,13 @@
 import BaseLayout from "../layouts/Base.astro";
 import BentoBox from "../components/BentoBox.astro";
 import LeadForm from "../components/LeadForm.astro";
-export const prerender = false;
+
 const pageTitle = "Services";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
-    <h2 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
-      Services
-    </h2>
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">Services</h1>
     <p class="text-lg md:text-xl text-catp-subtext-1">
       Custom software development. Explore the areas of specialization and
       request a technical proposal.
@@ -32,7 +30,6 @@ const pageTitle = "Services";
       >
         Perfect for portfolios, campaigns and many more.
       </BentoBox>
-
       <BentoBox
         href="#quote"
         class="hover:border-catp-green bg-catp-base"
@@ -51,7 +48,6 @@ const pageTitle = "Services";
       >
         Custom Odoo module development to adapt the ERP to your company.
       </BentoBox>
-
       <BentoBox
         href="#quote"
         class="hover:border-catp-yellow bg-catp-base"
@@ -62,7 +58,6 @@ const pageTitle = "Services";
         Linux environment configutarion, containers and VPS deployments to
         existing projects
       </BentoBox>
-
       <BentoBox
         href="#quote"
         class="hover:border-catp-red bg-catp-base"
