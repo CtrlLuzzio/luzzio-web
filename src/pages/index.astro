@@ -50,20 +50,20 @@ const pageTitle = "Home";
           id="dev"
           label="Full-Stack Developer"
           color="bg-catp-green"
-          hoverColor="border-catp-green"
+          hoverColor="hover:border-catp-green"
           isActive={true}
         />
         <PersonaSwitcherButton
           id="fgc"
           label="FGC Competitor"
           color="bg-catp-red"
-          hoverColor="border-catp-red"
+          hoverColor="hover:border-catp-red"
         />
         <PersonaSwitcherButton
           id="creator"
           label="Content Creator"
           color="bg-catp-blue"
-          hoverColor="border-catp-blue"
+          hoverColor="hover:border-catp-blue"
         />
       </div>
       <div class="grid [grid-template-areas:'stack'] w-full">
@@ -357,8 +357,8 @@ const pageTitle = "Home";
               class:list={[
                 "w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-catp-base hover:border-catp-surface-2 h-auto",
                 {
-                  "hidden md:flex": index >= 3,
-                  "md:hidden lg:flex": index === 4,
+                  "hidden md:flex": index === 3,
+                  "hidden lg:flex": index === 4,
                 },
               ]}
               icon={post.icon}
