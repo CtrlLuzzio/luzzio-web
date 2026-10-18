@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/Base.astro";
 import { Icon } from "astro-icon/components";
 import { actions } from "astro:actions";
 
+export const prerender = false;
 const pageTitle = "Contact";
 const result = Astro.getActionResult(actions.contact.submitMessage);
 ---
