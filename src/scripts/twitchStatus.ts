@@ -21,7 +21,8 @@ async function checkTwitchStatus() {
         dot.classList.add("animate-pulse");
       });
       statusTexts.forEach((text) => {
-        text.classList.replace("text-catp-text", "text-catp-red");
+        text.classList.remove("text-catp-text");
+        text.classList.add("text-catp-red");
         text.textContent = "Live";
       });
     }
