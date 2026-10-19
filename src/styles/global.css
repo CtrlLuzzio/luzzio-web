@@ -148,3 +148,12 @@
   background-image: url('/bg-latte.svg');
   opacity: 0.6;
 }
+
+@layer base {
+  html {
+    background-color: var(--color-catp-crust);
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overscroll-behavior-y: none;
+  }
+}
