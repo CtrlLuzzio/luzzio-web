@@ -28,3 +28,7 @@ pnpm-debug.log*
 .direnv/
 .pnpm-store/
 .envrc
+
+# Cloudflare / Wrangler local state
+.wrangler/
+.dev.vars
