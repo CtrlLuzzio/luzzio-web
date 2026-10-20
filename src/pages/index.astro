@@ -42,23 +42,23 @@ const pageTitle = "Home";
     id="hero"
     class="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-fit lg:min-h-[50vh] pt-8 lg:pt-16 lg:px-20 gap-4 lg:gap-12"
   >
-    <div class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-6 w-full h-full">      
-      <h1 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">Luzzio</h1>
+    <div
+      class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-6 w-full h-full"
+    >
+      <h1 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">
+        Luzzio
+      </h1>
 
-      <div class="flex flex-wrap md:flex-nowrap justify-center lg:justify-start w-full gap-2 md:gap-3 font-mono text-sm lg:text-base mb-2">
+      <div
+        class="flex flex-wrap md:flex-nowrap justify-center lg:justify-start w-full gap-2 md:gap-3 font-mono text-sm lg:text-base mb-2"
+      >
         <PersonaSwitcherButton
           id="dev"
           label="Full-Stack Developer"
           isActive={true}
         />
-        <PersonaSwitcherButton
-          id="fgc"
-          label="FGC Competitor"
-        />
-        <PersonaSwitcherButton
-          id="creator"
-          label="Content Creator"
-        />
+        <PersonaSwitcherButton id="fgc" label="FGC Competitor" />
+        <PersonaSwitcherButton id="creator" label="Content Creator" />
       </div>
       <div class="w-full">
         <!-- DEV -->
@@ -144,10 +144,10 @@ const pageTitle = "Home";
           </p>
           <p>
             Ironically for a web developer, I spend most of my time in the
-            terminal. I'm a huge Linux enthusiast, currently daily driving
-            openSUSE Tumbleweed for work and NixOS with Hyprland for my personal
-            setup. Tinkering with my system and optimizing my workflow is
-            practically a second job for me (feel free to check my
+            terminal. I'm a huge Linux enthusiast, currently daily driving NixOS
+            paired with whatever DE/WM I feel like using at the moment.
+            Tinkering with my system and optimizing my workflow is practically a
+            second job for me (feel free to check my
             <Link
               href="https://github.com/CtrlLuzzio/dotfiles"
               target="_blank"
@@ -184,32 +184,41 @@ const pageTitle = "Home";
       <PersonaSwitcherContent id="fgc">
         <div class="text-lg flex flex-col gap-4">
           <p>
-            I've been competing in fighting games since 2022, back when I used
-            to play Super Smash Bros. Ultimate.
+            I started my journey in fighting games like most players do, just
+            playing with friends at home and having fun. Still, I always had
+            that competitive spark to win and improve (which naturally made me
+            the prime target in Smash FFAs). Things got serious in high school
+            when I met a few friends who were just as tryhard. Together, we dove
+            deep into Project+, spending hours learning tech and labbing combos
+            and setups.
           </p>
           <p>
-            I made the jump to "classic" fighting games around 2024 with Guilty
-            Gear XX Accent Core +R, maining A.B.A, since the PC I had then
-            wasn't able to run Strive. I started playing Strive seriously when a
-            friend lent me his PS4 to play the game (thank you ApE <span
-              class="text-catp-red">&lt;3</span
-            >).
+            My competitive run officially kicked off in 2022 playing Super Smash
+            Bros. Ultimate with Incineroar. I racked up some decent results,
+            though nothing groundbreaking—mostly your typical top-8 gatekeeper
+            and local bracket demon.
           </p>
           <p>
-            A few months after that, I finally built a PC capable of running
-            modern games properly. That was the real turning point: for the
-            first time, I could actually lab and grind comfortably from home.
-            That newfound consistency paid off, as I arguably became the best
-            A.B.A in the country throughout Season 3 and part of Season 4 of
-            Strive.
+            Around 2024, I made the jump to "traditional" fighters through
+            Guilty Gear XX Accent Core +R, picking up A.B.A. At the time, my PC
+            couldn't handle Strive and I didn't own a console. That changed when
+            a friend lent me his PS4 so I could finally dive into Strive
+            properly (massive shoutouts to ApE
+            <span class="text-catp-red">&lt;3</span>).
           </p>
           <p>
-            Eventually, I made the jump to Street Fighter 6, which is my main
-            focus today. Picking up Juri, I’ve managed to put up solid
-            tournament results and keep pushing my neutral and execution even
-            further—though I still play Strive sometimes with Robo-Ky as my
-            current main (things happened with A.B.A, but the love is still
-            there).
+            A few months later, I finally built a PC capable of running modern
+            games. That was the real turning point: for the first time, I could
+            grind and lab consistently from home. That newfound consistency paid
+            off, and I arguably became the best A.B.A in the country throughout
+            Season 3 and part of Season 4.
+          </p>
+          <p>
+            Eventually, I made the jump to Street Fighter 6, which remains my
+            primary focus today. Maining Juri, I've managed to put up solid and
+            consistent tournament results while constantly pushing my neutral
+            and execution further—though I still revisit Strive on occasion with
+            Robo-Ky (things happened with A.B.A, but the love is still there).
           </p>
           <p class="font-mono text-catp-red mt-4">&gt; See me in bracket:</p>
         </div>
@@ -325,12 +334,11 @@ const pageTitle = "Home";
   </SectionCard>
   <SectionCard id="blog" title="Blog">
     <p class="text-lg">
-      Here I talk about tech guides, dev logs, personal anecdotes, and
-      anything that comes to mind.
+      Here I talk about tech guides, dev logs, personal anecdotes, and anything
+      that comes to mind.
     </p>
 
     <div class="relative w-full mt-4">
-
       <button
         id="blog-prev"
         class="hidden md:flex absolute top-1/2 -left-8 -translate-y-1/2 z-10 p-3 rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors text-catp-text bg-catp-surface-0 shadow-xl cursor-pointer"
@@ -362,31 +370,33 @@ const pageTitle = "Home";
             </BentoBox>
           ))
         }
-        
-        {latestPosts.length > 3 && (
-          <a
-            href="/blog"
-            class:list={[
-              "flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-catp-base border-2 border-dashed border-catp-surface-2 hover:border-catp-mauve hover:text-catp-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62",
-              {
-                "flex": latestPosts.length > 5,
-                "flex lg:hidden": latestPosts.length === 5,
-                "flex md:hidden": latestPosts.length === 4,
-              }
-            ]}
-          >
-            <Icon
-              name="tabler:arrow-right"
-              class="w-12 h-12 text-catp-surface-2 group-hover:text-catp-mauve transition-colors"
-            />
-            <div>
-              <h3 class="text-2xl font-mono font-bold">View All</h3>
-              <p class="mt-2 text-catp-subtext-0">
-                Explore the rest of the articles
-              </p>
-            </div>
-          </a>
-        )}
+
+        {
+          latestPosts.length > 3 && (
+            <a
+              href="/blog"
+              class:list={[
+                "flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-catp-base border-2 border-dashed border-catp-surface-2 hover:border-catp-mauve hover:text-catp-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62",
+                {
+                  flex: latestPosts.length > 5,
+                  "flex lg:hidden": latestPosts.length === 5,
+                  "flex md:hidden": latestPosts.length === 4,
+                },
+              ]}
+            >
+              <Icon
+                name="tabler:arrow-right"
+                class="w-12 h-12 text-catp-surface-2 group-hover:text-catp-mauve transition-colors"
+              />
+              <div>
+                <h3 class="text-2xl font-mono font-bold">View All</h3>
+                <p class="mt-2 text-catp-subtext-0">
+                  Explore the rest of the articles
+                </p>
+              </div>
+            </a>
+          )
+        }
       </div>
 
       <button
