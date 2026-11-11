@@ -46,8 +46,3 @@ function initLeadForm() {
 }
 
 document.addEventListener("astro:page-load", initLeadForm);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initLeadForm);
-} else {
-  initLeadForm();
-}

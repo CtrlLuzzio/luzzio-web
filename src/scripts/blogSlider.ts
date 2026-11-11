@@ -41,8 +41,3 @@ function initBlogSlider() {
 }
 
 document.addEventListener("astro:page-load", initBlogSlider);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initBlogSlider);
-} else {
-  initBlogSlider();
-}

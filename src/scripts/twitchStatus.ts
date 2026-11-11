@@ -32,8 +32,3 @@ async function checkTwitchStatus() {
 }
 
 document.addEventListener("astro:page-load", checkTwitchStatus);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", checkTwitchStatus);
-} else {
-  checkTwitchStatus();
-}

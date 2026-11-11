@@ -22,8 +22,3 @@ function initCopyEmail() {
 }
 
 document.addEventListener("astro:page-load", initCopyEmail);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initCopyEmail);
-} else {
-  initCopyEmail();
-}

@@ -61,8 +61,3 @@ function initThemeToggle() {
 }
 
 document.addEventListener("astro:page-load", initThemeToggle);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initThemeToggle);
-} else {
-  initThemeToggle();
-}

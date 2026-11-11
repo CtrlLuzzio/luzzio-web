@@ -55,8 +55,3 @@ function initMenu() {
 }
 
 document.addEventListener("astro:page-load", initMenu);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initMenu);
-} else {
-  initMenu();
-}

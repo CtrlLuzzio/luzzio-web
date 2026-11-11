@@ -26,8 +26,3 @@ function initPersonaSwitcher() {
 }
 
 document.addEventListener("astro:page-load", initPersonaSwitcher);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initPersonaSwitcher);
-} else {
-  initPersonaSwitcher();
-}

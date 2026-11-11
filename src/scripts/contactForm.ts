@@ -46,8 +46,3 @@ function initContactForm() {
 }
 
 document.addEventListener("astro:page-load", initContactForm);
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initContactForm);
-} else {
-  initContactForm();
-}
