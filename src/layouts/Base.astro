@@ -2,12 +2,12 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-
 import { Font } from "astro:assets";
+import { ClientRouter, fade } from "astro:transitions";
+
 const { pageTitle } = Astro.props;
 ---
-
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,14 +15,24 @@ const { pageTitle } = Astro.props;
     <Font cssVariable="--font-sans" />
     <Font cssVariable="--font-mono" />
     <title>Luzzio - {pageTitle}</title>
+
+    <ClientRouter />
+
     <script is:inline>
-      const savedTheme = localStorage.getItem("theme");
-      const systemPrefersLight = window.matchMedia(
-        "(prefers-color-scheme: light)",
-      ).matches;
-      if (savedTheme === "latte" || (!savedTheme && systemPrefersLight)) {
-        document.documentElement.classList.add("theme-latte");
+      function applyTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const systemPrefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)",
+        ).matches;
+        if (savedTheme === "latte" || (!savedTheme && systemPrefersLight)) {
+          document.documentElement.classList.add("theme-latte");
+        } else {
+          document.documentElement.classList.remove("theme-latte");
+        }
       }
+
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -30,10 +40,13 @@ const { pageTitle } = Astro.props;
       class="bg-pattern fixed inset-0 -z-10 pointer-events-none bg-cover bg-center"
     >
     </div>
-    <Header />
-    <main class="flex-1 px-4 md:px-10 lg:px-20 pb-16 relative">
+    <Header/>
+    <main
+      transition:animate={fade({ duration: "0.3s" })}
+      class="flex-1 px-4 md:px-10 lg:px-20 pb-16 relative"
+    >
       <slot />
     </main>
-    <Footer />
+    <Footer/>
   </body>
 </html>
