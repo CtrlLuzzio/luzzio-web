@@ -47,7 +47,7 @@ const pageTitle = `Blog ${page.currentPage > 1 ? `- Page ${page.currentPage}` : 
             <span class="font-mono text-sm text-catp-subtext-0 mb-2">
               {post.data.pubDate.toLocaleDateString()}
             </span>
-            <h2 class="text-2xl md:text-3xl font-mono font-bold text-catp-text group-hover:text-catp-blue transition-colors mb-3">
+            <h2 transition:name={`post-title-${post.id}`} class="text-2xl md:text-3xl font-mono font-bold text-catp-text group-hover:text-catp-blue transition-colors mb-3">
               {post.data.title}
             </h2>
             <p class="text-catp-subtext-1 text-base md:text-lg">
