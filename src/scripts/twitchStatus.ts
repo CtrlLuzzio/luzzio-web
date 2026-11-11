@@ -9,7 +9,7 @@ async function checkTwitchStatus() {
 
   try {
     const { data, error } = await actions.twitch.getTwitchStatus();
-    
+
     if (!error && data?.isLive) {
       badgeContainers.forEach((badge) => {
         badge.classList.replace("bg-catp-crust", "bg-catp-red/10");
@@ -26,9 +26,14 @@ async function checkTwitchStatus() {
         text.textContent = "Live";
       });
     }
-  } catch (e) {
+  } catch {
     console.error("Unable to get twitch status");
   }
 }
 
-checkTwitchStatus();
+document.addEventListener("astro:page-load", checkTwitchStatus);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", checkTwitchStatus);
+} else {
+  checkTwitchStatus();
+}

@@ -1,11 +1,14 @@
-const track = document.getElementById("blog-track");
-const prevBtn = document.getElementById("blog-prev");
-const nextBtn = document.getElementById("blog-next");
+function initBlogSlider() {
+  const track = document.getElementById("blog-track");
+  const prevBtn = document.getElementById("blog-prev");
+  const nextBtn = document.getElementById("blog-next");
 
-if (track && prevBtn && nextBtn) {
+  if (!track || !prevBtn || !nextBtn) return;
+
   const updateArrows = () => {
     const isAtStart = track.scrollLeft <= 0;
-    const isAtEnd = Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth - 1;
+    const isAtEnd =
+      Math.ceil(track.scrollLeft + track.clientWidth) >= track.scrollWidth - 1;
 
     prevBtn.classList.toggle("opacity-30", isAtStart);
     prevBtn.classList.toggle("pointer-events-none", isAtStart);
@@ -33,7 +36,13 @@ if (track && prevBtn && nextBtn) {
   prevBtn.addEventListener("click", () => scrollByItem("prev"));
   nextBtn.addEventListener("click", () => scrollByItem("next"));
   track.addEventListener("scroll", updateArrows, { passive: true });
-  window.addEventListener("resize", updateArrows, { passive: true });
 
   updateArrows();
+}
+
+document.addEventListener("astro:page-load", initBlogSlider);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initBlogSlider);
+} else {
+  initBlogSlider();
 }
