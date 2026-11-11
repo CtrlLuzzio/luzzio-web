@@ -11,6 +11,7 @@ const blogCollection = defineCollection({
     color: z.string(),
     pubDate: z.date(),
     tournamentId: z.number().optional(),
+    projectRepo: z.string().optional(),
   }),
 });
 
