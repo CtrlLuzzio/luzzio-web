@@ -1,3 +1,4 @@
+// src/content.config.ts
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
@@ -10,7 +11,8 @@ const blogCollection = defineCollection({
     icon: z.string(),
     color: z.string(),
     pubDate: z.date(),
-    tournamentId: z.number().optional(),
+    tournament: z.string().optional(),
+    tournamentGame: z.string().optional(),
     projectRepo: z.string().optional(),
   }),
 });
