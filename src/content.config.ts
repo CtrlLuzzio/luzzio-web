@@ -14,6 +14,7 @@ const blogCollection = defineCollection({
     tournament: z.string().optional(),
     tournamentGame: z.string().optional(),
     projectRepo: z.string().optional(),
+    tags: z.array(z.string()).default([]),
   }),
 });
 

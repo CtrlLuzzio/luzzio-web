@@ -1,22 +1,98 @@
 ---
-import BaseLayout from './Base.astro';
+import BaseLayout from "./Base.astro";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+import {
+  formatGameName,
+  getProjectAnchorId,
+  getResultAnchorId,
+  getTournamentName,
+} from "../utils/blogMeta";
+
+interface Props {
+  frontmatter: CollectionEntry<"blog">["data"];
+  postId: string;
+}
+
 const { frontmatter, postId } = Astro.props;
+
+const normalizedTags = (frontmatter.tags ?? []).map((t) =>
+  t.trim().toLowerCase()
+);
+
+const tournamentName = frontmatter.tournament
+  ? await getTournamentName(frontmatter.tournament)
+  : null;
+
+const formattedGame = frontmatter.tournamentGame
+  ? formatGameName(frontmatter.tournamentGame)
+  : null;
+
+const resultHref = frontmatter.tournament
+  ? `/results#${getResultAnchorId(frontmatter.tournament, frontmatter.tournamentGame)}`
+  : null;
+
+const projectHref = frontmatter.projectRepo
+  ? `/projects#${getProjectAnchorId(frontmatter.projectRepo)}`
+  : null;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
   <article class="max-w-4xl mx-auto py-12 md:py-20 flex flex-col gap-6">
     <header class="flex flex-col gap-4 mb-8">
-      <h1 transition:name={`post-title-${postId}`} class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
+      <h1
+        transition:name={`post-title-${postId}`}
+        class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve"
+      >
         {frontmatter.title}
       </h1>
-      <div class="flex gap-4 text-catp-subtext-0 font-mono text-sm">
-        <p>Published on: {frontmatter.pubDate.toLocaleDateString()}</p>
+
+      <div class="flex flex-wrap items-center gap-3 text-catp-subtext-0 font-mono text-sm">
+        <span>Published on: {frontmatter.pubDate.toLocaleDateString()}</span>
+
+        {frontmatter.projectRepo && projectHref && (
+          <a
+            href={projectHref}
+            class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-catp-crust text-catp-teal border border-catp-surface-0 hover:border-catp-teal transition-colors text-xs"
+          >
+            <Icon name="tabler:terminal" class="w-3.5 h-3.5" />
+            <span>{frontmatter.projectRepo}</span>
+          </a>
+        )}
+
+        {tournamentName && resultHref && (
+          <a
+            href={resultHref}
+            class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-catp-crust text-catp-red border border-catp-surface-0 hover:border-catp-red transition-colors text-xs"
+          >
+            <Icon name="tabler:trophy" class="w-3.5 h-3.5" />
+            <span>
+              {formattedGame
+                ? `${tournamentName} (${formattedGame})`
+                : tournamentName}
+            </span>
+          </a>
+        )}
       </div>
+
       <p class="text-xl text-catp-subtext-1 border-l-4 border-catp-surface-2 pl-4">
         {frontmatter.desc}
       </p>
+
+      {normalizedTags.length > 0 && (
+        <div class="flex flex-wrap items-center gap-2 pt-2">
+          {normalizedTags.map((tag) => (
+            <a
+              href={`/blog?tag=${encodeURIComponent(tag)}`}
+              class="font-mono text-xs text-catp-subtext-0 bg-catp-crust hover:text-catp-blue hover:border-catp-blue px-2.5 py-1 rounded border border-catp-surface-0 transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      )}
     </header>
-    
+
     <div class="prose-catp">
       <slot />
     </div>

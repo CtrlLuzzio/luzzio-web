@@ -4,6 +4,12 @@ import Pagination from "../../components/Pagination.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import type { PaginateFunction, Page } from "astro";
+import {
+  gamesMatch,
+  getResultAnchorId,
+  normalizeTournamentKey,
+} from "../../utils/blogMeta";
+
 interface BlogPostLink {
   id: string;
   title: string;
@@ -11,6 +17,9 @@ interface BlogPostLink {
 
 interface TournamentResult {
   id: number;
+  anchorId: string;
+  tournamentAnchorId: string;
+  isFirstOfTournament: boolean;
   tournamentName: string;
   eventName: string;
   gameName: string;
@@ -47,7 +56,7 @@ interface Props {
 }
 
 export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
-  const STARTGG_API = 'https://api.start.gg/gql/alpha';
+  const STARTGG_API = "https://api.start.gg/gql/alpha";
   const TOKEN = import.meta.env.STARTGG_TOKEN;
   const USER_SLUG = import.meta.env.STARTGG_SLUG;
 
@@ -90,38 +99,6 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
 
-  function normalizeTournamentKey(input: string): string {
-    return input
-      .trim()
-      .toLowerCase()
-      .replace(/^https?:\/\/(www\.)?start\.gg/i, "")
-      .replace(/^\/+/, "")
-      .replace(/^tournament\//i, "")
-      .split(/[/?#]/)[0];
-  }
-
-  const GAME_ALIASES: Record<string, string> = {
-    sf6: "streetfighter6",
-    ggst: "guiltygearstrive",
-    acpr: "guiltygearxxaccentcoreplusr",
-    ssbu: "supersmashbrosultimate",
-    cotw: "fatalfurycityofthewolves",
-    ssbm: "supersmashbrosmelee"
-  };
-
-  function normalizeGameKey(input: string): string {
-    const raw = input.trim().toLowerCase();
-    if (GAME_ALIASES[raw]) return GAME_ALIASES[raw];
-    const cleaned = raw.replace(/[^a-z0-9+]/g, "");
-    return GAME_ALIASES[cleaned] || cleaned;
-  }
-
-  function gamesMatch(postGame: string, startGGGame: string): boolean {
-    const a = normalizeGameKey(postGame);
-    const b = normalizeGameKey(startGGGame);
-    return a === b || b.includes(a) || a.includes(b);
-  }
-
   let allResults: TournamentResult[] = [];
 
   const allPosts = await getCollection("blog");
@@ -149,6 +126,7 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
     if (json.errors) throw new Error(json.errors[0].message);
 
     const standings: StartGGStanding[] = json.data?.user?.player?.recentStandings ?? [];
+    const seenTournaments = new Set<string>();
 
     allResults = standings
       .filter(
@@ -173,6 +151,9 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
         });
 
         const tournamentKey = normalizeTournamentKey(t.url);
+        const isFirstOfTournament = !seenTournaments.has(tournamentKey);
+        seenTournaments.add(tournamentKey);
+
         const rawPath = e.slug || t.url;
         const eventPath = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
 
@@ -186,6 +167,9 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
 
         return {
           id: t.id,
+          anchorId: getResultAnchorId(t.url, gameName),
+          tournamentAnchorId: getResultAnchorId(t.url),
+          isFirstOfTournament,
           tournamentName: t.name,
           eventName: e.name,
           gameName,
@@ -224,7 +208,14 @@ const pageTitle = `Results ${page.currentPage > 1 ? `- Page ${page.currentPage}`
         </div>
       ) : (
         page.data.map((result: TournamentResult) => (
-          <article class="flex flex-col md:flex-row items-center md:items-start gap-6 p-6 rounded-2xl bg-catp-base border-2 border-transparent hover:border-catp-surface-2 transition-all w-full">
+          <article
+            id={result.anchorId}
+            class="relative scroll-mt-28 flex flex-col md:flex-row items-center md:items-start gap-6 p-6 rounded-2xl bg-catp-base border-2 border-transparent hover:border-catp-surface-2 target:border-catp-red transition-all w-full"
+          >
+            {result.isFirstOfTournament && (
+              <span id={result.tournamentAnchorId} class="absolute -top-28" />
+            )}
+
             <div class="shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-xl flex items-center justify-center bg-catp-crust overflow-hidden border border-catp-surface-0">
               {result.logo ? (
                 <img
