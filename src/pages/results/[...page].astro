@@ -28,6 +28,7 @@ interface StartGGStanding {
     isDisqualified?: boolean;
     event?: {
       name: string;
+      slug?: string;
       numEntrants?: number;
       videogame?: { name: string };
       tournament?: {
@@ -60,6 +61,7 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
               isDisqualified
               event {
                 name
+                slug
                 numEntrants
                 videogame {
                   name
@@ -171,6 +173,8 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
         });
 
         const tournamentKey = normalizeTournamentKey(t.url);
+        const rawPath = e.slug || t.url;
+        const eventPath = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
 
         const relatedPosts: BlogPostLink[] = tournamentPosts
           .filter(
@@ -189,7 +193,7 @@ export async function getStaticPaths({ paginate }: { paginate: PaginateFunction 
           date,
           placement: standing.placement ? getOrdinal(standing.placement) : "N/A",
           numEntrants: e.numEntrants || 0,
-          url: `https://start.gg${t.url}`,
+          url: `https://www.start.gg${eventPath}`,
           blogPosts: relatedPosts,
         };
       });
