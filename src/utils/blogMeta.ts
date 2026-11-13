@@ -1,3 +1,6 @@
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n/utils";
+
 interface GameEntry {
   key: string;
   name: string;
@@ -110,4 +113,24 @@ export function getTournamentName(tournamentInput: string): Promise<string> {
 
   tournamentNameCache.set(slug, fetchPromise);
   return fetchPromise;
+}
+
+export function getPostLangAndSlug(postId: string): { lang: Locale; slug: string } {
+  const [lang, ...slugParts] = postId.split("/");
+  if ((lang === "en" || lang === "es") && slugParts.length > 0) {
+    return { lang, slug: slugParts.join("/") };
+  }
+  return { lang: "en", slug: postId };
+}
+
+export function filterPostsByLang(
+  posts: CollectionEntry<"blog">[],
+  lang: Locale
+): Array<CollectionEntry<"blog"> & { cleanSlug: string }> {
+  return posts
+    .map((post) => {
+      const parsed = getPostLangAndSlug(post.id);
+      return { ...post, postLang: parsed.lang, cleanSlug: parsed.slug };
+    })
+    .filter((post) => post.postLang === lang);
 }

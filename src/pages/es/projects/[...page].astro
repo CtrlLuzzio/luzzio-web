@@ -1,0 +1,25 @@
+---
+import type { PaginateFunction, Page } from "astro";
+import ProjectsView from "../../../views/ProjectsView.astro";
+import {
+  getProjectsForLocale,
+  type ProjectItem,
+} from "../../../utils/githubProjects";
+
+interface Props {
+  page: Page<ProjectItem>;
+}
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const projects = await getProjectsForLocale("es");
+  return paginate(projects, { pageSize: 6 });
+}
+
+const { page } = Astro.props;
+---
+
+<ProjectsView page={page} lang="es" />

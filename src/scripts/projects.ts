@@ -28,7 +28,9 @@ function initProjectsReadme() {
         wrapper.classList.toggle("max-h-56", !nextState);
         fade.classList.toggle("hidden", nextState);
         btnIcon.classList.toggle("rotate-180", nextState);
-        btnText.textContent = nextState ? "Show less" : "Read more";
+        const readMoreLabel = btn.dataset.readMore || "Read more";
+        const showLessLabel = btn.dataset.showLess || "Show less";
+        btnText.textContent = nextState ? showLessLabel : readMoreLabel;
       });
     }
   });

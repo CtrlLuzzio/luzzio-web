@@ -1,26 +1,30 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLocale, useTranslations } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <div class="flex items-center gap-1 p-0.5 bg-catp-crust rounded-full w-fit">
   <button
     data-theme-btn="latte"
     class="p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
-    aria-label="Light theme"
+    aria-label={t.footer.themeLight}
   >
     <Icon name="tabler:sun" class="w-4 h-4" />
   </button>
   <button
     data-theme-btn="system"
     class="p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
-    aria-label="System theme"
+    aria-label={t.footer.themeSystem}
   >
     <Icon name="tabler:device-desktop" class="w-4 h-4" />
   </button>
   <button
     data-theme-btn="mocha"
     class="p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center text-catp-subtext-0 hover:text-catp-text"
-    aria-label="Dark theme"
+    aria-label={t.footer.themeDark}
   >
     <Icon name="tabler:moon" class="w-4 h-4" />
   </button>

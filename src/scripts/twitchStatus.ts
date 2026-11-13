@@ -23,7 +23,7 @@ async function checkTwitchStatus() {
       statusTexts.forEach((text) => {
         text.classList.remove("text-catp-text");
         text.classList.add("text-catp-red");
-        text.textContent = "Live";
+        text.textContent = (text as HTMLElement).dataset.liveText || "Live";
       });
     }
   } catch {

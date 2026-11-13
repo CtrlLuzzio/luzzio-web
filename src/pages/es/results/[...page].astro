@@ -1,0 +1,25 @@
+---
+import type { PaginateFunction, Page } from "astro";
+import ResultsView from "../../../views/ResultsView.astro";
+import {
+  getResultsForLocale,
+  type TournamentResult,
+} from "../../../utils/startggResults";
+
+interface Props {
+  page: Page<TournamentResult>;
+}
+
+export async function getStaticPaths({
+  paginate,
+}: {
+  paginate: PaginateFunction;
+}) {
+  const allResults = await getResultsForLocale("es");
+  return paginate(allResults, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<ResultsView page={page} lang="es" />

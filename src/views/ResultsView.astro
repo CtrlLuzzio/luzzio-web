@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import Pagination from "../components/Pagination.astro";
+import { Icon } from "astro-icon/components";
+import type { Page } from "astro";
+import type { TournamentResult } from "../utils/startggResults";
+import { localizePath, useTranslations, type Locale } from "../i18n/utils";
+
+interface Props {
+  page: Page<TournamentResult>;
+  lang: Locale;
+}
+
+const { page, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const pageTitle = `${t.results.pageTitle} ${
+  page.currentPage > 1
+    ? `- ${t.pagination.pageTitleSuffix} ${page.currentPage}`
+    : ""
+}`;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section
+    class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4"
+  >
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
+      {t.results.heading}
+    </h1>
+    <p class="text-lg md:text-xl text-catp-subtext-1">
+      {t.results.subtitle}
+    </p>
+  </section>
+
+  <section
+    class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20 mb-20"
+  >
+    <div class="flex flex-col gap-6">
+      {
+        page.data.length === 0 ? (
+          <div class="p-6 rounded-2xl bg-catp-base border-2 border-catp-surface-2 text-center">
+            <p class="text-catp-subtext-0 font-mono">{t.results.emptyState}</p>
+          </div>
+        ) : (
+          page.data.map((result: TournamentResult) => (
+            <article
+              id={result.anchorId}
+              class="relative scroll-mt-28 flex flex-col md:flex-row items-center md:items-start gap-6 p-6 rounded-2xl bg-catp-base border-2 border-transparent hover:border-catp-surface-2 target:border-catp-red transition-all w-full"
+            >
+              {result.isFirstOfTournament && (
+                <span id={result.tournamentAnchorId} class="absolute -top-28" />
+              )}
+
+              <div class="shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-xl flex items-center justify-center bg-catp-crust overflow-hidden border border-catp-surface-0">
+                {result.logo ? (
+                  <img
+                    src={result.logo}
+                    alt={`${t.results.logoAlt} ${result.tournamentName}`}
+                    width="128"
+                    height="128"
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Icon
+                    name="tabler:trophy"
+                    class="w-12 h-12 md:w-16 md:h-16 text-catp-surface-2 opacity-50"
+                  />
+                )}
+              </div>
+
+              <div class="flex flex-col justify-center flex-1 w-full text-center md:text-left">
+                <span class="font-mono text-sm text-catp-subtext-0 mb-1">
+                  {result.date}
+                </span>
+
+                <div class="flex flex-wrap items-baseline gap-2 mb-1 justify-center md:justify-start">
+                  <a
+                    href={result.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="w-fit text-2xl md:text-3xl font-mono font-bold text-catp-text hover:text-catp-blue transition-colors"
+                  >
+                    {result.tournamentName}
+                  </a>
+                  <span class="text-catp-subtext-1 text-base opacity-80 font-sans font-normal">
+                    ({result.gameName})
+                  </span>
+                </div>
+
+                <p class="text-catp-subtext-1 text-base font-medium mb-3">
+                  <span class="opacity-50 text-sm">({result.eventName})</span>
+                </p>
+
+                <p class="text-catp-subtext-0 font-mono m-0">
+                  {t.results.placement}{" "}
+                  <span class="font-bold text-catp-green">
+                    {result.placement} / {result.numEntrants}
+                  </span>
+                </p>
+
+                {result.blogPosts.length > 0 && (
+                  <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 mt-4 pt-3 border-t border-catp-surface-0">
+                    <span class="text-catp-subtext-0 font-mono text-sm flex items-center gap-1.5">
+                      <Icon
+                        name="tabler:file-text"
+                        class="w-4 h-4 text-catp-mauve"
+                      />
+                      {t.results.relatedPosts}
+                    </span>
+                    {result.blogPosts.map((post) => (
+                      <a
+                        href={localizePath(`/blog/${post.id}`, lang)}
+                        class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-catp-surface-0 hover:bg-catp-surface-1 text-catp-text font-mono text-sm rounded-lg transition-colors border border-catp-surface-2"
+                      >
+                        <span>{post.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))
+        )
+      }
+    </div>
+
+    <Pagination page={page} />
+  </section>
+</BaseLayout>

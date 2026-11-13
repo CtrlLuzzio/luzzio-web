@@ -1,0 +1,550 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import PersonaSwitcherContent from "../components/PersonaSwitcherContent.astro";
+import PersonaSwitcherButton from "../components/PersonaSwitcherButton.astro";
+import Link from "../components/Link.astro";
+import HeroActions from "../components/HeroActions.astro";
+import SectionCard from "../components/SectionCard.astro";
+import TwitchBento from "../components/TwitchBento.astro";
+import BentoBox from "../components/BentoBox.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import avatarRender from "../assets/avatar-render.png";
+import { filterPostsByLang } from "../utils/blogMeta";
+import { localizePath, useTranslations, type Locale } from "../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+type PostCard = {
+  title: string;
+  desc: string;
+  icon: string;
+  color: string;
+  url: string;
+};
+
+const allPosts = await getCollection("blog");
+const localizedPosts = filterPostsByLang(allPosts, lang);
+
+const latestPosts: PostCard[] = localizedPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post) => ({
+    title: post.data.title,
+    desc: post.data.desc,
+    icon: post.data.icon,
+    color: post.data.color,
+    url: localizePath(`/blog/${post.cleanSlug}`, lang),
+  }));
+---
+
+<BaseLayout pageTitle={t.nav.home}>
+  <section
+    id="hero"
+    class="max-w-8xl mx-auto grid grid-cols-1 lg:grid-cols-2 min-h-fit lg:min-h-[50vh] pt-8 lg:pt-16 lg:px-20 gap-4 lg:gap-12"
+  >
+    <div
+      class="flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-6 w-full h-full"
+    >
+      <h1 class="text-5xl md:text-7xl font-mono font-bold text-catp-mauve mb-2">
+        Luzzio
+      </h1>
+
+      <div
+        class="flex flex-wrap md:flex-nowrap justify-center lg:justify-start w-full gap-2 md:gap-3 font-mono text-sm lg:text-base mb-2"
+      >
+        <PersonaSwitcherButton
+          id="dev"
+          label={t.hero.dev.label}
+          isActive={true}
+        />
+        <PersonaSwitcherButton id="fgc" label={t.hero.fgc.label} />
+        <PersonaSwitcherButton id="creator" label={t.hero.creator.label} />
+      </div>
+
+      <div class="w-full">
+        <!-- DEV -->
+        <PersonaSwitcherContent id="dev" isActive={true}>
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">{t.hero.dev.desc}</p>
+            <HeroActions
+              href="/services"
+              label={t.hero.dev.cta}
+              colorClass="bg-catp-green"
+            />
+          </div>
+        </PersonaSwitcherContent>
+
+        <!-- FGC -->
+        <PersonaSwitcherContent id="fgc">
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">{t.hero.fgc.desc}</p>
+            <HeroActions
+              href="/results"
+              label={t.hero.fgc.cta}
+              colorClass="bg-catp-red"
+            />
+          </div>
+        </PersonaSwitcherContent>
+
+        <!-- CREATOR -->
+        <PersonaSwitcherContent id="creator">
+          <div class="flex flex-col gap-6">
+            <p class="text-lg">{t.hero.creator.desc}</p>
+            <HeroActions
+              href="https://www.twitch.tv/luzzio__"
+              label={t.hero.creator.cta}
+              colorClass="bg-catp-blue"
+              isExternal={true}
+            />
+          </div>
+        </PersonaSwitcherContent>
+      </div>
+    </div>
+
+    <div class="flex justify-center lg:justify-end items-end w-full h-full">
+      <Image
+        src={avatarRender}
+        alt="Luzzio"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full max-w-87.5 md:max-w-112.5 lg:max-w-137.5 h-auto max-h-[40vh] lg:max-h-[60vh] object-contain object-bottom drop-shadow-2xl"
+      />
+    </div>
+  </section>
+
+  <SectionCard id="about" title={t.home.aboutTitle}>
+    <div class="w-full">
+      <!-- DEV Text -->
+      <PersonaSwitcherContent id="dev" isActive={true}>
+        {
+          lang === "es" ? (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                Soy estudiante de Ingeniería en Informática en la UCLA
+                (Universidad Centroccidental Lisandro Alvarado, no la de
+                California) y desarrollador full-stack. Mi experiencia
+                profesional está fuertemente arraigada en la arquitectura de
+                software empresarial, específicamente desarrollando módulos
+                personalizados para Odoo ERP, gestionando despliegues en
+                contenedores con Docker y Podman, y administrando bases de datos
+                con Python, JavaScript y PostgreSQL.
+              </p>
+              <p>
+                Más allá de los sistemas empresariales, disfruto construir
+                aplicaciones web modernas y sitios estáticos rápidos (como este
+                mismo portafolio) usando Astro, React y Tailwind CSS, o escribir
+                scripts de automatización con Bash, Lua y Python. Ya sea
+                diseñando endpoints complejos en el backend o puliendo un
+                componente frontend, siempre busco el equilibrio perfecto entre
+                una lógica robusta y una UI/UX impecable.
+              </p>
+              <p>
+                Irónicamente para un desarrollador web, paso la mayor parte del
+                tiempo en la terminal. Soy un gran entusiasta de Linux y
+                actualmente uso CachyOS en mi día a día junto con el entorno de
+                escritorio o gestor de ventanas que me provoque usar en el
+                momento. Ajustar mi sistema y optimizar mi flujo de trabajo es
+                prácticamente un segundo trabajo para mí (puedes echarle un
+                vistazo a mis repositorios de
+                <Link
+                  href="https://github.com/CtrlLuzzio/dotfiles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  <code class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm">
+                    dotfiles
+                  </code>
+                </Link>
+                y
+                <Link
+                  href="https://github.com/CtrlLuzzio/nixos-dotfiles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  <code class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm">
+                    nixos-dotfiles
+                  </code>
+                </Link>
+                ).
+              </p>
+              <p class="font-mono text-catp-green mt-4">{t.home.devCallout}</p>
+            </div>
+          ) : (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                I'm a Computer Informatics Engineering student at UCLA
+                (Universidad Centroccidental Lisandro Alvarado, not the
+                University of California) and a full-stack developer. My
+                professional experience is heavily rooted in enterprise software
+                architecture, specifically developing custom Odoo ERP modules,
+                handling containerized deployments with Docker and Podman, and
+                managing databases using Python, JavaScript, and PostgreSQL.
+              </p>
+              <p>
+                Beyond enterprise systems, I also enjoy building modern, fast
+                web applications and static sites (like this very portfolio)
+                using Astro, React, and Tailwind CSS, or writing automation
+                scripts with Bash, Lua, and Python. Whether I'm writing complex
+                backend endpoints or designing a frontend component, I always
+                aim for the perfect balance between robust logic and a seamless
+                UI/UX.
+              </p>
+              <p>
+                Ironically for a web developer, I spend most of my time in the
+                terminal. I'm a huge Linux enthusiast, currently daily driving
+                CachyOS paired with whatever DE/WM I feel like using at the
+                moment. Tinkering with my system and optimizing my workflow is
+                practically a second job for me (feel free to check my
+                <Link
+                  href="https://github.com/CtrlLuzzio/dotfiles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  <code class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm">
+                    dotfiles
+                  </code>
+                </Link>
+                and
+                <Link
+                  href="https://github.com/CtrlLuzzio/nixos-dotfiles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  <code class="font-mono text-catp-green bg-catp-base px-1.5 py-0.5 rounded text-sm">
+                    nixos-dotfiles
+                  </code>
+                </Link>
+                repos).
+              </p>
+              <p class="font-mono text-catp-green mt-4">{t.home.devCallout}</p>
+            </div>
+          )
+        }
+      </PersonaSwitcherContent>
+
+      <!-- FGC Text -->
+      <PersonaSwitcherContent id="fgc">
+        {
+          lang === "es" ? (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                Empecé mi camino en los juegos de pelea como la mayoría: jugando
+                con amigos en casa por pura diversión. Aun así, siempre tuve esa
+                chispa competitiva de querer ganar y mejorar (lo que
+                naturalmente me convertía en el objetivo principal en las
+                partidas todos contra todos de Smash). La cosa se puso seria en
+                secundaria cuando conocí a varios amigos igual de tryhards.
+                Juntos nos metimos de lleno en Project+, pasando horas
+                aprendiendo tech y practicando combos y setups.
+              </p>
+              <p>
+                Mi etapa competitiva arrancó oficialmente en 2022 jugando Super
+                Smash Bros. Ultimate con Incineroar. Conseguí buenos resultados,
+                aunque nada revolucionario: el clásico guardián del top 8 y
+                demonio de bracket local.
+              </p>
+              <p>
+                Alrededor de 2024 di el salto a los fighting games
+                "tradicionales" a través de Guilty Gear XX Accent Core +R,
+                eligiendo a A.B.A. En ese momento mi PC no corría Strive y no
+                tenía consola, hasta que un amigo me prestó su PS4 para poder
+                darle a Strive como es debido (un agradecimiento enorme a ApE
+                <span class="text-catp-red"> &lt;3</span>).
+              </p>
+              <p>
+                Unos meses después por fin armé una PC capaz de correr juegos
+                modernos. Ese fue el verdadero punto de inflexión: por primera
+                vez podía practicar en el laboratorio y jugar con constancia
+                desde casa. Esa consistencia rindió frutos y llegué a
+                consolidarme posiblemente como la mejor A.B.A del país durante
+                la Temporada 3 y parte de la Temporada 4.
+              </p>
+              <p>
+                Eventualmente di el salto a Street Fighter 6, que sigue siendo
+                mi enfoque principal hoy en día. Maineando a Juri, he logrado
+                resultados de torneo sólidos y consistentes mientras sigo
+                puliendo mi neutral y ejecución, aunque todavía regreso a Strive
+                de vez en cuando con Robo-Ky (pasaron cosas con A.B.A, pero el
+                cariño sigue intacto).
+              </p>
+              <p class="font-mono text-catp-red mt-4">{t.home.fgcCallout}</p>
+            </div>
+          ) : (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                I started my journey in fighting games like most players do,
+                just playing with friends at home and having fun. Still, I
+                always had that competitive spark to win and improve (which
+                naturally made me the prime target in Smash FFAs). Things got
+                serious in high school when I met a few friends who were just as
+                tryhard. Together, we dove deep into Project+, spending hours
+                learning tech and labbing combos and setups.
+              </p>
+              <p>
+                My competitive run officially kicked off in 2022 playing Super
+                Smash Bros. Ultimate with Incineroar. I racked up some decent
+                results, though nothing groundbreaking mostly your typical top-8
+                gatekeeper and local bracket demon.
+              </p>
+              <p>
+                Around 2024, I made the jump to "traditional" fighters through
+                Guilty Gear XX Accent Core +R, picking up A.B.A. At the time, my
+                PC couldn't handle Strive and I didn't own a console. That
+                changed when a friend lent me his PS4 so I could finally dive
+                into Strive properly (massive shoutouts to ApE
+                <span class="text-catp-red"> &lt;3</span>).
+              </p>
+              <p>
+                A few months later, I finally built a PC capable of running
+                modern games. That was the real turning point: for the first
+                time, I could grind and lab consistently from home. That
+                newfound consistency paid off, and I arguably became the best
+                A.B.A in the country throughout Season 3 and part of Season 4.
+              </p>
+              <p>
+                Eventually, I made the jump to Street Fighter 6, which remains
+                my primary focus today. Maining Juri, I've managed to put up
+                solid and consistent tournament results while constantly pushing
+                my neutral and execution further though I still revisit Strive
+                on occasion with Robo-Ky (things happened with A.B.A, but the
+                love is still there).
+              </p>
+              <p class="font-mono text-catp-red mt-4">{t.home.fgcCallout}</p>
+            </div>
+          )
+        }
+      </PersonaSwitcherContent>
+
+      <!-- CREATOR Text -->
+      <PersonaSwitcherContent id="creator">
+        {
+          lang === "es" ? (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                La creación de contenido es el punto donde convergen mi pasión
+                por los videojuegos y mis habilidades técnicas. Los juegos de
+                pelea son el corazón indiscutible de mis streams. La mayoría de
+                los días me encontrarás concentrado practicando tech en modo
+                entrenamiento, subiendo en ranked o jugando sets casuales contra
+                el chat. Aun así, para mantener las cosas frescas, me gusta
+                variar con juegos como Balatro, Minecraft o lo que me provoque
+                jugar ese día.
+              </p>
+              <p>
+                Mi objetivo es construir un espacio ameno y entretenido para
+                todo el que se pase a saludar. Estoy constantemente mejorando mi
+                contenido, ya sea actualizando los recursos visuales del stream
+                o editando mejores VODs y momentos destacados.
+              </p>
+              <p>
+                Detrás de cámaras, me encargo de todo el flujo de producción:
+                desde configurar overlays dinámicos en OBS hasta editar VODs,
+                highlights y diseñar miniaturas, tratando mis canales como un
+                proyecto en mejora continua.
+              </p>
+              <p>
+                Al final del día, todo gira en torno a la comunidad. Ya sea
+                sudando en un set de Grand Finals o debatiendo sobre qué
+                personaje de SF6 prepara las mejores arepas, estoy aquí para
+                compartir el rato y pasarla genial con el chat.
+              </p>
+              <p class="font-mono text-catp-blue mt-4 opacity-100">
+                {t.home.creatorCallout}
+              </p>
+            </div>
+          ) : (
+            <div class="text-lg flex flex-col gap-4">
+              <p>
+                Content creation is where my love for gaming and technical
+                skills meet. Fighting games are the undeniable heart of my
+                streams. Most days I'm locked in either labbing tech in training
+                mode, grinding ranked matches, or playing casual sets against
+                viewers. However, to keep things fresh, I like mixing things up
+                with variety games like Balatro, Minecraft, or whatever game I
+                feel like playing that day.
+              </p>
+              <p>
+                My goal is to build a welcoming, engaging space for everyone who
+                drops by. I'm constantly working on improving my content,
+                whether that means upgrading my stream assets or editing better
+                VODs and highlights.
+              </p>
+              <p>
+                Behind the scenes, I handle the entire production pipeline. From
+                setting up dynamic OBS overlays to editing VODs, stream
+                highlights, and designing thumbnails, I treat my channels as an
+                ongoing project to continuously improve.
+              </p>
+              <p>
+                At the end of the day, it's all about the community. Whether I'm
+                sweating in a grand finals set or talking about which character
+                in SF6 makes the best arepas, I'm here to share the moment and
+                have a great time with the chat.
+              </p>
+              <p class="font-mono text-catp-blue mt-4 opacity-100">
+                {t.home.creatorCallout}
+              </p>
+            </div>
+          )
+        }
+      </PersonaSwitcherContent>
+    </div>
+
+    <div class="w-full">
+      <!-- DEV Bento Grid -->
+      <PersonaSwitcherContent id="dev" isActive={true}>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <BentoBox
+            href={localizePath("/projects", lang)}
+            class="hover:border-catp-teal"
+            icon="tabler:terminal"
+            title={t.home.devProjectsTitle}
+            iconColor="text-catp-teal"
+          >
+            {t.home.devProjectsDesc}
+          </BentoBox>
+          <BentoBox
+            href={localizePath("/services", lang)}
+            class="hover:border-catp-green"
+            icon="tabler:code"
+            title={t.home.devServicesTitle}
+            iconColor="text-catp-green"
+          >
+            {t.home.devServicesDesc}
+          </BentoBox>
+        </div>
+      </PersonaSwitcherContent>
+
+      <!-- FGC Bento Grid -->
+      <PersonaSwitcherContent id="fgc">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <BentoBox
+            href={localizePath("/results", lang)}
+            class="hover:border-catp-red"
+            icon="tabler:trophy"
+            title={t.home.fgcResultsTitle}
+            iconColor="text-catp-red"
+          >
+            {t.home.fgcResultsDesc}
+          </BentoBox>
+          <TwitchBento />
+        </div>
+      </PersonaSwitcherContent>
+
+      <!-- CREATOR Bento Grid -->
+      <PersonaSwitcherContent id="creator">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min w-full">
+          <TwitchBento class="md:col-span-2" />
+          <BentoBox
+            href="https://www.youtube.com/@soyluzzio"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:border-catp-red"
+            icon="tabler:brand-youtube"
+            title="YouTube"
+            iconColor="text-catp-red"
+          >
+            {t.home.youtubeDesc}
+          </BentoBox>
+          <BentoBox
+            href="https://www.tiktok.com/@luzzio__"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:border-catp-pink"
+            icon="tabler:brand-tiktok"
+            title="TikTok"
+            iconColor="text-catp-pink"
+          >
+            {t.home.tiktokDesc}
+          </BentoBox>
+        </div>
+      </PersonaSwitcherContent>
+    </div>
+  </SectionCard>
+
+  <SectionCard id="blog" title={t.home.blogTitle}>
+    <p class="text-lg">{t.home.blogDesc}</p>
+
+    <div class="relative w-full mt-4">
+      <button
+        id="blog-prev"
+        class="hidden md:flex absolute top-1/2 -left-8 -translate-y-1/2 z-10 p-3 rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors text-catp-text bg-catp-surface-0 shadow-xl cursor-pointer"
+        aria-label={t.home.blogPrev}
+      >
+        <Icon name="tabler:arrow-left" class="w-6 h-6" />
+      </button>
+
+      <div
+        id="blog-track"
+        class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-none [&::-webkit-scrollbar]:hidden"
+      >
+        {
+          latestPosts.slice(0, 5).map((post: PostCard, index: number) => (
+            <BentoBox
+              href={post.url}
+              class:list={[
+                "w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start bg-catp-base hover:border-catp-surface-2 h-auto",
+                {
+                  "hidden md:flex": index === 3,
+                  "hidden lg:flex": index === 4,
+                },
+              ]}
+              icon={post.icon}
+              title={post.title}
+              iconColor={post.color}
+            >
+              {post.desc}
+            </BentoBox>
+          ))
+        }
+
+        {
+          latestPosts.length > 3 && (
+            <a
+              href={localizePath("/blog", lang)}
+              class:list={[
+                "flex-col items-center justify-center gap-4 p-8 rounded-2xl bg-catp-base border-2 border-dashed border-catp-surface-2 hover:border-catp-mauve hover:text-catp-mauve transition-colors group text-center w-[85%] md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] shrink-0 snap-start h-auto min-h-62",
+                {
+                  flex: latestPosts.length > 5,
+                  "flex lg:hidden": latestPosts.length === 5,
+                  "flex md:hidden": latestPosts.length === 4,
+                },
+              ]}
+            >
+              <Icon
+                name="tabler:arrow-right"
+                class="w-12 h-12 text-catp-surface-2 group-hover:text-catp-mauve transition-colors"
+              />
+              <div>
+                <h3 class="text-2xl font-mono font-bold">{t.home.viewAll}</h3>
+                <p class="mt-2 text-catp-subtext-0">{t.home.viewAllDesc}</p>
+              </div>
+            </a>
+          )
+        }
+      </div>
+
+      <button
+        id="blog-next"
+        class="hidden md:flex absolute top-1/2 -right-8 -translate-y-1/2 z-10 p-3 rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors text-catp-text bg-catp-surface-0 shadow-xl cursor-pointer"
+        aria-label={t.home.blogNext}
+      >
+        <Icon name="tabler:arrow-right" class="w-6 h-6" />
+      </button>
+    </div>
+  </SectionCard>
+</BaseLayout>
+
+<script src="../scripts/personaSwitcher.ts"></script>
+<script src="../scripts/twitchStatus.ts"></script>
+<script src="../scripts/blogSlider.ts"></script>

@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import Pagination from "../components/Pagination.astro";
+import { Icon } from "astro-icon/components";
+import type { Page } from "astro";
+import type { ProjectItem } from "../utils/githubProjects";
+import { localizePath, useTranslations, type Locale } from "../i18n/utils";
+
+interface Props {
+  page: Page<ProjectItem>;
+  lang: Locale;
+}
+
+const { page, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const pageTitle = `${t.projects.pageTitle} ${
+  page.currentPage > 1
+    ? `- ${t.pagination.pageTitleSuffix} ${page.currentPage}`
+    : ""
+}`;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <section
+    class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4"
+  >
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
+      {t.projects.heading}
+    </h1>
+    <p class="text-lg md:text-xl text-catp-subtext-1">
+      {t.projects.subtitle}
+    </p>
+  </section>
+
+  <section
+    class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20 mb-20"
+  >
+    <div class="flex flex-col gap-6">
+      {
+        page.data.length === 0 ? (
+          <div class="p-6 rounded-2xl bg-catp-base border-2 border-catp-surface-2 text-center">
+            <p class="text-catp-subtext-0 font-mono">{t.projects.emptyState}</p>
+          </div>
+        ) : (
+          page.data.map((project: ProjectItem) => (
+            <article
+              id={`project-${project.name.toLowerCase()}`}
+              class:list={[
+                "scroll-mt-28 flex flex-col gap-6 p-6 md:p-8 rounded-2xl bg-catp-base border-2 border-transparent target:border-catp-teal transition-all w-full",
+                { "hover:border-catp-surface-2": !project.isPrivate },
+              ]}
+            >
+              <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-wrap items-center gap-3">
+                    {project.isPrivate ? (
+                      <div class="flex items-center gap-2.5 text-2xl md:text-3xl font-mono font-bold text-catp-text">
+                        <Icon
+                          name="tabler:lock"
+                          class="w-7 h-7 text-catp-red shrink-0"
+                        />
+                        <span>{project.name}</span>
+                        <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-catp-crust text-catp-subtext-0 border border-catp-surface-0">
+                          {t.projects.privateBadge}
+                        </span>
+                      </div>
+                    ) : (
+                      <a
+                        href={project.htmlUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-fit flex items-center gap-2.5 text-2xl md:text-3xl font-mono font-bold text-catp-text hover:text-catp-blue transition-colors group"
+                      >
+                        <Icon
+                          name="tabler:brand-github"
+                          class="w-7 h-7 text-catp-teal shrink-0"
+                        />
+                        <span>{project.name}</span>
+                        <Icon
+                          name="tabler:external-link"
+                          class="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity"
+                        />
+                      </a>
+                    )}
+                  </div>
+                  {project.description && (
+                    <p class="text-catp-subtext-1 text-base md:text-lg mt-1">
+                      {project.description}
+                    </p>
+                  )}
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 self-start md:self-center shrink-0">
+                  {project.language && (
+                    <span class="px-3 py-1 bg-catp-crust text-catp-green font-mono text-xs font-bold rounded-full border border-catp-surface-0">
+                      {project.language}
+                    </span>
+                  )}
+                  <span class="font-mono text-xs text-catp-subtext-0">
+                    {t.projects.updated} {project.updatedAt}
+                  </span>
+                </div>
+              </div>
+
+              {project.readmeHtml && (
+                <div class="bg-catp-crust rounded-xl border border-catp-surface-0 p-5 md:p-6 flex flex-col">
+                  <div class="readme-wrapper relative max-h-56 overflow-hidden transition-all duration-300">
+                    <div
+                      class="prose-catp text-base"
+                      set:html={project.readmeHtml}
+                    />
+                    <div class="readme-fade absolute bottom-0 inset-x-0 h-20 bg-linear-to-t from-catp-crust to-transparent pointer-events-none hidden" />
+                  </div>
+                  <button
+                    type="button"
+                    aria-expanded="false"
+                    data-read-more={t.projects.readMore}
+                    data-show-less={t.projects.showLess}
+                    class="readme-toggle-btn hidden mt-4 pt-3 border-t border-catp-surface-0 font-mono text-sm font-bold text-catp-teal hover:text-catp-mauve transition-colors items-center gap-2 cursor-pointer w-fit"
+                  >
+                    <span class="readme-toggle-text">{t.projects.readMore}</span>
+                    <Icon
+                      name="tabler:chevron-down"
+                      class="readme-toggle-icon w-4 h-4 transition-transform duration-300"
+                    />
+                  </button>
+                </div>
+              )}
+
+              {project.blogPosts.length > 0 && (
+                <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-catp-surface-0">
+                  <span class="text-catp-subtext-0 font-mono text-sm flex items-center gap-1.5">
+                    <Icon
+                      name="tabler:file-text"
+                      class="w-4 h-4 text-catp-mauve"
+                    />
+                    {t.projects.relatedPosts}
+                  </span>
+                  {project.blogPosts.map((post) => (
+                    <a
+                      href={localizePath(`/blog/${post.id}`, lang)}
+                      class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-catp-surface-0 hover:bg-catp-surface-1 text-catp-text font-mono text-sm rounded-lg transition-colors border border-catp-surface-2"
+                    >
+                      <span>{post.title}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))
+        )
+      }
+    </div>
+
+    <Pagination page={page} />
+  </section>
+</BaseLayout>
+
+<script src="../scripts/projects.ts"></script>

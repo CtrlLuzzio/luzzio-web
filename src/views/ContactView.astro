@@ -1,0 +1,172 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import { Icon } from "astro-icon/components";
+import { localizePath, useTranslations, type Locale } from "../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout pageTitle={t.contact.pageTitle}>
+  <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
+      {t.contact.heading}
+    </h1>
+    <p class="text-lg md:text-xl text-catp-subtext-1">
+      {t.contact.subtitle}
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-20 w-full">
+    <section
+      class="flex flex-col gap-10 bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20"
+    >
+      <div>
+        <h3 class="text-2xl font-mono font-bold text-catp-text mb-4">
+          {t.contact.emailHeading}
+        </h3>
+        <div
+          class="flex items-center gap-4 bg-catp-crust p-4 rounded-xl border border-catp-surface-2 relative group"
+        >
+          <Icon name="tabler:mail" class="w-6 h-6 text-catp-blue shrink-0" />
+          <span
+            class="font-mono flex-1 text-catp-text text-sm md:text-base overflow-hidden text-ellipsis whitespace-nowrap"
+            id="email-text"
+          >
+            contacto@luzzio.me
+          </span>
+          <button
+            id="copy-email-btn"
+            class="p-2 bg-catp-surface-0 hover:bg-catp-surface-1 rounded-lg transition-colors cursor-pointer border border-catp-surface-2"
+            aria-label={t.contact.copyEmailAria}
+          >
+            <Icon
+              name="tabler:copy"
+              id="copy-icon"
+              class="w-5 h-5 text-catp-text"
+            />
+            <Icon
+              name="tabler:check"
+              id="check-icon"
+              class="w-5 h-5 text-catp-green hidden"
+            />
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px w-full bg-catp-surface-2 opacity-50"></div>
+
+      <div>
+        <h3 class="text-2xl font-mono font-bold text-catp-text mb-4">
+          {t.contact.softwareHeading}
+        </h3>
+        <p class="mb-6 text-catp-subtext-1">
+          {t.contact.softwareDesc}
+        </p>
+        <a
+          href={localizePath("/services", lang)}
+          class="inline-flex items-center gap-2 bg-catp-green text-catp-crust font-mono font-bold py-2.5 px-6 rounded-lg transition-transform hover:scale-105"
+        >
+          <span>{t.contact.goToServices}</span>
+          <Icon name="tabler:arrow-right" class="w-5 h-5" />
+        </a>
+      </div>
+    </section>
+
+    <section
+      class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20"
+    >
+      <form
+        id="contact-form"
+        data-sending-text={t.contact.form.sending}
+        data-conn-error={t.contact.form.connError}
+        class="flex flex-col gap-6"
+      >
+        <input type="hidden" name="lang" value={lang} />
+        <div
+          id="contact-success-msg"
+          class="hidden p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center"
+        >
+        </div>
+        <div
+          id="contact-error-msg"
+          class="hidden p-4 bg-catp-red/10 border border-catp-red text-catp-red rounded-lg font-mono text-sm text-center"
+        >
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="name" class="font-mono text-sm text-catp-subtext-1">
+              {t.contact.form.name}
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="email" class="font-mono text-sm text-catp-subtext-1">
+              {t.contact.form.email}
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="topic" class="font-mono text-sm text-catp-subtext-1">
+            {t.contact.form.topic}
+          </label>
+          <select
+            id="topic"
+            name="topic"
+            required
+            class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
+          >
+            <option value="" disabled selected>{t.contact.form.topicPlaceholder}</option>
+            <option value="dev">{t.contact.form.optDev}</option>
+            <option value="fgc">{t.contact.form.optFgc}</option>
+            <option value="creator">{t.contact.form.optCreator}</option>
+            <option value="other">{t.contact.form.optOther}</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="message" class="font-mono text-sm text-catp-subtext-1">
+            {t.contact.form.message}
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <button
+          id="contact-submit-btn"
+          type="submit"
+          class="mt-2 bg-catp-blue text-catp-crust font-mono font-bold text-lg py-3 px-6 rounded-lg transition-transform hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {t.contact.form.submit}
+        </button>
+      </form>
+    </section>
+  </div>
+</BaseLayout>
+
+<script src="../scripts/copyEmail.ts"></script>
+<script src="../scripts/contactForm.ts"></script>

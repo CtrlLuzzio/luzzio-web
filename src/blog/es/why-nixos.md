@@ -1,9 +1,13 @@
 ---
-title: "Why I switched to NixOS"
+title: "NixOS es la cebolla"
 desc: "My journey moving from static distros to a declarative system with flakes."
 icon: "tabler:brand-ubuntu"
 color: "text-catp-blue"
 pubDate: 2026-09-16
+projectRepo: "luzzio-web"
+tournament: "https://www.start.gg/tournament/kick-back-6-5/details"
+tournamentGame: "cotw"
+tags: ["nixos", "linux", "dotfiles", "fgc", "tournament"]
 ---
 
 ## El salto a la declaración total

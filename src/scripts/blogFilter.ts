@@ -87,7 +87,11 @@ function initBlogFilter() {
       toggleTagsBtn.classList.toggle("inline-flex", showToggleBtn);
       toggleTagsBtn.classList.toggle("hidden", !showToggleBtn);
       toggleTagsBtn.setAttribute("aria-expanded", String(tagsExpanded));
-      toggleTagsText.textContent = tagsExpanded ? "Show less" : `+${hiddenCount} more`;
+      const moreTemplate = toggleTagsBtn.dataset.moreTemplate || "+{count} more";
+      const showLessLabel = toggleTagsBtn.dataset.showLess || "Show less";
+      toggleTagsText.textContent = tagsExpanded
+        ? showLessLabel
+        : moreTemplate.replace("{count}", String(hiddenCount));
       toggleTagsIcon.classList.toggle("rotate-180", tagsExpanded);
     }
   }
@@ -158,7 +162,10 @@ function initBlogFilter() {
       paginationNav.classList.toggle("flex", showPagination);
       paginationNav.classList.toggle("hidden", !showPagination);
 
-      pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+      const pageTemplate = pageIndicator.dataset.pageTemplate || "Page {current} of {total}";
+      pageIndicator.textContent = pageTemplate
+        .replace("{current}", String(currentPage))
+        .replace("{total}", String(totalPages));
       prevBtn.disabled = currentPage <= 1;
       nextBtn.disabled = currentPage >= totalPages;
     }

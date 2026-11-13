@@ -15,8 +15,8 @@ function initContactForm() {
     errorMsg.classList.add("hidden");
     submitBtn.disabled = true;
     
-    const originalText = submitBtn.textContent || "Send Message";
-    submitBtn.textContent = "Sending...";
+    const originalText = submitBtn.textContent || "";
+    submitBtn.textContent = form.dataset.sendingText || "Sending...";
 
     try {
       const formData = new FormData(form);
@@ -36,7 +36,7 @@ function initContactForm() {
         form.reset();
       }
     } catch {
-      errorMsg.textContent = "> Error: Connection failed. Please try again.";
+      errorMsg.textContent = `> Error: ${form.dataset.connError || "Connection failed."}`;
       errorMsg.classList.remove("hidden");
     } finally {
       submitBtn.disabled = false;

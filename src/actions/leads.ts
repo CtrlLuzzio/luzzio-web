@@ -6,11 +6,12 @@ export const leads = {
   submitProject: defineAction({
     accept: "form",
     input: z.object({
-      name: z.string().trim().min(2, "Name is mandatory").max(100),
-      email: z.string().trim().email({ message: "Invalid email" }).max(255),
+      lang: z.enum(["en", "es"]).optional().default("en"),
+      name: z.string().trim().min(2).max(100),
+      email: z.string().trim().email().max(255),
       service: z.enum(["static_page", "web_app", "odoo_module", "devops", "creator_tools", "custom"]),
       deadline: z.string().trim().max(200).optional(),
-      details: z.string().trim().min(20, "Please detail your project (min 20 characters)").max(4000),
+      details: z.string().trim().min(20).max(4000),
     }),
     handler: async (input) => {
       const { name, email, service, deadline, details } = input;
@@ -50,13 +51,19 @@ export const leads = {
       if (!discordOk && !emailOk) {
         throw new ActionError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Could not submit your request. Please try again later.",
+          message:
+            input.lang === "es"
+              ? "No se pudo enviar tu solicitud. Por favor, inténtalo más tarde."
+              : "Could not submit your request. Please try again later.",
         });
       }
 
       return {
         success: true,
-        message: "Request received. I'll get back to you soon.",
+        message:
+          input.lang === "es"
+            ? "Solicitud recibida. Me pondré en contacto contigo pronto."
+            : "Request received. I'll get back to you soon.",
       };
     },
   }),

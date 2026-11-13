@@ -6,10 +6,11 @@ export const contact = {
   submitMessage: defineAction({
     accept: "form",
     input: z.object({
-      name: z.string().trim().min(3, "Name must be at least 3 characters").max(100, "Name is too long"),
-      email: z.string().trim().email({ message: "Invalid Email" }).max(255),
+      lang: z.enum(["en", "es"]).optional().default("en"),
+      name: z.string().trim().min(3).max(100),
+      email: z.string().trim().email().max(255),
       topic: z.enum(["dev", "fgc", "creator", "other"]),
-      message: z.string().trim().min(10, "Message must be at least 10 characters").max(3000, "Message is too long"),
+      message: z.string().trim().min(10).max(3000),
     }),
     handler: async (input) => {
       const { name, email, topic, message } = input;
@@ -44,13 +45,19 @@ export const contact = {
       if (!discordOk && !emailOk) {
         throw new ActionError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Could not send your message. Please try again or reach out via email.",
+          message:
+            input.lang === "es"
+              ? "No se pudo enviar tu mensaje. Inténtalo de nuevo o escríbeme por correo."
+              : "Could not send your message. Please try again or reach out via email.",
         });
       }
 
       return {
         success: true,
-        message: "Message sent successfully. I'll get back to you soon!",
+        message:
+          input.lang === "es"
+            ? "Mensaje enviado con éxito. ¡Te responderé pronto!"
+            : "Message sent successfully. I'll get back to you soon!",
       };
     },
   }),

@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/Base.astro";
+import BentoBox from "../components/BentoBox.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { useTranslations, type Locale } from "../i18n/utils";
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout pageTitle={t.services.pageTitle}>
+  <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
+    <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
+      {t.services.heading}
+    </h1>
+    <p class="text-lg md:text-xl text-catp-subtext-1">
+      {t.services.subtitle}
+    </p>
+  </section>
+
+  <section
+    class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20 mb-20"
+  >
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
+    >
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-blue bg-catp-base"
+        icon="tabler:layout"
+        title={t.services.cards.staticTitle}
+        iconColor="text-catp-blue"
+      >
+        {t.services.cards.staticDesc}
+      </BentoBox>
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-green bg-catp-base"
+        icon="tabler:code"
+        title={t.services.cards.webappTitle}
+        iconColor="text-catp-green"
+      >
+        {t.services.cards.webappDesc}
+      </BentoBox>
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-mauve bg-catp-base"
+        icon="tabler:database"
+        title={t.services.cards.odooTitle}
+        iconColor="text-catp-mauve"
+      >
+        {t.services.cards.odooDesc}
+      </BentoBox>
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-yellow bg-catp-base"
+        icon="tabler:server"
+        title={t.services.cards.devopsTitle}
+        iconColor="text-catp-yellow"
+      >
+        {t.services.cards.devopsDesc}
+      </BentoBox>
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-red bg-catp-base"
+        icon="tabler:device-gamepad"
+        title={t.services.cards.creatorTitle}
+        iconColor="text-catp-red"
+      >
+        {t.services.cards.creatorDesc}
+      </BentoBox>
+      <BentoBox
+        href="#quote"
+        class="hover:border-catp-teal bg-catp-base"
+        icon="tabler:tool"
+        title={t.services.cards.customTitle}
+        iconColor="text-catp-teal"
+      >
+        {t.services.cards.customDesc}
+      </BentoBox>
+    </div>
+  </section>
+
+  <section
+    id="quote"
+    class="flex flex-col gap-8 max-w-4xl mx-auto w-full mb-12 scroll-mt-24"
+  >
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <h3 class="text-3xl font-mono font-bold text-catp-teal">
+          {t.services.quoteHeading}
+        </h3>
+      </div>
+      <p class="text-catp-subtext-1 text-lg">
+        {t.services.quoteSubtitle}
+      </p>
+    </div>
+    <LeadForm />
+  </section>
+</BaseLayout>

@@ -1,10 +1,17 @@
 ---
+import { getLocale, useTranslations } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <form
   id="lead-form"
+  data-sending-text={t.services.form.sending}
+  data-conn-error={t.services.form.connError}
   class="flex flex-col gap-6 bg-catp-base p-8 rounded-2xl border-2 border-catp-surface-0 shadow-lg shadow-catp-shadow/50"
 >
+  <input type="hidden" name="lang" value={lang} />
   <div
     id="lead-success-msg"
     class="hidden p-4 bg-catp-green/10 border border-catp-green text-catp-green rounded-lg font-mono text-sm text-center"
@@ -18,7 +25,9 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="flex flex-col gap-2">
-      <label for="name" class="font-mono text-sm text-catp-subtext-1">Name</label>
+      <label for="name" class="font-mono text-sm text-catp-subtext-1">
+        {t.services.form.name}
+      </label>
       <input
         type="text"
         id="name"
@@ -28,7 +37,9 @@
       />
     </div>
     <div class="flex flex-col gap-2">
-      <label for="email" class="font-mono text-sm text-catp-subtext-1">Email</label>
+      <label for="email" class="font-mono text-sm text-catp-subtext-1">
+        {t.services.form.email}
+      </label>
       <input
         type="email"
         id="email"
@@ -40,43 +51,49 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <label for="service" class="font-mono text-sm text-catp-subtext-1">Service</label>
+    <label for="service" class="font-mono text-sm text-catp-subtext-1">
+      {t.services.form.service}
+    </label>
     <select
       id="service"
       name="service"
       required
       class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
     >
-      <option value="" disabled selected>Select a Service...</option>
-      <option value="static_page">Static Website</option>
-      <option value="web_app">Web App</option>
-      <option value="odoo_module">Custom Odoo Module</option>
-      <option value="devops">DevOps / Servers</option>
-      <option value="creator_tools">Creator Tools</option>
-      <option value="custom">Custom quotation</option>
+      <option value="" disabled selected>{t.services.form.servicePlaceholder}</option>
+      <option value="static_page">{t.services.form.optStatic}</option>
+      <option value="web_app">{t.services.form.optWebapp}</option>
+      <option value="odoo_module">{t.services.form.optOdoo}</option>
+      <option value="devops">{t.services.form.optDevops}</option>
+      <option value="creator_tools">{t.services.form.optCreator}</option>
+      <option value="custom">{t.services.form.optCustom}</option>
     </select>
   </div>
 
   <div class="flex flex-col gap-2">
-    <label for="deadline" class="font-mono text-sm text-catp-subtext-1">Deadline (Optional)</label>
+    <label for="deadline" class="font-mono text-sm text-catp-subtext-1">
+      {t.services.form.deadline}
+    </label>
     <input
       type="text"
       id="deadline"
       name="deadline"
-      placeholder="Specify your ideal timeframe, target date, or flexibility"
+      placeholder={t.services.form.deadlinePlaceholder}
       class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors"
     />
   </div>
 
   <div class="flex flex-col gap-2">
-    <label for="details" class="font-mono text-sm text-catp-subtext-1">Project Details</label>
+    <label for="details" class="font-mono text-sm text-catp-subtext-1">
+      {t.services.form.details}
+    </label>
     <textarea
       id="details"
       name="details"
       required
       minlength="20"
       rows="5"
-      placeholder="Briefly describe the project's objective, key features, and expectations"
+      placeholder={t.services.form.detailsPlaceholder}
       class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors resize-none"
     ></textarea>
   </div>
@@ -86,7 +103,7 @@
     type="submit"
     class="mt-4 bg-catp-surface-0 text-catp-text font-mono font-bold text-lg py-3 px-6 rounded-lg hover:bg-catp-green hover:text-catp-crust hover:border-transparent border border-catp-surface-2 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
   >
-    Submit Request
+    {t.services.form.submit}
   </button>
 </form>
 

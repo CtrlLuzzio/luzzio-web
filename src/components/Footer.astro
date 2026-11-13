@@ -2,6 +2,11 @@
 import Social from "./SocialMedia.astro";
 import Link from "./Link.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import LanguageToggle from "./LanguageToggle.astro";
+import { getLocale, localizePath, useTranslations } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <footer
@@ -9,29 +14,30 @@ import ThemeToggle from "./ThemeToggle.astro";
 >
   <section class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
     <nav aria-label="Footer Navigation">
-      <h4 class="text-2xl font-mono font-bold mb-4">Explore</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">{t.footer.explore}</h4>
       <ul class="list-none p-0 m-0 grid grid-cols-2 gap-x-4 gap-y-2">
         <li>
-          <Link href="/">Home</Link>
+          <Link href={localizePath("/", lang)}>{t.nav.home}</Link>
         </li>
         <li>
-          <Link href="/services">Services</Link>
+          <Link href={localizePath("/services", lang)}>{t.nav.services}</Link>
         </li>
         <li>
-          <Link href="/results">Results</Link>
+          <Link href={localizePath("/results", lang)}>{t.nav.results}</Link>
         </li>
         <li>
-          <Link href="/projects">Projects</Link>
+          <Link href={localizePath("/projects", lang)}>{t.nav.projects}</Link>
         </li>
-        <li><Link href="/blog">Blog</Link></li>
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href={localizePath("/blog", lang)}>{t.nav.blog}</Link>
+        </li>
+        <li>
+          <Link href={localizePath("/contact", lang)}>{t.nav.contact}</Link>
         </li>
       </ul>
     </nav>
-
     <address class="not-italic">
-      <h4 class="text-2xl font-mono font-bold mb-4">Social</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">{t.footer.social}</h4>
       <ul class="list-none p-0 m-0 grid grid-cols-2 gap-x-4 gap-y-2">
         <li>
           <Social
@@ -77,9 +83,8 @@ import ThemeToggle from "./ThemeToggle.astro";
         </li>
       </ul>
     </address>
-
     <div>
-      <h4 class="text-2xl font-mono font-bold mb-4">Source</h4>
+      <h4 class="text-2xl font-mono font-bold mb-4">{t.footer.source}</h4>
       <div class="flex flex-col gap-3">
         <div class="flex flex-col gap-2">
           <Link
@@ -87,22 +92,22 @@ import ThemeToggle from "./ThemeToggle.astro";
             target="_blank"
             rel="noopener noreferrer"
           >
-            Check the code of this website here
+            {t.footer.sourceLink}
           </Link>
           <p class="text-xs m-0 text-catp-subtext-0">
-            Made with Astro and Tailwind CSS.
+            {t.footer.madeWith}
           </p>
         </div>
-
-        <ThemeToggle />
+        <div class="flex items-center gap-2">
+          <ThemeToggle />
+          <LanguageToggle />
+        </div>
       </div>
     </div>
   </section>
-
   <small
     class="block pt-6 text-center border-t border-catp-surface-0 text-catp-subtext-0"
   >
-    &copy; 2026 Luzzio. Code under MIT License. All rights reserved for content
-    and multimedia.
+    {t.footer.copyright}
   </small>
 </footer>

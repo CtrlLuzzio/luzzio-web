@@ -1,0 +1,8 @@
+---
+import BlogIndexView from "../../../views/BlogIndexView.astro";
+
+export async function getStaticPaths() {
+  return [{ params: { page: undefined } }];
+}
+---
+<BlogIndexView lang="es" />

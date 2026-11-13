@@ -1,14 +1,20 @@
 ---
+import { getLocale, localizePath, useTranslations } from "../i18n/utils";
+
 const { href, label, colorClass, isExternal = false } = Astro.props;
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
 const target = isExternal ? "_blank" : undefined;
 const rel = isExternal ? "noopener noreferrer" : undefined;
+const resolvedHref = isExternal ? href : localizePath(href, lang);
 ---
 
 <div
   class="flex flex-wrap justify-center lg:justify-start gap-3 font-mono mt-2"
 >
   <a
-    href={href}
+    href={resolvedHref}
     target={target}
     rel={rel}
     class:list={[
@@ -19,9 +25,9 @@ const rel = isExternal ? "noopener noreferrer" : undefined;
     {label}
   </a>
   <a
-    href="/contact"
+    href={localizePath("/contact", lang)}
     class="bg-catp-surface-0 text-catp-text font-bold py-1.5 px-5 text-sm rounded-full border border-catp-surface-2 hover:border-catp-overlay-0 transition-colors inline-block"
   >
-    Contact Me
+    {t.hero.contactMe}
   </a>
 </div>

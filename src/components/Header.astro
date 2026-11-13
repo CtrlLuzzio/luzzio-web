@@ -1,6 +1,9 @@
 ---
 import Navigation from "./Navigation.astro";
 import Menu from "./Menu.astro";
+import { getLocale, localizePath } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
 ---
 
 <header
@@ -8,21 +11,20 @@ import Menu from "./Menu.astro";
 >
   <nav class="flex justify-between items-center relative z-50">
     <a
-      href="/"
+      href={localizePath("/", lang)}
       class="text-[2.5rem] font-mono font-bold m-0 whitespace-nowrap shrink-0"
     >
       Luzzio
     </a>
-    
+
     <div class="flex items-center gap-2">
       <Menu />
-
       <div
         id="menu-backdrop"
         class="fixed inset-0 bg-catp-crust/80 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
       >
       </div>
-      
+
       <div
         id="mobile-menu"
         class:list={[

@@ -1,11 +1,15 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLocale, useTranslations } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <button
   id="menu-toggle"
   class="lg:hidden flex items-center justify-center p-2 text-catp-text hover:text-catp-blue transition-colors relative z-50 cursor-pointer"
-  aria-label="Toggle menu"
+  aria-label={t.nav.toggleMenu}
   aria-expanded="false"
 >
   <Icon name="tabler:menu-2" class="w-8 h-8 block" id="menu-icon-open" />

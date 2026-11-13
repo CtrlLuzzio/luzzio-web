@@ -1,0 +1,42 @@
+---
+import { getLocale, localizePath } from "../i18n/utils";
+
+const currentLang = getLocale(Astro.currentLocale);
+const enUrl = localizePath(Astro.url.pathname, "en");
+const esUrl = localizePath(Astro.url.pathname, "es");
+---
+
+<div
+  class="flex items-center gap-1 p-0.5 bg-catp-crust rounded-full w-fit font-mono text-xs font-bold"
+  role="group"
+  aria-label="Language selector"
+>
+  <a
+    href={enUrl}
+    data-lang-switch="en"
+    aria-current={currentLang === "en" ? "true" : undefined}
+    class:list={[
+      "px-2.5 py-1 rounded-full transition-all",
+      currentLang === "en"
+        ? "bg-catp-surface-1 text-catp-blue"
+        : "text-catp-subtext-0 hover:text-catp-text",
+    ]}
+  >
+    EN
+  </a>
+  <a
+    href={esUrl}
+    data-lang-switch="es"
+    aria-current={currentLang === "es" ? "true" : undefined}
+    class:list={[
+      "px-2.5 py-1 rounded-full transition-all",
+      currentLang === "es"
+        ? "bg-catp-surface-1 text-catp-blue"
+        : "text-catp-subtext-0 hover:text-catp-text",
+    ]}
+  >
+    ES
+  </a>
+</div>
+
+<script src="../scripts/languageToggle.ts"></script>

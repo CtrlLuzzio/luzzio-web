@@ -4,10 +4,12 @@ import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { Font } from "astro:assets";
 import { ClientRouter, fade } from "astro:transitions";
+import { getLocale } from "../i18n/utils";
 
 const { pageTitle } = Astro.props;
+const lang = getLocale(Astro.currentLocale);
 ---
-<html lang="en" transition:animate="none">
+<html lang={lang} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,10 +17,36 @@ const { pageTitle } = Astro.props;
     <Font cssVariable="--font-sans" />
     <Font cssVariable="--font-mono" />
     <title>Luzzio - {pageTitle}</title>
-
     <ClientRouter />
-
     <script is:inline>
+      function applyLanguagePreference() {
+        const savedLang = localStorage.getItem("lang");
+        const browserLangs = navigator.languages || [navigator.language || "en"];
+
+        let targetLang = savedLang;
+        if (!targetLang) {
+          const matched = browserLangs
+            .map((l) => l.toLowerCase().split("-")[0])
+            .find((l) => l === "es" || l === "en");
+          targetLang = matched || "en";
+        }
+
+        const path = window.location.pathname;
+        const isEsPath = path === "/es" || path.startsWith("/es/");
+
+        if (targetLang === "es" && !isEsPath) {
+          const newPath = path === "/" ? "/es" : `/es${path}`;
+          window.location.replace(
+            newPath + window.location.search + window.location.hash
+          );
+        } else if (targetLang === "en" && isEsPath && savedLang === "en") {
+          const newPath = path.replace(/^\/es(?=\/|$)/, "") || "/";
+          window.location.replace(
+            newPath + window.location.search + window.location.hash
+          );
+        }
+      }
+
       function applyTheme() {
         const savedTheme = localStorage.getItem("theme");
         const systemPrefersLight = window.matchMedia(
@@ -31,6 +59,7 @@ const { pageTitle } = Astro.props;
         }
       }
 
+      applyLanguagePreference();
       applyTheme();
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
