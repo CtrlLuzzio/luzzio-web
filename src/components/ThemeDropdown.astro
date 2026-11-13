@@ -1,0 +1,75 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocale, useTranslations } from "../i18n/utils";
+
+const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<div class="relative" data-dropdown="theme">
+  <button
+    type="button"
+    data-dropdown-trigger
+    aria-label={t.nav.themeLabel}
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="flex items-center gap-1 px-2.5 py-2 rounded-lg font-mono text-sm font-bold text-catp-text hover:bg-catp-surface-0 aria-expanded:bg-catp-surface-0 aria-expanded:text-catp-blue transition-colors cursor-pointer"
+  >
+    <Icon
+      name="tabler:sun"
+      data-theme-trigger-icon="latte"
+      class="w-5 h-5 hidden"
+    />
+    <Icon
+      name="tabler:device-desktop"
+      data-theme-trigger-icon="system"
+      class="w-5 h-5 block"
+    />
+    <Icon
+      name="tabler:moon"
+      data-theme-trigger-icon="mocha"
+      class="w-5 h-5 hidden"
+    />
+    <Icon
+      name="tabler:chevron-down"
+      data-dropdown-chevron
+      class="w-4 h-4 text-catp-subtext-0 transition-transform duration-200"
+    />
+  </button>
+
+  <div
+    data-dropdown-menu
+    role="menu"
+    class="hidden absolute right-0 top-full mt-2 w-36 p-1.5 rounded-xl bg-catp-surface-0 border border-catp-surface-2 shadow-xl shadow-catp-shadow/50 flex-col gap-1 font-mono text-sm z-50"
+  >
+    <button
+      type="button"
+      role="menuitem"
+      data-theme-btn="latte"
+      class="w-full px-3 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-2.5 text-left text-catp-subtext-0 hover:bg-catp-surface-1 hover:text-catp-text"
+    >
+      <Icon name="tabler:sun" class="w-4 h-4 shrink-0" />
+      <span>{t.nav.themeLight}</span>
+    </button>
+    <button
+      type="button"
+      role="menuitem"
+      data-theme-btn="system"
+      class="w-full px-3 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-2.5 text-left text-catp-subtext-0 hover:bg-catp-surface-1 hover:text-catp-text"
+    >
+      <Icon name="tabler:device-desktop" class="w-4 h-4 shrink-0" />
+      <span>{t.nav.themeSystem}</span>
+    </button>
+    <button
+      type="button"
+      role="menuitem"
+      data-theme-btn="mocha"
+      class="w-full px-3 py-2 rounded-lg transition-colors cursor-pointer flex items-center gap-2.5 text-left text-catp-subtext-0 hover:bg-catp-surface-1 hover:text-catp-text"
+    >
+      <Icon name="tabler:moon" class="w-4 h-4 shrink-0" />
+      <span>{t.nav.themeDark}</span>
+    </button>
+  </div>
+</div>
+
+<script src="../scripts/themeDropdown.ts"></script>

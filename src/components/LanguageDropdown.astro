@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocale, localizePath, useTranslations } from "../i18n/utils";
+
+const currentLang = getLocale(Astro.currentLocale);
+const t = useTranslations(currentLang);
+const enUrl = localizePath(Astro.url.pathname, "en");
+const esUrl = localizePath(Astro.url.pathname, "es");
+---
+
+<div class="relative" data-dropdown="lang">
+  <button
+    type="button"
+    data-dropdown-trigger
+    aria-label={t.nav.langLabel}
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="flex items-center gap-1.5 px-2.5 py-2 rounded-lg font-mono text-sm font-bold text-catp-text hover:bg-catp-surface-0 aria-expanded:bg-catp-surface-0 aria-expanded:text-catp-blue transition-colors cursor-pointer"
+  >
+    <Icon name="tabler:language" class="w-5 h-5" />
+    <span>{currentLang.toUpperCase()}</span>
+    <Icon
+      name="tabler:chevron-down"
+      data-dropdown-chevron
+      class="w-4 h-4 text-catp-subtext-0 transition-transform duration-200"
+    />
+  </button>
+
+  <div
+    data-dropdown-menu
+    role="menu"
+    class="hidden absolute right-0 top-full mt-2 w-40 p-1.5 rounded-xl bg-catp-surface-0 border border-catp-surface-2 shadow-xl shadow-catp-shadow/50 flex-col gap-1 font-mono text-sm z-50"
+  >
+    <a
+      href={enUrl}
+      role="menuitem"
+      data-lang-switch="en"
+      aria-current={currentLang === "en" ? "true" : undefined}
+      class:list={[
+        "w-full px-3 py-2 rounded-lg transition-colors flex items-center justify-between",
+        currentLang === "en"
+          ? "bg-catp-base text-catp-blue font-bold"
+          : "text-catp-subtext-0 hover:bg-catp-surface-1 hover:text-catp-text",
+      ]}
+    >
+      <span>English</span>
+    </a>
+    <a
+      href={esUrl}
+      role="menuitem"
+      data-lang-switch="es"
+      aria-current={currentLang === "es" ? "true" : undefined}
+      class:list={[
+        "w-full px-3 py-2 rounded-lg transition-colors flex items-center justify-between",
+        currentLang === "es"
+          ? "bg-catp-base text-catp-blue font-bold"
+          : "text-catp-subtext-0 hover:bg-catp-surface-1 hover:text-catp-text",
+      ]}
+    >
+      <span>Español</span>
+    </a>
+  </div>
+</div>
+
+<script src="../scripts/languageDropdown.ts"></script>

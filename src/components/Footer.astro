@@ -1,8 +1,6 @@
 ---
 import Social from "./SocialMedia.astro";
 import Link from "./Link.astro";
-import ThemeToggle from "./ThemeToggle.astro";
-import LanguageToggle from "./LanguageToggle.astro";
 import { getLocale, localizePath, useTranslations } from "../i18n/utils";
 
 const lang = getLocale(Astro.currentLocale);
@@ -85,23 +83,17 @@ const t = useTranslations(lang);
     </address>
     <div>
       <h4 class="text-2xl font-mono font-bold mb-4">{t.footer.source}</h4>
-      <div class="flex flex-col gap-3">
-        <div class="flex flex-col gap-2">
-          <Link
-            href="https://github.com/CtrlLuzzio/luzzio-web"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t.footer.sourceLink}
-          </Link>
-          <p class="text-xs m-0 text-catp-subtext-0">
-            {t.footer.madeWith}
-          </p>
-        </div>
-        <div class="flex items-center gap-2">
-          <ThemeToggle />
-          <LanguageToggle />
-        </div>
+      <div class="flex flex-col gap-2">
+        <Link
+          href="https://github.com/CtrlLuzzio/luzzio-web"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.footer.sourceLink}
+        </Link>
+        <p class="text-xs m-0 text-catp-subtext-0">
+          {t.footer.madeWith}
+        </p>
       </div>
     </div>
   </section>

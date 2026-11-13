@@ -13,6 +13,11 @@ export const ui = {
       projects: "Projects",
       contact: "Contact",
       toggleMenu: "Toggle menu",
+      themeLabel: "Theme",
+      themeLight: "Light",
+      themeSystem: "System",
+      themeDark: "Dark",
+      langLabel: "Language",
     },
     footer: {
       explore: "Explore",
@@ -22,9 +27,6 @@ export const ui = {
       madeWith: "Made with Astro and Tailwind CSS.",
       copyright:
         "© 2026 Luzzio. Code under MIT License. All rights reserved for content and multimedia.",
-      themeLight: "Light theme",
-      themeSystem: "System theme",
-      themeDark: "Dark theme",
     },
     hero: {
       contactMe: "Contact Me",
@@ -209,6 +211,11 @@ export const ui = {
       projects: "Proyectos",
       contact: "Contacto",
       toggleMenu: "Alternar menú",
+      themeLabel: "Tema",
+      themeLight: "Claro",
+      themeSystem: "Sistema",
+      themeDark: "Oscuro",
+      langLabel: "Idioma",
     },
     footer: {
       explore: "Explorar",
@@ -218,9 +225,6 @@ export const ui = {
       madeWith: "Hecho con Astro y Tailwind CSS.",
       copyright:
         "© 2026 Luzzio. Código bajo Licencia MIT. Todos los derechos reservados para el contenido y multimedia.",
-      themeLight: "Tema claro",
-      themeSystem: "Tema del sistema",
-      themeDark: "Tema oscuro",
     },
     hero: {
       contactMe: "Contáctame",
