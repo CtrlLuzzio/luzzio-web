@@ -3,15 +3,16 @@ import Navigation from "./Navigation.astro";
 import Menu from "./Menu.astro";
 import ThemeDropdown from "./ThemeDropdown.astro";
 import LanguageDropdown from "./LanguageDropdown.astro";
-import { getLocale, localizePath } from "../i18n/utils";
+import { getLocale, localizePath, useTranslations } from "../i18n/utils";
 
 const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <header
   class="sticky lg:relative top-0 bg-catp-base border-b lg:border-b-2 border-catp-surface-0 py-4 px-4 lg:px-20 z-50"
 >
-  <nav class="flex justify-between items-center relative z-50">
+  <nav aria-label={t.nav.mainAria} class="flex justify-between items-center relative z-50">
     <a
       href={localizePath("/", lang)}
       class="text-[2.5rem] font-mono font-bold m-0 whitespace-nowrap shrink-0"

@@ -12,6 +12,7 @@ export const ui = {
       blog: "Blog",
       projects: "Projects",
       contact: "Contact",
+      mainAria: "Main navigation",
       toggleMenu: "Toggle menu",
       themeLabel: "Theme",
       themeLight: "Light",
@@ -20,6 +21,7 @@ export const ui = {
       langLabel: "Language",
     },
     footer: {
+      navAria: "Footer navigation",
       explore: "Explore",
       social: "Social",
       source: "Source",
@@ -210,6 +212,7 @@ export const ui = {
       blog: "Blog",
       projects: "Proyectos",
       contact: "Contacto",
+      mainAria: "Navegación principal",
       toggleMenu: "Alternar menú",
       themeLabel: "Tema",
       themeLight: "Claro",
@@ -218,6 +221,7 @@ export const ui = {
       langLabel: "Idioma",
     },
     footer: {
+      navAria: "Navegación del pie de página",
       explore: "Explorar",
       social: "Redes",
       source: "Código",

@@ -8,7 +8,7 @@ const enUrl = localizePath(Astro.url.pathname, "en");
 const esUrl = localizePath(Astro.url.pathname, "es");
 ---
 
-<div class="relative" data-dropdown="lang">
+<div class="relative" data-dropdown="lang" role="group" aria-label={t.nav.langLabel}>
   <button
     type="button"
     data-dropdown-trigger
