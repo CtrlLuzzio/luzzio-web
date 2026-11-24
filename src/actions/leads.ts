@@ -8,7 +8,7 @@ export const leads = {
     input: z.object({
       lang: z.enum(["en", "es"]).optional().default("en"),
       name: z.string().trim().min(2).max(100),
-      email: z.string().trim().email().max(255),
+      email: z.string().trim().max(255).pipe(z.email()),
       service: z.enum(["static_page", "web_app", "odoo_module", "devops", "creator_tools", "custom"]),
       deadline: z.string().trim().max(200).optional(),
       details: z.string().trim().min(20).max(4000),

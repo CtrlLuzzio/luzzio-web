@@ -8,7 +8,7 @@ export const contact = {
     input: z.object({
       lang: z.enum(["en", "es"]).optional().default("en"),
       name: z.string().trim().min(3).max(100),
-      email: z.string().trim().email().max(255),
+      email: z.string().trim().max(255).pipe(z.email()),
       topic: z.enum(["dev", "fgc", "creator", "other"]),
       message: z.string().trim().min(10).max(3000),
     }),
