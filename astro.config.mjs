@@ -5,6 +5,8 @@ import icon from 'astro-icon';
 
 import cloudflare from "@astrojs/cloudflare";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://luzzio.me",
@@ -19,6 +21,7 @@ export default defineConfig({
       es: "en",
     },
   },
+  
 
   vite: {
     plugins: [tailwindcss()]
@@ -44,7 +47,16 @@ export default defineConfig({
   ],
 
   integrations: [
-    icon()
+    icon(), 
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          es: "es",
+        },
+      },
+    }),
   ],
 
   adapter: cloudflare({

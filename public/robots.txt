@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_actions/
+
+Sitemap: https://luzzio.me/sitemap-index.xml
