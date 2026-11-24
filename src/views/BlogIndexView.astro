@@ -111,7 +111,7 @@ const initialPageIndicator = t.pagination.pageOf
             data-filter-type="all"
             data-active=""
             aria-pressed="true"
-            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-mauve transition-all cursor-pointer data-[active]:bg-catp-mauve data-[active]:text-catp-crust data-[active]:font-bold data-[active]:border-transparent"
+            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-mauve transition-all cursor-pointer data-active:bg-catp-mauve data-active:text-catp-crust data-active:font-bold data-active:border-transparent"
           >
             {t.blog.allPosts}
           </button>
@@ -119,7 +119,7 @@ const initialPageIndicator = t.pagination.pageOf
             type="button"
             data-filter-type="project"
             aria-pressed="false"
-            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-teal transition-all cursor-pointer flex items-center gap-1.5 data-[active]:bg-catp-teal data-[active]:text-catp-crust data-[active]:font-bold data-[active]:border-transparent"
+            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-teal transition-all cursor-pointer flex items-center gap-1.5 data-active:bg-catp-teal data-active:text-catp-crust data-active:font-bold data-active:border-transparent"
           >
             <Icon name="tabler:terminal" class="w-4 h-4" />
             {t.blog.projectDevlogs}
@@ -128,7 +128,7 @@ const initialPageIndicator = t.pagination.pageOf
             type="button"
             data-filter-type="tournament"
             aria-pressed="false"
-            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-red transition-all cursor-pointer flex items-center gap-1.5 data-[active]:bg-catp-red data-[active]:text-catp-crust data-[active]:font-bold data-[active]:border-transparent"
+            class="px-4 py-1.5 rounded-full border border-catp-overlay-0 text-catp-subtext-0 hover:text-catp-text hover:border-catp-red transition-all cursor-pointer flex items-center gap-1.5 data-active:bg-catp-red data-active:text-catp-crust data-active:font-bold data-active:border-transparent"
           >
             <Icon name="tabler:trophy" class="w-4 h-4" />
             {t.blog.tournamentBlogs}
@@ -165,7 +165,7 @@ const initialPageIndicator = t.pagination.pageOf
                 data-extra-tag={index >= MAX_VISIBLE_TAGS ? "" : undefined}
                 aria-pressed="false"
                 class:list={[
-                  "px-3 py-1 rounded-lg bg-catp-crust border border-catp-surface-1 text-catp-subtext-0 hover:text-catp-text hover:border-catp-blue transition-all cursor-pointer items-center gap-1.5 data-[active]:bg-catp-blue data-[active]:text-catp-crust data-[active]:font-bold data-[active]:border-transparent",
+                  "px-3 py-1 rounded-lg bg-catp-crust border border-catp-surface-1 text-catp-subtext-0 hover:text-catp-text hover:border-catp-blue transition-all cursor-pointer items-center gap-1.5 data-active:bg-catp-blue data-active:text-catp-crust data-active:font-bold data-active:border-transparent",
                   index >= MAX_VISIBLE_TAGS ? "hidden" : "inline-flex",
                 ]}
               >
