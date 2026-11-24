@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<BaseLayout pageTitle={t.contact.pageTitle}>
+<BaseLayout description={t.contact.subtitle} pageTitle={t.contact.pageTitle}>
   <section class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20">
     <h1 class="text-4xl md:text-6xl font-mono font-bold text-catp-mauve">
       {t.contact.heading}

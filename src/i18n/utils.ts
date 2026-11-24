@@ -5,6 +5,10 @@ export const defaultLocale: Locale = "en";
 
 export const ui = {
   en: {
+    seo: {
+      defaultDesc:
+        "Full-Stack Developer, competitive fighting game player and content creator. Explore my software projects, services, tournament results, and blog.",
+    },
     nav: {
       home: "Home",
       services: "Services",
@@ -205,6 +209,10 @@ export const ui = {
     },
   },
   es: {
+    seo: {
+      defaultDesc:
+        "Desarrollador Full-Stack, jugador competitivo de fighting games y creador de contenido. Explora mis proyectos, servicios, resultados de torneos y blog.",
+    },
     nav: {
       home: "Inicio",
       services: "Servicios",

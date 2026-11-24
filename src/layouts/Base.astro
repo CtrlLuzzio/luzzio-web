@@ -4,19 +4,90 @@ import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { Font } from "astro:assets";
 import { ClientRouter, fade } from "astro:transitions";
-import { getLocale } from "../i18n/utils";
+import { getLocale, localizePath, useTranslations } from "../i18n/utils";
+interface Props {
+  pageTitle: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: Date;
+}
 
-const { pageTitle } = Astro.props;
+const {
+  pageTitle,
+  description,
+  image = "/og-default.png",
+  type = "website",
+  publishedTime,
+} = Astro.props;
+
 const lang = getLocale(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const fullTitle = `Luzzio - ${pageTitle}`;
+const metaDescription = description || t.seo.defaultDesc;
+
+// Resolución segura de URLs absolutas (usa Astro.site o fallback al dominio oficial)
+const siteUrl = Astro.site ?? new URL("https://luzzio.me");
+
+const canonicalPath = localizePath(Astro.url.pathname, lang);
+const enPath = localizePath(Astro.url.pathname, "en");
+const esPath = localizePath(Astro.url.pathname, "es");
+
+const canonicalURL = new URL(canonicalPath, siteUrl);
+const enURL = new URL(enPath, siteUrl);
+const esURL = new URL(esPath, siteUrl);
+const ogImageURL = new URL(image, siteUrl);
+
+const ogLocale = lang === "es" ? "es_ES" : "en_US";
+const ogAlternateLocale = lang === "es" ? "en_US" : "es_ES";
 ---
+
 <html lang={lang} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <Font cssVariable="--font-sans" />
     <Font cssVariable="--font-mono" />
-    <title>Luzzio - {pageTitle}</title>
+
+    <!-- SEO Principal -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content="Luzzio" />
+    <meta name="theme-color" content="#cba6f7" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Internacionalización (i18n) -->
+    <link rel="alternate" hreflang="en" href={enURL} />
+    <link rel="alternate" hreflang="es" href={esURL} />
+    <link rel="alternate" hreflang="x-default" href={enURL} />
+
+    <!-- Open Graph (Discord, WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:site_name" content="Luzzio" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogAlternateLocale} />
+    {
+      type === "article" && publishedTime && (
+        <meta
+          property="article:published_time"
+          content={publishedTime.toISOString()}
+        />
+      )
+    }
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <ClientRouter />
     <script is:inline>
       function applyLanguagePreference() {

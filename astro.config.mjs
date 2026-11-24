@@ -7,6 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://luzzio.me",
   i18n: {
     defaultLocale: "en",
     locales: ["en", "es"],

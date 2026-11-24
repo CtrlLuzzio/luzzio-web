@@ -68,7 +68,7 @@ const initialPageIndicator = t.pagination.pageOf
   .replace("{total}", String(initialTotalPages));
 ---
 
-<BaseLayout pageTitle={t.blog.pageTitle}>
+<BaseLayout description={t.blog.subtitle} pageTitle={t.blog.pageTitle}>
   <section
     class="flex flex-col items-start gap-6 max-w-3xl py-12 md:py-20 mb-4"
   >
