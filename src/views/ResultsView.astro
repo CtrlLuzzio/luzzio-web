@@ -94,12 +94,44 @@ const pageTitle = `${t.results.pageTitle} ${
                   <span class="opacity-50 text-sm">({result.eventName})</span>
                 </p>
 
-                <p class="text-catp-subtext-0 font-mono m-0">
-                  {t.results.placement}{" "}
-                  <span class="font-bold text-catp-green">
-                    {result.placement} / {result.numEntrants}
-                  </span>
-                </p>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                  <p class="text-catp-subtext-0 font-mono m-0">
+                    {t.results.placement}{" "}
+                    <span class="font-bold text-catp-green">
+                      {result.placement} / {result.numEntrants}
+                    </span>
+                  </p>
+
+                  {result.characters.length > 0 && (
+                    <div
+                      class="flex flex-wrap items-center gap-1.5"
+                      aria-label={t.results.charactersAria}
+                    >
+                      {result.characters.map((char) =>
+                        char.iconUrl ? (
+                          <span
+                            title={char.name}
+                            class="inline-flex items-center justify-center w-7 h-7 rounded-md bg-catp-crust border border-catp-surface-0 p-0.5 overflow-hidden"
+                          >
+                            <img
+                              src={char.iconUrl}
+                              alt={char.name}
+                              width="24"
+                              height="24"
+                              loading="lazy"
+                              decoding="async"
+                              class="w-full h-full object-contain"
+                            />
+                          </span>
+                        ) : (
+                          <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-catp-crust border border-catp-surface-0 font-mono text-xs text-catp-subtext-1">
+                            {char.name}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 {result.blogPosts.length > 0 && (
                   <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 mt-4 pt-3 border-t border-catp-surface-0">

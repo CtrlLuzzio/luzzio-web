@@ -187,6 +187,7 @@ export const ui = {
       logoAlt: "Logo of",
       placement: "Placement:",
       relatedPosts: "Related Posts:",
+      charactersAria: "Characters played",
     },
     projects: {
       pageTitle: "Projects",
@@ -395,6 +396,7 @@ export const ui = {
       logoAlt: "Logo de",
       placement: "Posición:",
       relatedPosts: "Artículos relacionados:",
+      charactersAria: "Personajes usados",
     },
     projects: {
       pageTitle: "Proyectos",
