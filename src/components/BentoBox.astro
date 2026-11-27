@@ -1,5 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { Icon } from "astro-icon/components";
+interface Props extends HTMLAttributes<"a"> {
+  icon: string;
+  iconColor?: string;
+  title: string;
+}
 
 const { href, icon, iconColor, title, class: className, ...props } = Astro.props;
 ---
@@ -7,13 +13,17 @@ const { href, icon, iconColor, title, class: className, ...props } = Astro.props
 <a
   href={href}
   class:list={[
-    "flex flex-col gap-6 p-8 rounded-2xl bg-catp-base border-2 border-transparent transition-colors",
+    "flex flex-col gap-6 p-8 rounded-2xl bg-catp-base border-2 border-transparent transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-catp-mauve",
     className,
   ]}
   {...props}
 >
   <div class="flex items-center gap-3">
-    <Icon name={icon} class:list={["w-8 h-8", iconColor]} />
+    <Icon
+      name={icon}
+      class:list={["w-8 h-8 shrink-0", iconColor]}
+      aria-hidden="true"
+    />
     <h3 class="text-2xl font-mono font-bold">{title}</h3>
   </div>
   <p class="text-catp-subtext-0 flex-1">
