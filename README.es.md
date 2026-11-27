@@ -37,7 +37,7 @@ Este repositorio contiene el código fuente de (enlace del sitio web en progreso
 1. **Clona el repositorio e instala las dependencias:**
 
 ```bash
-git clone [https://github.com/CtrlLuzzio/luzzio-web.git](https://github.com/CtrlLuzzio/luzzio-web.git)
+git clone https://github.com/CtrlLuzzio/luzzio-web.git
 cd luzzio-web
 pnpm install
 ```

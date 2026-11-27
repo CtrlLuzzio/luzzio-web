@@ -37,7 +37,7 @@ This repository contains the source code for (website link wip), an Astro-powere
 1. **Clone the repository and install dependencies:**
 
 ```bash
-git clone [https://github.com/CtrlLuzzio/luzzio-web.git](https://github.com/CtrlLuzzio/luzzio-web.git)
+git clone https://github.com/CtrlLuzzio/luzzio-web.git
 cd luzzio-web
 pnpm install
 ```
