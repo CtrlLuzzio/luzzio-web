@@ -30,7 +30,8 @@ export const ui = {
       social: "Social",
       source: "Source",
       sourceLink: "Check the code of this website here",
-      madeWith: "Made with Astro and Tailwind CSS.",
+      madeWith: "Made with Astro, TypeScript, and Tailwind CSS.",
+      themeCredit: "Color palette by",
       copyright:
         "© 2026 Luzzio. Code under MIT License. All rights reserved for content and multimedia.",
     },
@@ -235,7 +236,8 @@ export const ui = {
       social: "Redes",
       source: "Código",
       sourceLink: "Mira el código de esta página web aquí",
-      madeWith: "Hecho con Astro y Tailwind CSS.",
+      madeWith: "Hecho con Astro, TypeScript y Tailwind CSS.",
+      themeCredit: "Paleta de colores por",
       copyright:
         "© 2026 Luzzio. Código bajo Licencia MIT. Todos los derechos reservados para el contenido y multimedia.",
     },
