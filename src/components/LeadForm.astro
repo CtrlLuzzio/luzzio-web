@@ -1,8 +1,18 @@
 ---
 import { getLocale, useTranslations } from "../i18n/utils";
+import { SERVICE_IDS, type ServiceId } from "../utils/services";
 
 const lang = getLocale(Astro.currentLocale);
 const t = useTranslations(lang);
+
+const serviceLabels: Record<ServiceId, string> = {
+  static_page: t.services.form.optStatic,
+  web_app: t.services.form.optWebapp,
+  odoo_module: t.services.form.optOdoo,
+  devops: t.services.form.optDevops,
+  creator_tools: t.services.form.optCreator,
+  custom: t.services.form.optCustom,
+};
 ---
 
 <form
@@ -58,15 +68,14 @@ const t = useTranslations(lang);
       id="service"
       name="service"
       required
-      class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-colors appearance-none cursor-pointer"
+      class="bg-catp-crust border border-catp-surface-0 rounded-lg p-3 text-catp-text focus:outline-none focus:border-catp-mauve transition-all appearance-none cursor-pointer"
     >
       <option value="" disabled selected>{t.services.form.servicePlaceholder}</option>
-      <option value="static_page">{t.services.form.optStatic}</option>
-      <option value="web_app">{t.services.form.optWebapp}</option>
-      <option value="odoo_module">{t.services.form.optOdoo}</option>
-      <option value="devops">{t.services.form.optDevops}</option>
-      <option value="creator_tools">{t.services.form.optCreator}</option>
-      <option value="custom">{t.services.form.optCustom}</option>
+      {
+        SERVICE_IDS.map((id) => (
+          <option value={id}>{serviceLabels[id]}</option>
+        ))
+      }
     </select>
   </div>
 

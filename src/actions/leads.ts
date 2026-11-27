@@ -1,6 +1,7 @@
 import { defineAction, ActionError } from "astro:actions";
 import { z } from "astro/zod";
 import { escapeHtml, sendDiscordNotification, sendEmailNotification } from "../utils/notifications";
+import { SERVICE_IDS } from "../utils/services";
 
 export const leads = {
   submitProject: defineAction({
@@ -9,7 +10,7 @@ export const leads = {
       lang: z.enum(["en", "es"]).optional().default("en"),
       name: z.string().trim().min(2).max(100),
       email: z.string().trim().max(255).pipe(z.email()),
-      service: z.enum(["static_page", "web_app", "odoo_module", "devops", "creator_tools", "custom"]),
+      service: z.enum(SERVICE_IDS),
       deadline: z.string().trim().max(200).optional(),
       details: z.string().trim().min(20).max(4000),
     }),

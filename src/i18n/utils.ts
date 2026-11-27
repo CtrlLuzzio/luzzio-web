@@ -83,6 +83,7 @@ export const ui = {
     services: {
       pageTitle: "Services",
       heading: "Services",
+      catalogHeading: "Available services",
       subtitle:
         "Custom software development. Explore the areas of specialization and request a technical proposal.",
       cards: {
@@ -288,6 +289,7 @@ export const ui = {
     services: {
       pageTitle: "Servicios",
       heading: "Servicios",
+      catalogHeading: "Servicios disponibles",
       subtitle:
         "Desarrollo de software a medida. Explora las áreas de especialización y solicita una propuesta técnica.",
       cards: {

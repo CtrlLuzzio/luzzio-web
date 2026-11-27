@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/Base.astro";
 import BentoBox from "../components/BentoBox.astro";
 import LeadForm from "../components/LeadForm.astro";
 import { useTranslations, type Locale } from "../i18n/utils";
+import type { ServiceId } from "../utils/services";
 
 interface Props {
   lang: Locale;
@@ -10,6 +11,64 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const serviceCards: {
+  id: ServiceId;
+  hoverBorder: string;
+  icon: string;
+  iconColor: string;
+  title: string;
+  desc: string;
+}[] = [
+  {
+    id: "static_page",
+    hoverBorder: "hover:border-catp-blue",
+    icon: "tabler:layout",
+    iconColor: "text-catp-blue",
+    title: t.services.cards.staticTitle,
+    desc: t.services.cards.staticDesc,
+  },
+  {
+    id: "web_app",
+    hoverBorder: "hover:border-catp-green",
+    icon: "tabler:code",
+    iconColor: "text-catp-green",
+    title: t.services.cards.webappTitle,
+    desc: t.services.cards.webappDesc,
+  },
+  {
+    id: "odoo_module",
+    hoverBorder: "hover:border-catp-mauve",
+    icon: "tabler:database",
+    iconColor: "text-catp-mauve",
+    title: t.services.cards.odooTitle,
+    desc: t.services.cards.odooDesc,
+  },
+  {
+    id: "devops",
+    hoverBorder: "hover:border-catp-yellow",
+    icon: "tabler:server",
+    iconColor: "text-catp-yellow",
+    title: t.services.cards.devopsTitle,
+    desc: t.services.cards.devopsDesc,
+  },
+  {
+    id: "creator_tools",
+    hoverBorder: "hover:border-catp-red",
+    icon: "tabler:device-gamepad",
+    iconColor: "text-catp-red",
+    title: t.services.cards.creatorTitle,
+    desc: t.services.cards.creatorDesc,
+  },
+  {
+    id: "custom",
+    hoverBorder: "hover:border-catp-teal",
+    icon: "tabler:tool",
+    iconColor: "text-catp-teal",
+    title: t.services.cards.customTitle,
+    desc: t.services.cards.customDesc,
+  },
+];
 ---
 
 <BaseLayout description={t.services.subtitle} pageTitle={t.services.pageTitle}>
@@ -23,65 +82,29 @@ const t = useTranslations(lang);
   </section>
 
   <section
+    aria-labelledby="services-catalog-heading"
     class="bg-catp-surface-0 p-8 md:p-12 rounded-3xl shadow-xl shadow-catp-shadow/20 mb-20"
   >
+    <h2 id="services-catalog-heading" class="sr-only">
+      {t.services.catalogHeading}
+    </h2>
     <div
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min"
     >
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-blue bg-catp-base"
-        icon="tabler:layout"
-        title={t.services.cards.staticTitle}
-        iconColor="text-catp-blue"
-      >
-        {t.services.cards.staticDesc}
-      </BentoBox>
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-green bg-catp-base"
-        icon="tabler:code"
-        title={t.services.cards.webappTitle}
-        iconColor="text-catp-green"
-      >
-        {t.services.cards.webappDesc}
-      </BentoBox>
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-mauve bg-catp-base"
-        icon="tabler:database"
-        title={t.services.cards.odooTitle}
-        iconColor="text-catp-mauve"
-      >
-        {t.services.cards.odooDesc}
-      </BentoBox>
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-yellow bg-catp-base"
-        icon="tabler:server"
-        title={t.services.cards.devopsTitle}
-        iconColor="text-catp-yellow"
-      >
-        {t.services.cards.devopsDesc}
-      </BentoBox>
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-red bg-catp-base"
-        icon="tabler:device-gamepad"
-        title={t.services.cards.creatorTitle}
-        iconColor="text-catp-red"
-      >
-        {t.services.cards.creatorDesc}
-      </BentoBox>
-      <BentoBox
-        href="#quote"
-        class="hover:border-catp-teal bg-catp-base"
-        icon="tabler:tool"
-        title={t.services.cards.customTitle}
-        iconColor="text-catp-teal"
-      >
-        {t.services.cards.customDesc}
-      </BentoBox>
+      {
+        serviceCards.map((card) => (
+          <BentoBox
+            href="#quote"
+            data-select-service={card.id}
+            class={card.hoverBorder}
+            icon={card.icon}
+            title={card.title}
+            iconColor={card.iconColor}
+          >
+            {card.desc}
+          </BentoBox>
+        ))
+      }
     </div>
   </section>
 
@@ -91,9 +114,9 @@ const t = useTranslations(lang);
   >
     <div class="flex flex-col gap-4">
       <div class="flex items-center gap-4">
-        <h3 class="text-3xl font-mono font-bold text-catp-teal">
+        <h2 class="text-3xl font-mono font-bold text-catp-teal">
           {t.services.quoteHeading}
-        </h3>
+        </h2>
       </div>
       <p class="text-catp-subtext-1 text-lg">
         {t.services.quoteSubtitle}
